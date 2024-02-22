@@ -3,6 +3,10 @@
   "version": "1.0.0-alpha1",
   "description": "Sermas API client",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sermas-organization/sermas-api-client.git"
+  },
   "scripts": {
     "dev": "NODE_NO_WARNINGS=1 NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon -w ./src/index.ts",
     "clean": "rm -rf ./dist",
