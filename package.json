@@ -26,7 +26,8 @@
     "jwt-decode": "^4.0.0",
     "mqtt": "^5.3.4",
     "uuid": "^9.0.1",
-    "winston": "^3.11.0"
+    "winston": "^3.11.0",
+    "dotenv": "^16.4.2"
   },
   "devDependencies": {
     "@asyncapi/modelina": "^3.1.0",
@@ -36,7 +37,6 @@
     "@types/node": "^20",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
-    "dotenv": "^16.4.2",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
