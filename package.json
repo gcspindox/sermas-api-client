@@ -3,6 +3,10 @@
   "version": "1.0.0-alpha3",
   "description": "Sermas API client",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/sermas-organization/sermas-api-client.git"
