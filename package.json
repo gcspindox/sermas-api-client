@@ -2,11 +2,8 @@
   "name": "@sermas/api-client",
   "version": "1.0.0-alpha4",
   "description": "Sermas API client",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "main": "index.js",
+  "types": "index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/sermas-organization/sermas-api-client.git"
@@ -14,7 +11,7 @@
   "scripts": {
     "dev": "NODE_NO_WARNINGS=1 NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon -w ./src/index.ts",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc --build tsconfig.json",
+    "build": "npm run clean && tsc --build tsconfig.json && cp package.json dist",
     "build:watch": "npm run clean && tsc -w",
     "test": "jest",
     "generate:openapi": "rm -rf ./src/libs/openapi && openapi --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios",
