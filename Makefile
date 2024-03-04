@@ -11,6 +11,9 @@ openapi/download:
 openapi/generate:
 	npm run generate:openapi
 
+openapi/generate/dev:
+	npm run generate:openapi:dev
+
 openapi: openapi/download openapi/generate
 
 asyncapi/download:

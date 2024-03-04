@@ -63,7 +63,7 @@ export type { UILoaderResponseDto } from './models/UILoaderResponseDto';
 export type { UIModelMapBlendShapesRequestDto } from './models/UIModelMapBlendShapesRequestDto';
 export type { UIModelMapBlendShapesResponseDto } from './models/UIModelMapBlendShapesResponseDto';
 export type { UpdateUserRequestDto } from './models/UpdateUserRequestDto';
-export type { UserInteractionIntentionDto } from './models/UserInteractionIntentionDto';
+export { UserInteractionIntentionDto } from './models/UserInteractionIntentionDto';
 export type { VelocityDto } from './models/VelocityDto';
 export { ViewLogsRequestDto } from './models/ViewLogsRequestDto';
 export type { XRMarkerDto } from './models/XRMarkerDto';

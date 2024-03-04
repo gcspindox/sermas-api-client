@@ -165,7 +165,34 @@ export interface UserDetectionEventDto {
   userId?: string;
   cameraId: string;
   source: string;
-  detections: string[];
+  detections: UserDetectionDto[];
+}
+
+export interface UserDetectionDto {
+  skeleton: string[];
+  face: BoundingBox;
+  faceMask: string[];
+  fullBody: BoundingBox;
+  user: StringInferenceValue[];
+  position: PositionDto;
+}
+
+export interface BoundingBox {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export interface StringInferenceValue {
+  probability: number;
+  value: string;
+}
+
+export interface PositionDto {
+  x: number;
+  y: number;
+  z: number;
 }
 
 export interface UserInteractionIntentionDto {
@@ -173,10 +200,15 @@ export interface UserInteractionIntentionDto {
   clientId?: string;
   userId?: string;
   moduleId: string;
-  source: Record<string, any>;
+  source: string;
   probability: number;
-  interactionType: string;
+  interactionType: AnonymousSchema_124;
   sessionId: string;
+}
+
+export enum AnonymousSchema_124 {
+  START = 'start',
+  STOP = 'stop',
 }
 
 export interface UserCharacterizationEventDto {
@@ -184,8 +216,24 @@ export interface UserCharacterizationEventDto {
   clientId?: string;
   userId?: string;
   source: string;
-  detections: string[];
-  sessionId: string;
+  detections: UserCharacterizationDto[];
+  sessionId?: string;
+}
+
+export interface UserCharacterizationDto {
+  emotion: UserEmotionValue;
+  age?: UserAgeValue;
+  user?: StringInferenceValue[];
+}
+
+export interface UserEmotionValue {
+  probability: number;
+  value: string;
+}
+
+export interface UserAgeValue {
+  probability: number;
+  value: number;
 }
 
 export interface AudioClassificationEventDto {
@@ -193,15 +241,25 @@ export interface AudioClassificationEventDto {
   clientId?: string;
   userId?: string;
   source: string;
-  detections: string[];
-  sessionId: string;
+  detections: AudioClassificationValue[];
+  sessionId?: string;
+}
+
+export interface AudioClassificationValue {
+  probability: number;
+  value: string;
 }
 
 export interface ObjectDetectionEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
-  detections: string[];
+  detections: ObjectDetectionDto[];
+}
+
+export interface ObjectDetectionDto {
+  probability: number;
+  value: string;
 }
 
 export interface QrCodeEventDto {
@@ -270,19 +328,19 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: AnonymousSchema_178;
+  status: AnonymousSchema_197;
   modules: string[];
 }
 
-export enum AnonymousSchema_178 {
-  MINUS_3000 = -3000,
-  MINUS_2000 = -2000,
-  MINUS_1000 = -1000,
-  NUMBER_1000 = 1000,
-  NUMBER_2000 = 2000,
-  NUMBER_3000 = 3000,
-  NUMBER_4000 = 4000,
-  NUMBER_5000 = 5000,
+export enum AnonymousSchema_197 {
+  UNAVAILABLE = 'unavailable',
+  ERROR = 'error',
+  NOT_READY = 'not_ready',
+  READY = 'ready',
+  LOADING = 'loading',
+  INTERACTING = 'interacting',
+  WAITING = 'waiting',
+  PROCESSING = 'processing',
 }
 
 export interface AgentChangedDto {

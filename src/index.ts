@@ -7,7 +7,7 @@ import { Logger, setDefaultLogger } from './libs/logger';
 import { LoggerService } from './libs/logger.dto';
 import { AuthJwtUser, SermasApi } from './libs/openapi';
 
-const sleep = (t = 1000) =>
+export const sleep = (t = 1000) =>
   new Promise<void>((resolve) => setTimeout(() => resolve(), t));
 
 const BASE_DOMAIN = `prod.sermas.spindoxlabs.it`;

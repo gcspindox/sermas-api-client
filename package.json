@@ -14,7 +14,8 @@
     "build": "npm run clean && tsc --build tsconfig.json && cp package.json dist",
     "build:watch": "npm run clean && tsc -w",
     "test": "jest",
-    "generate:openapi": "rm -rf ./src/libs/openapi && openapi --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios",
+    "generate:openapi": "rm -rf ./src/libs/openapi && openapi --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && ts-node ./src/openapi-generator.ts ./src/openapi-generator.ts",
+    "generate:openapi:dev": "nodemon --watch ./src/openapi-generator.ts ./src/openapi-generator.ts",
     "generate:asyncapi": "rm -rf ./src/libs/asyncapi && mkdir -p ./src/libs/asyncapi && ts-node ./src/asyncapi-generator.ts ./src/asyncapi-generator.ts",
     "generate:asyncapi:dev": "nodemon --watch ./src/asyncapi-generator.ts ./src/asyncapi-generator.ts"
   },

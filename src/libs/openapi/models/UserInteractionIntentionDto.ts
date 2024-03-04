@@ -16,9 +16,15 @@ export type UserInteractionIntentionDto = {
      * Module generating the event
      */
     moduleId: string;
-    source: Record<string, any>;
+    source: string;
     probability: number;
-    interactionType: string;
+    interactionType: UserInteractionIntentionDto.interactionType;
     sessionId: string;
 };
+export namespace UserInteractionIntentionDto {
+    export enum interactionType {
+        START = 'start',
+        STOP = 'stop',
+    }
+}
 
