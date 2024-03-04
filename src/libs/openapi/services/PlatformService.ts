@@ -14,6 +14,9 @@ import type { PlatformAppExportFilterDto } from '../models/PlatformAppExportFilt
 import type { PlatformModuleConfigDto } from '../models/PlatformModuleConfigDto';
 import type { PlatformSettingsDto } from '../models/PlatformSettingsDto';
 import type { RefreshTokenRequestDto } from '../models/RefreshTokenRequestDto';
+import type { RepositoryAvatarModelDto } from '../models/RepositoryAvatarModelDto';
+import type { RepositoryConfigDto } from '../models/RepositoryConfigDto';
+import type { RepositoryRobotModelDto } from '../models/RepositoryRobotModelDto';
 import type { ViewLogsRequestDto } from '../models/ViewLogsRequestDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -187,6 +190,85 @@ export class PlatformService {
             },
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+    /**
+     * @param appId
+     * @returns RepositoryConfigDto
+     * @throws ApiError
+     */
+    public getAppRepository(
+        appId: string,
+    ): CancelablePromise<RepositoryConfigDto> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/app/{appId}/repository',
+            path: {
+                'appId': appId,
+            },
+        });
+    }
+    /**
+     * @param appId
+     * @param name
+     * @returns RepositoryRobotModelDto
+     * @throws ApiError
+     */
+    public getAppRepositoryRobots(
+        appId: string,
+        name: string,
+    ): CancelablePromise<RepositoryRobotModelDto> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/app/{appId}/repository/robots',
+            path: {
+                'appId': appId,
+            },
+            query: {
+                'name': name,
+            },
+        });
+    }
+    /**
+     * @param appId
+     * @param name
+     * @returns RepositoryAvatarModelDto
+     * @throws ApiError
+     */
+    public getAppRepositoryAvatars(
+        appId: string,
+        name: string,
+    ): CancelablePromise<RepositoryAvatarModelDto> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/app/{appId}/repository/avatars',
+            path: {
+                'appId': appId,
+            },
+            query: {
+                'name': name,
+            },
+        });
+    }
+    /**
+     * @param appId
+     * @param name
+     * @returns RepositoryConfigDto
+     * @throws ApiError
+     */
+    public getAppRepositoryBackgrounds(
+        appId: string,
+        name: string,
+    ): CancelablePromise<RepositoryConfigDto> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/app/{appId}/repository/backgrounds',
+            path: {
+                'appId': appId,
+            },
+            query: {
+                'name': name,
+            },
         });
     }
     /**

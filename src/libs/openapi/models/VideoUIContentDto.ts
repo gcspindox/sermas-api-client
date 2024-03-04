@@ -2,7 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UIContentDto = {
+import type { VideoContentDto } from './VideoContentDto';
+export type VideoUIContentDto = {
     appId: string;
     /**
      * Reference to the authenticated client the request originated from
@@ -16,14 +17,14 @@ export type UIContentDto = {
      * Track the interaction session, if available
      */
     sessionId?: string;
-    contentType: UIContentDto.contentType;
-    content: Record<string, any>;
+    contentType: VideoUIContentDto.contentType;
+    content: VideoContentDto;
     metadata?: Record<string, any>;
     options: Record<string, any>;
     chunkId?: number;
     messageId?: string;
 };
-export namespace UIContentDto {
+export namespace VideoUIContentDto {
     export enum contentType {
         VIDEO = 'video',
         IMAGE = 'image',

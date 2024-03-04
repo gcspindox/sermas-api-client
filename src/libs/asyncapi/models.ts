@@ -243,6 +243,7 @@ export interface AudioClassificationEventDto {
   source: string;
   detections: AudioClassificationValue[];
   sessionId?: string;
+  ts?: string;
 }
 
 export interface AudioClassificationValue {
@@ -296,7 +297,7 @@ export interface DialogueMessageDto {
   text: string;
   gender: string;
   language: string;
-  emotion?: Record<string, any>;
+  emotion?: string;
   llm?: string;
   chunkId?: number;
 }
@@ -328,11 +329,11 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: AnonymousSchema_197;
+  status: AnonymousSchema_198;
   modules: string[];
 }
 
-export enum AnonymousSchema_197 {
+export enum AnonymousSchema_198 {
   UNAVAILABLE = 'unavailable',
   ERROR = 'error',
   NOT_READY = 'not_ready',
@@ -386,12 +387,29 @@ export interface UiContentDto {
   clientId?: string;
   userId?: string;
   sessionId?: string;
-  contentType: string;
+  contentType: AnonymousSchema_230;
   content: Record<string, any>;
-  metadata: Record<string, any>;
+  metadata?: Record<string, any>;
   options: Record<string, any>;
   chunkId?: number;
   messageId?: string;
+}
+
+export enum AnonymousSchema_230 {
+  VIDEO = 'video',
+  RESERVED_IMAGE = 'image',
+  PDF = 'pdf',
+  WEBPAGE = 'webpage',
+  RESERVED_OBJECT = 'object',
+  RESERVED_TEXT = 'text',
+  EMAIL = 'email',
+  HTML = 'html',
+  RESERVED_LINK = 'link',
+  DIALOGUE_MINUS_MESSAGE = 'dialogue-message',
+  NAVIGATION = 'navigation',
+  BUTTONS = 'buttons',
+  QUIZ = 'quiz',
+  CLEAR_MINUS_SCREEN = 'clear-screen',
 }
 
 export interface UiInteractionEventDto {
@@ -450,9 +468,21 @@ export interface MovementEventDto {
 }
 
 export interface MovementDto {
-  targetPosition: Record<string, any>;
+  targetPosition: PoseDto;
   personId: string;
   path: string[];
+}
+
+export interface PoseDto {
+  position: PositionDto;
+  orientation: OrientationDto;
+}
+
+export interface OrientationDto {
+  x: number;
+  y: number;
+  z: number;
+  w: number;
 }
 
 export interface StatusEventDto {
@@ -464,7 +494,7 @@ export interface StatusEventDto {
 }
 
 export interface StatusDto {
-  actualPosition: Record<string, any>;
+  actualPosition: PoseDto;
   velocity: VelocityDto;
 }
 
@@ -481,6 +511,6 @@ export interface InitialPoseEventDto {
 }
 
 export interface InitialPoseDto {
-  pose: Record<string, any>;
+  pose: PoseDto;
   covariance: string[];
 }

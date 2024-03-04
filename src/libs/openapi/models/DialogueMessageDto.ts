@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type DialogueTextToSpeechDto = {
+export type DialogueMessageDto = {
     appId: string;
     /**
      * Reference to the authenticated client the request originated from
@@ -18,10 +18,7 @@ export type DialogueTextToSpeechDto = {
     sessionId?: string;
     messageId?: string;
     actor: string;
-    /**
-     * Text to convert to speech. If emotion field is set, it will be converted to SSML. If also `ssml` field is set, this field will be ignored
-     */
-    text?: string;
+    text: string;
     gender: string;
     language: string;
     emotion?: string;
@@ -30,9 +27,5 @@ export type DialogueTextToSpeechDto = {
      * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
      */
     chunkId?: number;
-    /**
-     * SSML markup to render as speech.
-     */
-    ssml?: string;
 };
 

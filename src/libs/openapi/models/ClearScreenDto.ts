@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type UIContentDto = {
+export type ClearScreenDto = {
     appId: string;
     /**
      * Reference to the authenticated client the request originated from
@@ -16,14 +16,14 @@ export type UIContentDto = {
      * Track the interaction session, if available
      */
     sessionId?: string;
-    contentType: UIContentDto.contentType;
+    contentType: ClearScreenDto.contentType;
     content: Record<string, any>;
     metadata?: Record<string, any>;
     options: Record<string, any>;
     chunkId?: number;
     messageId?: string;
 };
-export namespace UIContentDto {
+export namespace ClearScreenDto {
     export enum contentType {
         VIDEO = 'video',
         IMAGE = 'image',
