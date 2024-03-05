@@ -35,6 +35,7 @@ export * from './RepositoryRobotModelDto';
 export * from './RepositoryMapModelDto';
 export * from './RepositoryConfigDto';
 export * from './RepositoryBackgroundModelDto';
+export * from './RepositoryBackgroundMetadataDto';
 export * from './RepositoryAvatarModelDto';
 export * from './RegistrationResponseDto';
 export * from './RegistrationRequestDto';
