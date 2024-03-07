@@ -21,14 +21,14 @@
   },
   "dependencies": {
     "axios": "^1.6.5",
+    "dotenv": "^16.4.2",
     "form-data": "^4.0.0",
     "glob": "^10.3.10",
     "js-yaml": "^4.1.0",
     "jwt-decode": "^4.0.0",
     "mqtt": "^5.3.4",
     "uuid": "^9.0.1",
-    "winston": "^3.11.0",
-    "dotenv": "^16.4.2"
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@asyncapi/modelina": "^3.1.0",
