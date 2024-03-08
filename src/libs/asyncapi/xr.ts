@@ -1,6 +1,7 @@
 // generated, do not edit
 
 import { Broker } from '../broker';
+
 import { XrMarkerDetectedDto, XrMarkerDto, XrOcclusionDto } from './models';
 
 export class Xr {

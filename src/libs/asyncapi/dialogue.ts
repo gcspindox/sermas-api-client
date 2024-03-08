@@ -1,11 +1,9 @@
 // generated, do not edit
 
 import { Broker } from '../broker';
-import {
-  DialogueToolTriggeredEventDto,
-  DialogueMessageDto,
-  Buffer,
-} from './models';
+
+import { DialogueToolTriggeredEventDto, Buffer } from './models';
+import { DialogueMessageDto } from '../openapi/models';
 
 export class Dialogue {
   constructor(private readonly broker: Broker) {}

@@ -1,4 +1,4 @@
-import { MqttClient, connectAsync } from 'mqtt';
+import mqtt, { type MqttClient } from 'mqtt';
 import { Logger } from './logger';
 
 export class Broker {
@@ -40,7 +40,7 @@ export class Broker {
       }
     }
 
-    this.client = await connectAsync(this.config.url, {
+    this.client = await mqtt.connectAsync(this.config.url, {
       username: this.config.username,
       password: this.config.password,
     });

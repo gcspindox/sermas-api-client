@@ -1,12 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "lib": [
-      "ES2020",
+      "ESNext",
       "dom"
     ],
-    "target": "ES2017",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": true,
     "outDir": "./dist",
@@ -14,17 +16,17 @@
     "importHelpers": false,
     "noImplicitAny": false,
     "noImplicitOverride": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "rootDir": "./src",
   },
   "exclude": [
     "node_modules",
-    "__tests__"
+    "__tests__",
+    "dist"
   ],
   "include": [
-    "src/**/*.ts",
-    "src/**.ts",
+    "./src/**/*.ts",
+    "./src/*.ts",
   ],
   "compileOnSave": false
 }

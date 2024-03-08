@@ -1,14 +1,14 @@
 // generated, do not edit
 
 import { Broker } from '../broker';
+
 import {
-  SessionDto,
   SessionChangedDto,
   AgentDto,
   AgentChangedDto,
-  SessionStorageEventDto,
   SessionSupportEventDto,
 } from './models';
+import { SessionDto, SessionStorageEventDto } from '../openapi/models';
 
 export class Session {
   constructor(private readonly broker: Broker) {}

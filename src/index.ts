@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+
 import { jwtDecode } from 'jwt-decode';
 import AsyncApiClient from './libs/asyncapi';
 import { NoiseEventDto } from './libs/asyncapi/models';
@@ -7,19 +7,22 @@ import { Logger, setDefaultLogger } from './libs/logger';
 import { LoggerService } from './libs/logger.dto';
 import { AuthJwtUser, SermasApi } from './libs/openapi';
 
+export * from './libs/asyncapi/models'
+export * from './libs/openapi/models'
+
 export const sleep = (t = 1000) =>
   new Promise<void>((resolve) => setTimeout(() => resolve(), t));
 
 const BASE_DOMAIN = `prod.sermas.spindoxlabs.it`;
 
-type envType = 'local' | 'dev' | 'prod';
+export type SermasEnvType = 'local' | 'dev' | 'prod';
 
 export interface SermasApiClientConfig {
   domain?: string;
   access_token?: string;
   refresh_token?: string;
 
-  env?: envType;
+  env?: SermasEnvType;
   appId?: string;
 
   logger?: LoggerService;
@@ -173,39 +176,4 @@ export class SermasApiClient {
 
     return res;
   }
-}
-
-if (require.main === module) {
-  (async () => {
-    dotenv.config();
-
-    const client = await createSermasClient({
-      env: (process.env.ENV as envType) || 'local',
-    });
-
-    await client.login(process.env.USERNAME, process.env.PASSWORD);
-    console.log('Logged in');
-
-    const cancelSub = await client.events.detection.onNoise(
-      (ev: NoiseEventDto) => {
-        console.log('Got noise', ev);
-      },
-      {
-        appId: 'asa',
-      },
-    );
-
-    console.log('subscribed');
-    await sleep();
-
-    await client.events.detection.noise({
-      appId: 'test',
-      level: '100',
-      noiseType: 'foo',
-      speakerId: ['123456789'],
-    });
-
-    await sleep();
-    cancelSub();
-  })();
 }

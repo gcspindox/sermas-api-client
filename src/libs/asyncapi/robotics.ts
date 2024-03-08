@@ -1,12 +1,13 @@
 // generated, do not edit
 
 import { Broker } from '../broker';
+
+import { InitialPoseEventDto } from './models';
 import {
   ActuationEventDto,
   MovementEventDto,
   StatusEventDto,
-  InitialPoseEventDto,
-} from './models';
+} from '../openapi/models';
 
 export class Robotics {
   constructor(private readonly broker: Broker) {}

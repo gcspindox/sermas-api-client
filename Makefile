@@ -3,7 +3,7 @@ API_URL?=http://localhost:8080
 ASYNCAPI_URL?=${API_URL}/api/async-json
 OPENAPI_URL?=${API_URL}/api/swagger-json
 
-generate: asyncapi openapi build
+generate: openapi asyncapi build
 
 openapi/download:
 	curl '${OPENAPI_URL}' -k -o ./openapi.json

@@ -1,15 +1,16 @@
 // generated, do not edit
 
 import { Broker } from '../broker';
+
 import {
   UserDetectionEventDto,
-  UserInteractionIntentionDto,
   UserCharacterizationEventDto,
   AudioClassificationEventDto,
   ObjectDetectionEventDto,
   QrCodeEventDto,
   NoiseEventDto,
 } from './models';
+import { UserInteractionIntentionDto } from '../openapi/models';
 
 export class Detection {
   constructor(private readonly broker: Broker) {}

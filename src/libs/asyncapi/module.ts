@@ -1,6 +1,7 @@
 // generated, do not edit
 
 import { Broker } from '../broker';
+
 import { ModuleConfigEventDto } from './models';
 
 export class Module {

@@ -2,8 +2,14 @@
   "name": "@sermas/api-client",
   "version": "1.0.0-alpha9",
   "description": "Sermas API client",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sermas-organization/sermas-api-client.git"
@@ -11,12 +17,12 @@
   "scripts": {
     "dev": "NODE_NO_WARNINGS=1 NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon -w ./src/index.ts",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc --build tsconfig.json && cp package.json dist",
-    "build:watch": "npm run clean && tsc -w",
+    "build": "npm run clean && tsup ./src && cp package.json ./dist",
+    "build:watch": "npm run clean && tsup --watch",
     "test": "jest",
-    "generate:openapi": "rm -rf ./src/libs/openapi && openapi --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && ts-node ./src/openapi-generator.ts ./src/openapi-generator.ts",
+    "generate:openapi": "rm -rf ./src/libs/openapi && openapi --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && node --loader ts-node/esm ./src/openapi-generator.ts",
     "generate:openapi:dev": "nodemon --watch ./src/openapi-generator.ts ./src/openapi-generator.ts",
-    "generate:asyncapi": "rm -rf ./src/libs/asyncapi && mkdir -p ./src/libs/asyncapi && ts-node ./src/asyncapi-generator.ts ./src/asyncapi-generator.ts",
+    "generate:asyncapi": "rm -rf ./src/libs/asyncapi && mkdir -p ./src/libs/asyncapi && node --loader ts-node/esm ./src/asyncapi-generator.ts",
     "generate:asyncapi:dev": "nodemon --watch ./src/asyncapi-generator.ts ./src/asyncapi-generator.ts"
   },
   "dependencies": {
@@ -27,8 +33,7 @@
     "js-yaml": "^4.1.0",
     "jwt-decode": "^4.0.0",
     "mqtt": "^5.3.4",
-    "uuid": "^9.0.1",
-    "winston": "^3.11.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@asyncapi/modelina": "^3.1.0",
@@ -45,6 +50,7 @@
     "openapi-typescript-codegen": "^0.26.0",
     "prettier": "^3.1.1",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
     "typescript": "^5.3.3"
   },
   "author": "",

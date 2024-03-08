@@ -1,10 +1,20 @@
 import { FormatHelpers, TypeScriptGenerator } from '@asyncapi/modelina';
 import { Parser } from '@asyncapi/parser';
 import * as fs from 'fs/promises';
+import * as path from 'path';
 
 import { ESLint } from 'eslint';
+import { glob } from 'glob';
+
+const loadOpenApiModels = async ()  => {
+  const list = await glob('./src/libs/openapi/models/*.ts')
+  return list.map(file => path.basename(file).replace(path.extname(file), ''))
+}
 
 const generateModels = async (raw: any) => {
+
+  const openapiModelNames = await loadOpenApiModels()
+  
   const json = JSON.parse(raw.toString());
   const generator = new TypeScriptGenerator({
     modelType: 'interface',
@@ -19,20 +29,44 @@ const generateModels = async (raw: any) => {
   });
   const res = await generator.generate(json);
 
-  //   console.log(res);
+  const openapiImports: string[] = []
+  const asyncapiModels = res.filter(model => {
+    const keep = openapiModelNames.indexOf(model.modelName) === -1
+    if (!keep) openapiImports.push(model.modelName)
+    return keep
+  })
 
-  const models = res.reduce(
+  // console.log(asyncapiModels);
+  // console.log(openapiImports);
+
+  let models = asyncapiModels.reduce(
     (output, model) => `${output}\nexport ${model.result}\n`,
-    '// generated, do not edit\n',
+    '',
   );
-  //   console.log(models);
+
+    // console.log(models)
+
+  models = [
+    '// generated, do not edit',
+    `import { ${openapiImports.join(',')} } from '../openapi'`,
+    // `export { ${openapiImports.join(',')} }`,
+    models,
+  ].join('\n')
+
+  // console.log(models);
 
   await fs.mkdir('./src/libs/asyncapi', { recursive: true });
   await fs.writeFile('./src/libs/asyncapi/models.ts', models);
   console.debug(`Wrote models`);
+
+  return [
+    asyncapiModels.map(model => model.modelName), 
+    openapiImports
+  ]
 };
 
-const generateClient = async (raw: any) => {
+const generateClient = async (raw: any, asyncapiModels: string[], openapiImports: string[]) => {
+
   const parser = new Parser();
   const { document, diagnostics } = await parser.parse(raw);
 
@@ -133,14 +167,18 @@ const generateClient = async (raw: any) => {
       const className = capitalize(tag);
       classes[tag] = className;
 
-      const models = Array.from(new Set(items.map((c) => c.payload))).join(
-        ', ',
-      );
+      const models = Array.from(new Set(items.map((c) => c.payload)))
+
+      const asyncModels = models.filter(m => asyncapiModels.indexOf(m) > -1)
+      const apiModels = models.filter(m => openapiImports.indexOf(m) > -1)
+
       const wrapper = `
         // generated, do not edit
 
         import { Broker } from '../broker'
-        import { ${models} } from './models'
+        
+        ${asyncModels.length ? `import { ${asyncModels.join(', ')} } from './models'` : '' }
+        ${apiModels.length ? `import { ${apiModels.join(', ')} } from '../openapi/models'` : '' }
 
         export class ${className} {
 
@@ -184,7 +222,9 @@ const generateClient = async (raw: any) => {
 
   await fs.writeFile('./src/libs/asyncapi/index.ts', asyncapiClassWrapper);
 
-  const eslint = new ESLint({ fix: true });
+  const eslint = new ESLint({ 
+    fix: true 
+  });
   const results = await eslint.lintFiles(['./src/libs/asyncapi/*.ts']);
   await ESLint.outputFixes(results);
   console.debug(`Linted output`);
@@ -193,8 +233,8 @@ const generateClient = async (raw: any) => {
 const main = async () => {
   const raw = (await fs.readFile('./asyncapi.json')).toString();
 
-  await generateModels(raw);
-  await generateClient(raw);
+  const [asyncapiModels, openapiImports] = await generateModels(raw);
+  await generateClient(raw, asyncapiModels, openapiImports);
 };
 
 main().catch((e) => console.error(e));
