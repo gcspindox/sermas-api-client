@@ -124,10 +124,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export enum AnonymousSchema_124 {
-  START = 'start',
-  STOP = 'stop',
-}
+export type AnonymousSchema_124 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -224,16 +221,15 @@ export interface AgentDto {
   modules: string[];
 }
 
-export enum AnonymousSchema_198 {
-  UNAVAILABLE = 'unavailable',
-  ERROR = 'error',
-  NOT_READY = 'not_ready',
-  READY = 'ready',
-  LOADING = 'loading',
-  INTERACTING = 'interacting',
-  WAITING = 'waiting',
-  PROCESSING = 'processing',
-}
+export type AnonymousSchema_198 =
+  | 'unavailable'
+  | 'error'
+  | 'not_ready'
+  | 'ready'
+  | 'loading'
+  | 'interacting'
+  | 'waiting'
+  | 'processing';
 
 export interface AgentChangedDto {
   appId: string;
@@ -277,22 +273,21 @@ export interface UiContentDto {
   messageId?: string;
 }
 
-export enum AnonymousSchema_230 {
-  VIDEO = 'video',
-  RESERVED_IMAGE = 'image',
-  PDF = 'pdf',
-  WEBPAGE = 'webpage',
-  RESERVED_OBJECT = 'object',
-  RESERVED_TEXT = 'text',
-  EMAIL = 'email',
-  HTML = 'html',
-  RESERVED_LINK = 'link',
-  DIALOGUE_MINUS_MESSAGE = 'dialogue-message',
-  NAVIGATION = 'navigation',
-  BUTTONS = 'buttons',
-  QUIZ = 'quiz',
-  CLEAR_MINUS_SCREEN = 'clear-screen',
-}
+export type AnonymousSchema_230 =
+  | 'video'
+  | 'image'
+  | 'pdf'
+  | 'webpage'
+  | 'object'
+  | 'text'
+  | 'email'
+  | 'html'
+  | 'link'
+  | 'dialogue-message'
+  | 'navigation'
+  | 'buttons'
+  | 'quiz'
+  | 'clear-screen';
 
 export interface UiInteractionEventDto {
   appId: string;
