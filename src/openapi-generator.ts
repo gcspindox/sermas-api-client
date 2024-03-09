@@ -11,7 +11,7 @@ const main = async () => {
     .map((filename) => {
       return path.basename(filename).replace(path.extname(filename), '');
     })
-    .map((basename) => `export * from './${basename}';`)
+    .map((basename) => `export type * from './${basename}';`)
     .join('\n');
 
   await fs.writeFile('./src/libs/openapi/models/index.ts', modelsIndex);

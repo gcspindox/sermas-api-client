@@ -4,21 +4,11 @@
 /* eslint-disable */
 import type { AvatarCameraConfig } from './AvatarCameraConfig';
 export type RepositoryAvatarModelDto = {
-    modelType: RepositoryAvatarModelDto.modelType;
+    modelType: 'readyplayerme' | 'custom';
     name?: string;
     modelPath: string;
-    gender: RepositoryAvatarModelDto.gender;
+    gender: 'M' | 'F';
     camera?: AvatarCameraConfig;
     cameraMobile?: AvatarCameraConfig;
 };
-export namespace RepositoryAvatarModelDto {
-    export enum modelType {
-        READYPLAYERME = 'readyplayerme',
-        CUSTOM = 'custom',
-    }
-    export enum gender {
-        M = 'M',
-        F = 'F',
-    }
-}
 

@@ -17,18 +17,6 @@ export type AgentHeartBeatEventDto = {
      */
     sessionId?: string;
     moduleId: string;
-    status: AgentHeartBeatEventDto.status;
+    status: 'unavailable' | 'error' | 'not_ready' | 'ready' | 'loading' | 'interacting' | 'waiting' | 'processing';
 };
-export namespace AgentHeartBeatEventDto {
-    export enum status {
-        UNAVAILABLE = 'unavailable',
-        ERROR = 'error',
-        NOT_READY = 'not_ready',
-        READY = 'ready',
-        LOADING = 'loading',
-        INTERACTING = 'interacting',
-        WAITING = 'waiting',
-        PROCESSING = 'processing',
-    }
-}
 

@@ -18,13 +18,7 @@ export type UserInteractionIntentionDto = {
     moduleId: string;
     source: string;
     probability: number;
-    interactionType: UserInteractionIntentionDto.interactionType;
+    interactionType: 'start' | 'stop';
     sessionId: string;
 };
-export namespace UserInteractionIntentionDto {
-    export enum interactionType {
-        START = 'start',
-        STOP = 'stop',
-    }
-}
 

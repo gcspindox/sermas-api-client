@@ -1,14 +1,12 @@
-
 import { jwtDecode } from 'jwt-decode';
 import AsyncApiClient from './libs/asyncapi';
-import { NoiseEventDto } from './libs/asyncapi/models';
 import { Broker } from './libs/broker';
 import { Logger, setDefaultLogger } from './libs/logger';
 import { LoggerService } from './libs/logger.dto';
-import { AuthJwtUser, SermasApi } from './libs/openapi';
+import { type AuthJwtUser, SermasApi } from './libs/openapi';
 
-export * from './libs/asyncapi/models'
-export * from './libs/openapi/models'
+export type * from './libs/asyncapi/models';
+export type * from './libs/openapi/models';
 
 export const sleep = (t = 1000) =>
   new Promise<void>((resolve) => setTimeout(() => resolve(), t));

@@ -4,14 +4,7 @@
 /* eslint-disable */
 export type ViewLogsRequestDto = {
     sessionId: string;
-    type?: ViewLogsRequestDto.type;
+    type?: 'speech' | 'characterization' | 'speechToText';
     ts?: string;
 };
-export namespace ViewLogsRequestDto {
-    export enum type {
-        SPEECH = 'speech',
-        CHARACTERIZATION = 'characterization',
-        SPEECH_TO_TEXT = 'speechToText',
-    }
-}
 

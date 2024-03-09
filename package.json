@@ -20,7 +20,7 @@
     "build": "npm run clean && tsup ./src && cp package.json ./dist",
     "build:watch": "npm run clean && tsup --watch",
     "test": "jest",
-    "generate:openapi": "rm -rf ./src/libs/openapi && openapi --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && node --loader ts-node/esm ./src/openapi-generator.ts",
+    "generate:openapi": "rm -rf ./src/libs/openapi && openapi --useUnionTypes --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && node --loader ts-node/esm ./src/openapi-generator.ts",
     "generate:openapi:dev": "nodemon --watch ./src/openapi-generator.ts ./src/openapi-generator.ts",
     "generate:asyncapi": "rm -rf ./src/libs/asyncapi && mkdir -p ./src/libs/asyncapi && node --loader ts-node/esm ./src/asyncapi-generator.ts",
     "generate:asyncapi:dev": "nodemon --watch ./src/asyncapi-generator.ts ./src/asyncapi-generator.ts"

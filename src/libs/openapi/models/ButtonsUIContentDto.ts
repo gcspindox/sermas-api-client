@@ -17,29 +17,11 @@ export type ButtonsUIContentDto = {
      * Track the interaction session, if available
      */
     sessionId?: string;
-    contentType: ButtonsUIContentDto.contentType;
+    contentType: 'video' | 'image' | 'pdf' | 'webpage' | 'object' | 'text' | 'email' | 'html' | 'link' | 'dialogue-message' | 'navigation' | 'buttons' | 'quiz' | 'clear-screen';
     content: ButtonsContentDto;
     metadata?: Record<string, any>;
     options: Record<string, any>;
     chunkId?: number;
     messageId?: string;
 };
-export namespace ButtonsUIContentDto {
-    export enum contentType {
-        VIDEO = 'video',
-        IMAGE = 'image',
-        PDF = 'pdf',
-        WEBPAGE = 'webpage',
-        OBJECT = 'object',
-        TEXT = 'text',
-        EMAIL = 'email',
-        HTML = 'html',
-        LINK = 'link',
-        DIALOGUE_MESSAGE = 'dialogue-message',
-        NAVIGATION = 'navigation',
-        BUTTONS = 'buttons',
-        QUIZ = 'quiz',
-        CLEAR_SCREEN = 'clear-screen',
-    }
-}
 

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "project": "tsconfig.json",
@@ -18,7 +18,7 @@ export default {
         "jest": true
     },
     "ignorePatterns": [
-        ".eslintrc.js"
+        ".eslintrc.js", ".eslintrc.cjs"
     ],
     "rules": {
         "@typescript-eslint/interface-name-prefix": "off",

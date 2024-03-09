@@ -17,29 +17,11 @@ export type EmailUIContentDto = {
      * Track the interaction session, if available
      */
     sessionId?: string;
-    contentType: EmailUIContentDto.contentType;
+    contentType: 'video' | 'image' | 'pdf' | 'webpage' | 'object' | 'text' | 'email' | 'html' | 'link' | 'dialogue-message' | 'navigation' | 'buttons' | 'quiz' | 'clear-screen';
     content: EmailContentDto;
     metadata?: Record<string, any>;
     options: Record<string, any>;
     chunkId?: number;
     messageId?: string;
 };
-export namespace EmailUIContentDto {
-    export enum contentType {
-        VIDEO = 'video',
-        IMAGE = 'image',
-        PDF = 'pdf',
-        WEBPAGE = 'webpage',
-        OBJECT = 'object',
-        TEXT = 'text',
-        EMAIL = 'email',
-        HTML = 'html',
-        LINK = 'link',
-        DIALOGUE_MESSAGE = 'dialogue-message',
-        NAVIGATION = 'navigation',
-        BUTTONS = 'buttons',
-        QUIZ = 'quiz',
-        CLEAR_SCREEN = 'clear-screen',
-    }
-}
 
