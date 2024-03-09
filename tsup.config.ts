@@ -1,13 +1,13 @@
 import { defineConfig } from 'tsup'
 
-export default defineConfig({
+export default defineConfig((options) => ({
   target: 'es2020',
   format: ['cjs', 'esm'],
   splitting: false,
   sourcemap: true,
   clean: true,
-  minify: false,
+  minify: !options.watch,
   dts: true,
-  silent: true,
+  silent: !options.watch,
   cjsInterop: false
-})
+}))
