@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "NODE_NO_WARNINGS=1 NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon -w ./src/index.ts",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsup ./src && cp ./package.json ./README.md ./dist",
+    "build": "npm run clean && tsup && cp ./package.json ./README.md ./dist",
     "build:watch": "npm run clean && tsup --watch",
     "test": "jest",
     "generate:openapi": "rm -rf ./src/libs/openapi && openapi --useUnionTypes --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && node --loader ts-node/esm ./src/openapi-generator.ts",
