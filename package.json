@@ -4,12 +4,12 @@
   "description": "Sermas API client",
   "type": "module",
   "main": "./index.cjs",
-  "module": "./index.mjs",
+  "module": "./index.js",
   "types": "./index.d.ts",
   "exports": {
     ".": {
       "require": "./index.cjs",
-      "import": "./index.mjs",
+      "import": "./index.js",
       "types": "./index.d.ts"
     },
     "./package.json": "./package.json"
