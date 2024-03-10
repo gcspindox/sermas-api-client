@@ -33,8 +33,16 @@ main().catch(e => console.error(e))
 
 ## Development
 
-Set the `API_URL` env and run 
+Generate the clients and DTO from the API
+
+**Note:** Set the `API_URL` env to change the reference to the SERMAS API
 
 ```sh
 make generate
+```
+
+Then build the client
+
+```sh
+make build
 ```
