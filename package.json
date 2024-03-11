@@ -19,7 +19,6 @@
     "url": "https://github.com/sermas-organization/sermas-api-client.git"
   },
   "scripts": {
-    "dev": "NODE_NO_WARNINGS=1 NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon -w ./src/index.ts",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsup && cp ./package.json ./README.md ./dist",
     "build:watch": "npm run clean && tsup --watch",

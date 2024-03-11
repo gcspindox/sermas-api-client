@@ -359,13 +359,13 @@ export class PlatformService {
     /**
      * @param appId
      * @param requestBody
-     * @returns any
+     * @returns AppClientDto
      * @throws ApiError
      */
     public createClient(
         appId: string,
         requestBody: AppClientDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<AppClientDto> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/platform/app/{appId}/client',
@@ -379,13 +379,13 @@ export class PlatformService {
     /**
      * @param appId
      * @param clientId
-     * @returns any
+     * @returns AppClientDto
      * @throws ApiError
      */
     public readClient(
         appId: string,
         clientId: string,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<AppClientDto> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/api/platform/app/{appId}/client/{clientId}',

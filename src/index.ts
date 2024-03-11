@@ -3,7 +3,7 @@ import AsyncApiClient from './libs/asyncapi';
 import { Broker } from './libs/broker';
 import { Logger, setDefaultLogger } from './libs/logger';
 import { LoggerService } from './libs/logger.dto';
-import { type AuthJwtUser, SermasApi } from './libs/openapi';
+import { LoginResponseDto, SermasApi, type AuthJwtUser } from './libs/openapi';
 
 export type * from './libs/asyncapi/models';
 export type * from './libs/openapi/models';
@@ -19,6 +19,9 @@ export interface SermasApiClientConfig {
   domain?: string;
   access_token?: string;
   refresh_token?: string;
+
+  clientId?: string;
+  clientSecret?: string;
 
   env?: SermasEnvType;
   appId?: string;
@@ -100,29 +103,43 @@ export class SermasApiClient {
 
     const jwt = jwtDecode<AuthJwtUser>(this.config.access_token);
     this.jwt = jwt;
-    const expires = (jwt.exp - 10) * 1000 - Date.now();
+
+    this.config.clientId = this.config.clientId || jwt.aud;
+
+    const expiresDate = new Date(jwt.exp * 1000);
+    const timeout = expiresDate.getTime() - Date.now() - 30 * 1000;
+    // timeout = 1000;
+
+    this.logger.verbose(
+      `Token expires in ${Math.round(timeout / 1000 / 60 / 60)}min`,
+    );
+
     if (this.refreshTimeout) clearTimeout(this.refreshTimeout);
-    this.refreshTimeout = setTimeout(() => this.refreshToken(), expires);
+    this.refreshTimeout = setTimeout(() => this.refreshToken(), timeout);
 
     this.ready = true;
   }
 
   async refreshToken() {
-    this.logger.log(`Refreshing token`);
+    this.logger.verbose(`Refreshing token`);
     let res;
     try {
       res = await this.api.platform.getClientRefreshToken({
         refreshToken: this.config.refresh_token,
         appId: this.config.appId,
+        clientId: this.config.clientId,
+        clientSecret: this.config.clientSecret,
       });
     } catch (e) {
       this.logger.error(`Refresh token failed: ${e.stack}`);
       return;
     }
 
-    this.logger.debug(
-      `Expires in ${res.expires_in * 1000 - Date.now() / 1000 / 60 / 60}min`,
-    );
+    if (!res) {
+      this.logger.warn(`Failed to refresh token, no response`);
+      return;
+    }
+
     this.config.access_token = res.access_token;
     this.config.refresh_token = res.refresh_token;
 
@@ -143,15 +160,30 @@ export class SermasApiClient {
       appId: this.config.appId,
     });
 
-    this.logger.debug(
-      `Expires in ${res.expires_in * 1000 - Date.now() / 1000 / 60 / 60}min`,
-    );
+    this.config.clientId = clientId;
+    this.config.clientSecret = clientSecret;
+    this.config.appId = appId || this.config.appId;
 
     this.config.access_token = res.access_token;
     this.config.refresh_token = res.refresh_token;
 
     await this.init(true);
     return res;
+  }
+
+  async setToken(
+    accessToken: string | LoginResponseDto,
+    refreshToken?: string,
+  ) {
+    if (typeof accessToken !== 'string') {
+      const loginToken: LoginResponseDto = accessToken;
+      accessToken = loginToken.access_token;
+      refreshToken = loginToken.refresh_token;
+    }
+
+    this.config.access_token = accessToken;
+    this.config.refresh_token = refreshToken;
+    await this.init(true);
   }
 
   async login(username, password, appId?: string) {
