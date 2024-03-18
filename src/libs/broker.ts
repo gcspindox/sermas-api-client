@@ -25,9 +25,15 @@ export class Broker {
   ) {}
 
   async setToken(token: string) {
+    this.config.username = token;
+    if (!this.client) return;
     this.logger.debug(`Token updated, reconnecting`);
     this.client.options.username = token;
     this.client.reconnect();
+  }
+
+  getClient() {
+    return this.client || null;
   }
 
   async connect() {

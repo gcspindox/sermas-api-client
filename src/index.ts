@@ -8,39 +8,38 @@ import { LoginResponseDto, SermasApi, type AuthJwtUser } from './libs/openapi';
 export type * from './libs/asyncapi/models';
 export type * from './libs/openapi/models';
 
+export { type MqttClient } from 'mqtt';
+export { type Broker } from './libs/broker';
+
 export const sleep = (t = 1000) =>
   new Promise<void>((resolve) => setTimeout(() => resolve(), t));
 
-const BASE_DOMAIN = `prod.sermas.spindoxlabs.it`;
+const DEFAULT_URL = `http://localhost:8080`;
 
 export type SermasEnvType = 'local' | 'dev' | 'prod';
 
 export interface SermasApiClientConfig {
-  domain?: string;
   access_token?: string;
   refresh_token?: string;
 
   clientId?: string;
   clientSecret?: string;
 
-  env?: SermasEnvType;
+  baseURL?: string;
+
   appId?: string;
 
   logger?: LoggerService;
 }
 
 export const createSermasClient = async (config: SermasApiClientConfig) => {
-  if (config.logger) {
-    setDefaultLogger(config.logger);
-  }
-
   const client = new SermasApiClient(config);
   if (config.access_token) await client.init();
   return client;
 };
 
 export class SermasApiClient {
-  private readonly logger = new Logger(SermasApiClient.name);
+  private readonly logger = new Logger('SermasApiClient');
 
   public api: SermasApi;
   public events: AsyncApiClient;
@@ -58,15 +57,38 @@ export class SermasApiClient {
   private params: Record<string, any> = {};
 
   constructor(private readonly config: SermasApiClientConfig) {
-    let domain = config.domain || BASE_DOMAIN;
-    if (!config.domain && config.env) {
-      domain = BASE_DOMAIN.replace('prod.', `${config.env}.`);
+    if (config.logger) {
+      setDefaultLogger(config.logger);
     }
 
-    this.config.domain = domain;
+    const baseUrl = config.baseURL || DEFAULT_URL;
+    this.apiUrl = `${baseUrl}`;
+    const url = new URL(this.apiUrl);
+    const isSSL = url.protocol.startsWith('https');
+    this.mqttUrl = `ws${isSSL ? 's' : ''}://${url.hostname}:${isSSL ? '443' : '80'}/mqtt`;
 
-    this.apiUrl = `https://${domain}`;
-    this.mqttUrl = `wss://${domain}:443/mqtt`;
+    this.logger.debug(`API url ${this.apiUrl}`);
+    this.logger.debug(`MQTT url ${this.mqttUrl}`);
+
+    this.api = new SermasApi({
+      BASE: this.apiUrl,
+      TOKEN: this.config.access_token || undefined,
+    });
+
+    this.broker = new Broker({
+      url: this.mqttUrl,
+      username: this.config.access_token || undefined,
+      password: 'api-client',
+      params: this.params,
+    });
+  }
+
+  getBroker(): Broker {
+    return this.broker || null;
+  }
+
+  setParams(params: Record<string, any>) {
+    this.params = { ...params };
   }
 
   async init(force = false) {
@@ -74,29 +96,22 @@ export class SermasApiClient {
 
     if (this.ready) return;
 
-    if (!this.api) {
-      this.api = new SermasApi({
-        BASE: this.apiUrl,
-        TOKEN: this.config.access_token,
-      });
-    } else {
-      this.api.request.config.TOKEN = this.config.access_token;
+    if (!this.config.access_token) {
+      this.logger.verbose(`Access token not set, skip client init`);
+      return;
     }
 
-    if (!this.broker) {
-      this.params = {
-        appId: this.config.appId,
-      };
+    this.api.request.config.TOKEN = this.config.access_token;
 
-      this.broker = new Broker({
-        url: this.mqttUrl,
-        username: this.config.access_token,
-        password: 'api-client',
-        params: this.params,
-      });
+    this.params = {
+      appId: this.config.appId,
+    };
+
+    this.broker.setToken(this.config.access_token);
+
+    if (!this.broker.getClient()?.connected) {
+      this.logger.verbose(`Connecting to broker`);
       await this.broker.connect();
-    } else {
-      this.broker.setToken(this.config.access_token);
     }
 
     this.events = new AsyncApiClient(this.broker);

@@ -21,7 +21,7 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsup && cp ./package.json ./README.md ./dist",
-    "build:watch": "npm run clean && tsup --watch",
+    "build:watch": "nodemon --watch ./src --exec 'npm run build'",
     "test": "jest",
     "generate:openapi": "rm -rf ./src/libs/openapi && openapi --useUnionTypes --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios && node --loader ts-node/esm ./src/openapi-generator.ts",
     "generate:openapi:dev": "nodemon --watch ./src/openapi-generator.ts ./src/openapi-generator.ts",
