@@ -24,6 +24,15 @@ export class Broker {
     },
   ) {}
 
+  async disconnect() {
+    if (!this.client) return;
+    try {
+      await this.client.endAsync(true);
+    } catch (e: any) {
+      this.logger.warn(`Error closing broker connection: ${e.stack}`);
+    }
+  }
+
   async setToken(token: string) {
     this.config.username = token;
     if (!this.client) return;
