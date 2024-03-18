@@ -60,7 +60,17 @@ export class Broker {
       password: this.config.password,
     });
 
-    this.client.on('connect', () => {});
+    this.client.on('connect', async () => {
+      this.logger.debug('client connected');
+      for (const sub of this.subscriptions) {
+        try {
+          this.logger.debug(`SUB ${sub.topic}`);
+          await this.client.subscribeAsync(sub.topic);
+        } catch (e: any) {
+          this.logger.warn(`Failed to subscribe ${sub.topic}: ${e.stack}`);
+        }
+      }
+    });
 
     this.client.on('error', (e: any) => {
       this.logger.error(`mqtt client error ${e.stack}`);
@@ -135,9 +145,6 @@ export class Broker {
       topic,
       callback,
     });
-
-    this.logger.debug(`SUB ${topic}`);
-    await this.client.subscribeAsync(topic);
 
     // cancel function
     return () => {

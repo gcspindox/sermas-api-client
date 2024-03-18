@@ -81,6 +81,8 @@ export class SermasApiClient {
       password: 'api-client',
       params: this.params,
     });
+
+    this.events = new AsyncApiClient(this.broker);
   }
 
   getBroker(): Broker {
@@ -93,11 +95,10 @@ export class SermasApiClient {
 
   async init(force = false) {
     if (force) this.ready = false;
-
     if (this.ready) return;
 
     if (!this.config.access_token) {
-      this.logger.verbose(`Access token not set, skip client init`);
+      this.logger.debug(`Access token not set, skip client init`);
       return;
     }
 
@@ -107,14 +108,12 @@ export class SermasApiClient {
       appId: this.config.appId,
     };
 
-    this.broker.setToken(this.config.access_token);
+    await this.broker.setToken(this.config.access_token);
 
     if (!this.broker.getClient()?.connected) {
       this.logger.verbose(`Connecting to broker`);
       await this.broker.connect();
     }
-
-    this.events = new AsyncApiClient(this.broker);
 
     const jwt = jwtDecode<AuthJwtUser>(this.config.access_token);
     this.jwt = jwt;
@@ -198,6 +197,8 @@ export class SermasApiClient {
 
     this.config.access_token = accessToken;
     this.config.refresh_token = refreshToken;
+    console.warn('XXXXXXXXXXXXXXXXXXXXXXXX token', this.config);
+
     await this.init(true);
   }
 
