@@ -61,7 +61,7 @@ export class SermasApiClient {
     this.apiUrl = `${baseUrl}`;
     const url = new URL(this.apiUrl);
     const isSSL = url.protocol.startsWith('https');
-    this.mqttUrl = `ws${isSSL ? 's' : ''}://${url.hostname}:${url.port}/mqtt`;
+    this.mqttUrl = `ws${isSSL ? 's' : ''}://${url.hostname}${url.port ? ':' + url.port : ''}/mqtt`;
 
     this.api = new SermasApi({
       BASE: this.apiUrl,
