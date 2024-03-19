@@ -33,9 +33,15 @@ export class Broker {
     }
   }
 
-  async setToken(token: string) {
+  setParams(params: Record<string, any>) {
+    this.config.params = params;
+  }
+
+  setToken(token: string) {
     this.config.username = token;
+
     if (!this.client) return;
+
     this.logger.debug(`Token updated, reconnecting`);
     this.client.options.username = token;
     this.client.reconnect();
@@ -45,17 +51,16 @@ export class Broker {
     return this.client || null;
   }
 
-  async connect() {
-    if (this.client) {
-      try {
-        this.client.end(true);
-      } catch {
-      } finally {
-        this.client = undefined;
-      }
+  connect() {
+    if (this.client) return;
+
+    if (!this.config.username) {
+      this.logger.debug(`Skip mqtt connection, missing token`);
+      return;
     }
 
-    this.client = await mqtt.connectAsync(this.config.url, {
+    this.logger.debug(`Connecting to ${this.config.url}`);
+    this.client = mqtt.connect(this.config.url, {
       username: this.config.username,
       password: this.config.password,
     });
@@ -74,6 +79,18 @@ export class Broker {
 
     this.client.on('error', (e: any) => {
       this.logger.error(`mqtt client error ${e.stack}`);
+    });
+
+    this.client.on('disconnect', () => {
+      this.logger.warn(`mqtt disconnected`);
+    });
+
+    this.client.on('reconnect', () => {
+      this.logger.debug(`mqtt reconnecting`);
+    });
+
+    this.client.on('connect', () => {
+      this.logger.debug(`mqtt connected`);
     });
 
     this.client.on('message', (topic, message) => {
@@ -131,11 +148,13 @@ export class Broker {
     return { type, appId, resource, scope, context };
   }
 
-  async subscribe<T>(
+  subscribe<T>(
     topic: string,
     callback: (ev: T) => void,
     params?: Record<string, any>,
   ) {
+    this.connect();
+
     topic = this.replaceTopicParams(topic, {
       ...(params || {}),
     });
@@ -151,11 +170,14 @@ export class Broker {
       const index = this.subscriptions.findIndex((sub) => {
         return sub.topic === topic && sub.callback === callback;
       });
-      if (index > -1) {
-        this.subscriptions.splice(index, 1);
-        if (this.subscriptions.filter((s) => s.topic === topic).length === 1)
-          this.client.unsubscribe(topic);
-      }
+
+      if (index === -1) return null;
+
+      const sub = this.subscriptions[index];
+      this.subscriptions.splice(index, 1);
+      try {
+        this.client.unsubscribe(sub.topic, sub.callback);
+      } catch {}
     };
   }
 

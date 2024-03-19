@@ -32,14 +32,8 @@ export interface SermasApiClientConfig {
   logger?: LoggerService;
 }
 
-export const createSermasClient = async (config: SermasApiClientConfig) => {
-  const client = new SermasApiClient(config);
-  if (config.access_token) await client.init();
-  return client;
-};
-
 export class SermasApiClient {
-  private readonly logger = new Logger('SermasApiClient');
+  private logger: Logger;
 
   public api: SermasApi;
   public events: AsyncApiClient;
@@ -61,18 +55,17 @@ export class SermasApiClient {
       setDefaultLogger(config.logger);
     }
 
+    this.logger = new Logger('SermasApiClient');
+
     const baseUrl = config.baseURL || DEFAULT_URL;
     this.apiUrl = `${baseUrl}`;
     const url = new URL(this.apiUrl);
     const isSSL = url.protocol.startsWith('https');
-    this.mqttUrl = `ws${isSSL ? 's' : ''}://${url.hostname}:${isSSL ? '443' : '80'}/mqtt`;
-
-    this.logger.debug(`API url ${this.apiUrl}`);
-    this.logger.debug(`MQTT url ${this.mqttUrl}`);
+    this.mqttUrl = `ws${isSSL ? 's' : ''}://${url.hostname}:${url.port}/mqtt`;
 
     this.api = new SermasApi({
       BASE: this.apiUrl,
-      TOKEN: this.config.access_token || undefined,
+      TOKEN: async () => this.config.access_token || '',
     });
 
     this.broker = new Broker({
@@ -81,7 +74,6 @@ export class SermasApiClient {
       password: 'api-client',
       params: this.params,
     });
-
     this.events = new AsyncApiClient(this.broker);
   }
 
@@ -89,11 +81,12 @@ export class SermasApiClient {
     return this.broker || null;
   }
 
-  setParams(params: Record<string, any>) {
-    this.params = { ...params };
+  async close() {
+    if (this.refreshTimeout) clearTimeout(this.refreshTimeout);
+    await this.broker.disconnect();
   }
 
-  async init(force = false) {
+  private init(force = false) {
     if (force) this.ready = false;
     if (this.ready) return;
 
@@ -102,19 +95,18 @@ export class SermasApiClient {
       return;
     }
 
-    this.api.request.config.TOKEN = this.config.access_token;
-
+    // update broker token
     this.params = {
       appId: this.config.appId,
     };
+    this.broker.setParams(this.params);
+    this.broker.setToken(this.config.access_token);
 
-    await this.broker.setToken(this.config.access_token);
+    this.watchToken();
+    this.ready = true;
+  }
 
-    if (!this.broker.getClient()?.connected) {
-      this.logger.verbose(`Connecting to broker`);
-      await this.broker.connect();
-    }
-
+  private watchToken() {
     const jwt = jwtDecode<AuthJwtUser>(this.config.access_token);
     this.jwt = jwt;
 
@@ -130,8 +122,6 @@ export class SermasApiClient {
 
     if (this.refreshTimeout) clearTimeout(this.refreshTimeout);
     this.refreshTimeout = setTimeout(() => this.refreshToken(), timeout);
-
-    this.ready = true;
   }
 
   async refreshToken() {
@@ -157,7 +147,7 @@ export class SermasApiClient {
     this.config.access_token = res.access_token;
     this.config.refresh_token = res.refresh_token;
 
-    await this.init(true);
+    this.init(true);
     return res;
   }
 
@@ -181,25 +171,28 @@ export class SermasApiClient {
     this.config.access_token = res.access_token;
     this.config.refresh_token = res.refresh_token;
 
-    await this.init(true);
+    this.init(true);
     return res;
   }
 
-  async setToken(
-    accessToken: string | LoginResponseDto,
+  setToken(
+    accessToken: string | (LoginResponseDto & { appId?: string }),
     refreshToken?: string,
+    appId?: string,
   ) {
     if (typeof accessToken !== 'string') {
-      const loginToken: LoginResponseDto = accessToken;
+      const loginToken: LoginResponseDto & { appId?: string } = accessToken;
       accessToken = loginToken.access_token;
       refreshToken = loginToken.refresh_token;
+      appId = loginToken.appId;
     }
 
     this.config.access_token = accessToken;
     this.config.refresh_token = refreshToken;
-    console.warn('XXXXXXXXXXXXXXXXXXXXXXXX token', this.config);
 
-    await this.init(true);
+    if (appId !== undefined) this.config.appId = appId;
+
+    this.init(true);
   }
 
   async login(username, password, appId?: string) {
@@ -218,7 +211,7 @@ export class SermasApiClient {
     this.config.access_token = res.access_token;
     this.config.refresh_token = res.refresh_token;
 
-    await this.init(true);
+    this.init(true);
 
     return res;
   }
