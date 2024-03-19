@@ -4,10 +4,11 @@
 /* eslint-disable */
 import type { AppPromptDto } from './AppPromptDto';
 export type AppSettingsDto = {
-    login: boolean;
+    ttsEnabled?: boolean;
+    login?: boolean;
     avatar: string;
-    language: string;
-    llm: string;
+    language?: string;
+    llm?: string;
     background: string;
     prompt?: AppPromptDto;
 };

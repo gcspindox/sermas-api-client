@@ -49,12 +49,12 @@ export interface AppToolsDto {
   url?: string;
 }
 
-export interface AnonymousSchema_59 {
+export interface AnonymousSchema_60 {
   username?: string;
   password: string;
 }
 
-export interface AnonymousSchema_62 {
+export interface AnonymousSchema_63 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -124,7 +124,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type AnonymousSchema_124 = 'start' | 'stop';
+export type AnonymousSchema_125 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -217,11 +217,11 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: AnonymousSchema_198;
+  status: AnonymousSchema_199;
   modules: string[];
 }
 
-export type AnonymousSchema_198 =
+export type AnonymousSchema_199 =
   | 'unavailable'
   | 'error'
   | 'not_ready'
@@ -265,7 +265,7 @@ export interface UiContentDto {
   clientId?: string;
   userId?: string;
   sessionId?: string;
-  contentType: AnonymousSchema_230;
+  contentType: AnonymousSchema_231;
   content: Record<string, any>;
   metadata?: Record<string, any>;
   options: Record<string, any>;
@@ -273,7 +273,7 @@ export interface UiContentDto {
   messageId?: string;
 }
 
-export type AnonymousSchema_230 =
+export type AnonymousSchema_231 =
   | 'video'
   | 'image'
   | 'pdf'
