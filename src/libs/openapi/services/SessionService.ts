@@ -4,9 +4,7 @@
 /* eslint-disable */
 import type { AgentHeartBeatEventDto } from '../models/AgentHeartBeatEventDto';
 import type { SessionDto } from '../models/SessionDto';
-import type { SessionStorageEventDto } from '../models/SessionStorageEventDto';
-import type { SessionStorageRequestDto } from '../models/SessionStorageRequestDto';
-import type { SessionStorageResponseDto } from '../models/SessionStorageResponseDto';
+import type { SessionStorageRecordDto } from '../models/SessionStorageRecordDto';
 import type { SessionStorageSearchDto } from '../models/SessionStorageSearchDto';
 import type { SessionSupportRequestDto } from '../models/SessionSupportRequestDto';
 import type { SessionSupportResponseDto } from '../models/SessionSupportResponseDto';
@@ -15,11 +13,29 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 export class SessionService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
     /**
+     * Load current user session
+     * @param appId
+     * @returns any
+     * @throws ApiError
+     */
+    public getUserSession(
+        appId: string,
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/session/user/{appId}',
+            path: {
+                'appId': appId,
+            },
+        });
+    }
+    /**
+     * Load a session
      * @param sessionId
      * @returns any
      * @throws ApiError
      */
-    public sessionControllerRead(
+    public readSession(
         sessionId: string,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
@@ -31,11 +47,12 @@ export class SessionService {
         });
     }
     /**
+     * Remove session
      * @param sessionId
      * @returns any
      * @throws ApiError
      */
-    public sessionControllerDelete(
+    public deleteSession(
         sessionId: string,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
@@ -47,11 +64,12 @@ export class SessionService {
         });
     }
     /**
+     * Create session
      * @param requestBody
      * @returns any
      * @throws ApiError
      */
-    public sessionControllerCreate(
+    public createSession(
         requestBody: SessionDto,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
@@ -62,11 +80,12 @@ export class SessionService {
         });
     }
     /**
+     * Update session
      * @param requestBody
      * @returns any
      * @throws ApiError
      */
-    public sessionControllerUpdate(
+    public updateSession(
         requestBody: SessionDto,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
@@ -93,64 +112,6 @@ export class SessionService {
         });
     }
     /**
-     * Store user or session related data
-     * @param requestBody
-     * @returns SessionStorageResponseDto User data stored
-     * @throws ApiError
-     */
-    public saveStore(
-        requestBody: SessionStorageRequestDto,
-    ): CancelablePromise<SessionStorageResponseDto> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/session/storage',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
-     * Retrieve stored data
-     * @param storageId
-     * @returns SessionDto Stored data retrieved
-     * @throws ApiError
-     */
-    public getStore(
-        storageId: string,
-    ): CancelablePromise<SessionDto> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/session/storage/{storageId}',
-            path: {
-                'storageId': storageId,
-            },
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
-     * Search storage data
-     * @param requestBody
-     * @returns SessionStorageEventDto Data retrieved from search
-     * @throws ApiError
-     */
-    public searchStore(
-        requestBody: SessionStorageSearchDto,
-    ): CancelablePromise<Array<SessionStorageEventDto>> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/api/session/storage/search',
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                401: `Unauthorized`,
-            },
-        });
-    }
-    /**
      * Request support from human
      * @param requestBody
      * @returns SessionSupportResponseDto Human support requested
@@ -166,6 +127,72 @@ export class SessionService {
             mediaType: 'application/json',
             errors: {
                 401: `unauthorized`,
+            },
+        });
+    }
+    /**
+     * Store user data
+     * @param requestBody
+     * @returns SessionStorageRecordDto Record stored
+     * @throws ApiError
+     */
+    public setRecord(
+        requestBody: SessionStorageRecordDto,
+    ): CancelablePromise<SessionStorageRecordDto> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/api/session/storage',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Store user data
+     * @param requestBody
+     * @returns SessionStorageRecordDto Record stored
+     * @throws ApiError
+     */
+    public findRecords(
+        requestBody: SessionStorageSearchDto,
+    ): CancelablePromise<Array<SessionStorageRecordDto>> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/api/session/storage/search',
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
+    /**
+     * Retrieve stored data
+     * @param storageId
+     * @returns SessionStorageRecordDto Record retrieved
+     * @throws ApiError
+     */
+    public getRecord(
+        storageId: string,
+    ): CancelablePromise<SessionStorageRecordDto> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/session/storage/{storageId}',
+            path: {
+                'storageId': storageId,
+            },
+        });
+    }
+    /**
+     * Delete a record
+     * @param storageId
+     * @returns any Record deleted
+     * @throws ApiError
+     */
+    public deleteRecord(
+        storageId: string,
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'DELETE',
+            url: '/api/session/storage/{storageId}',
+            path: {
+                'storageId': storageId,
             },
         });
     }

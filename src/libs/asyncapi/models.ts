@@ -14,7 +14,7 @@ import {
   UserInteractionIntentionDto,
   DialogueMessageDto,
   SessionDto,
-  SessionStorageEventDto,
+  SessionStorageRecordDto,
   ActuationEventDto,
   MovementEventDto,
   MovementDto,
@@ -251,6 +251,14 @@ export interface SessionSupportEventDto {
   code: string;
 }
 
+export interface SessionStorageEventDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  operation: string;
+  record: SessionStorageRecordDto;
+}
+
 export interface UiStatusDto {
   appId: string;
   clientId?: string;
@@ -265,7 +273,7 @@ export interface UiContentDto {
   clientId?: string;
   userId?: string;
   sessionId?: string;
-  contentType: AnonymousSchema_231;
+  contentType: AnonymousSchema_235;
   content: Record<string, any>;
   metadata?: Record<string, any>;
   options: Record<string, any>;
@@ -273,7 +281,7 @@ export interface UiContentDto {
   messageId?: string;
 }
 
-export type AnonymousSchema_231 =
+export type AnonymousSchema_235 =
   | 'video'
   | 'image'
   | 'pdf'

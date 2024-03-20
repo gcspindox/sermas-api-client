@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type SessionStorageEventDto = {
+export type SessionStorageRecordDto = {
     appId: string;
     /**
      * Reference to the authenticated client the request originated from
@@ -12,8 +12,8 @@ export type SessionStorageEventDto = {
      * Reference to the user interacting with the system
      */
     userId?: string;
-    sessionId: string;
+    storageId?: string;
+    sessionId?: string;
     data: Record<string, any>;
-    storageId: string;
 };
 
