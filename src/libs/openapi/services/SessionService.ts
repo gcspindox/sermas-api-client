@@ -13,23 +13,6 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 export class SessionService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
     /**
-     * Load current user session
-     * @param appId
-     * @returns any
-     * @throws ApiError
-     */
-    public getUserSession(
-        appId: string,
-    ): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/session/user/{appId}',
-            path: {
-                'appId': appId,
-            },
-        });
-    }
-    /**
      * Load a session
      * @param sessionId
      * @returns any
