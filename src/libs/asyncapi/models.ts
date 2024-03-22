@@ -321,6 +321,14 @@ export interface XrMarkerDto {
   tags?: string[];
 }
 
+export interface XrMarkerChangedDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  operation: string;
+  record: XrMarkerDto;
+}
+
 export interface XrOcclusionDto {
   appId: string;
   clientId?: string;

@@ -2,7 +2,7 @@
 
 import { Broker } from '../broker';
 
-import { XrMarkerDto, XrOcclusionDto } from './models';
+import { XrMarkerDto, XrMarkerChangedDto, XrOcclusionDto } from './models';
 
 export class Xr {
   constructor(private readonly broker: Broker) {}
@@ -27,10 +27,10 @@ export class Xr {
   }
 
   async changed(
-    event: XrMarkerDto,
+    event: XrMarkerChangedDto,
     params?: { appId?: string; markerId?: string },
   ) {
-    return this.broker.publish<XrMarkerDto>(
+    return this.broker.publish<XrMarkerChangedDto>(
       'app/:appId/xr/marker/changed/:markerId',
       event,
       params,
@@ -38,10 +38,10 @@ export class Xr {
   }
 
   async onChanged(
-    fn: (event: XrMarkerDto) => void | Promise<void>,
+    fn: (event: XrMarkerChangedDto) => void | Promise<void>,
     params?: { appId?: string; markerId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<XrMarkerDto>(
+    return this.broker.subscribe<XrMarkerChangedDto>(
       'app/:appId/xr/marker/changed/:markerId',
       fn,
       params,
