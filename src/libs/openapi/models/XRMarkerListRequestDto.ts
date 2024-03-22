@@ -11,7 +11,7 @@ export type XRMarkerListRequestDto = {
     /**
      * List of uri to search for
      */
-    uri?: Array<string>;
+    payload?: Array<string>;
     tags?: Array<string>;
 };
 

@@ -1,5 +1,4 @@
 export type * from './XROcclusionResponseDto';
-export type * from './XRMarkerListResponseDto';
 export type * from './XRMarkerListRequestDto';
 export type * from './XRMarkerDto';
 export type * from './WebpageUIContentDto';

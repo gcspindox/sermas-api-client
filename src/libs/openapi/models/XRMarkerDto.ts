@@ -17,12 +17,12 @@ export type XRMarkerDto = {
      */
     markerId?: string;
     /**
-     * Refer to URI as decoded from the marker QR code
+     * Payload as decoded from the marker QR code
      */
-    uri: string;
+    payload: string;
     /**
      * A list of tags for the marker
      */
-    tags: Array<string>;
+    tags?: Array<string>;
 };
 

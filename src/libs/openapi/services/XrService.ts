@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { XRMarkerDto } from '../models/XRMarkerDto';
 import type { XRMarkerListRequestDto } from '../models/XRMarkerListRequestDto';
-import type { XRMarkerListResponseDto } from '../models/XRMarkerListResponseDto';
 import type { XROcclusionResponseDto } from '../models/XROcclusionResponseDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -13,26 +12,23 @@ export class XrService {
     /**
      * List available markers
      * @param requestBody
-     * @returns XRMarkerListResponseDto Got available marks
+     * @returns XRMarkerDto Marker created or updated
      * @throws ApiError
      */
     public xrMarkerControllerSearchMarker(
         requestBody: XRMarkerListRequestDto,
-    ): CancelablePromise<XRMarkerListResponseDto> {
+    ): CancelablePromise<Array<XRMarkerDto>> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/api/xr/marker/search',
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                401: `unauthorized`,
-            },
         });
     }
     /**
-     * Create or update a marker
+     * Save a marker
      * @param requestBody
-     * @returns XRMarkerDto Marker created or updated
+     * @returns XRMarkerDto Marker saved
      * @throws ApiError
      */
     public xrMarkerControllerSaveMarker(
@@ -43,35 +39,29 @@ export class XrService {
             url: '/api/xr/marker',
             body: requestBody,
             mediaType: 'application/json',
-            errors: {
-                401: `Unauthorized`,
-            },
         });
     }
     /**
      * Delete a marker
      * @param markerId
-     * @returns any Marker deleted
+     * @returns XRMarkerDto Marker deleted
      * @throws ApiError
      */
     public xrMarkerControllerDeleteMarker(
         markerId: string,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<XRMarkerDto> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/api/xr/marker/{markerId}',
             path: {
                 ':markerId': markerId,
             },
-            errors: {
-                401: `Unauthorized`,
-            },
         });
     }
     /**
      * Get the marker QR code as image (jpeg)
      * @param markerId
-     * @returns binary
+     * @returns binary Marker retrieved
      * @throws ApiError
      */
     public xrMarkerControllerGetMarkerQrCode(
@@ -82,9 +72,6 @@ export class XrService {
             url: '/api/xr/marker/{markerId}',
             path: {
                 ':markerId': markerId,
-            },
-            errors: {
-                401: `Unauthorized`,
             },
         });
     }

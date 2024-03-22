@@ -102,7 +102,6 @@ export type { WebpageContentDto } from './models/WebpageContentDto';
 export type { WebpageUIContentDto } from './models/WebpageUIContentDto';
 export type { XRMarkerDto } from './models/XRMarkerDto';
 export type { XRMarkerListRequestDto } from './models/XRMarkerListRequestDto';
-export type { XRMarkerListResponseDto } from './models/XRMarkerListResponseDto';
 export type { XROcclusionResponseDto } from './models/XROcclusionResponseDto';
 
 export { AgentService } from './services/AgentService';

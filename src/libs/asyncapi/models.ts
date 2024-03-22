@@ -312,23 +312,13 @@ export interface UiInteractionDto {
   value: string;
 }
 
-export interface XrMarkerDetectedDto {
-  appId: string;
-  clientId?: string;
-  userId?: string;
-  markerId?: string;
-  uri: string;
-  tags: string[];
-  marker: XrMarkerDto;
-}
-
 export interface XrMarkerDto {
   appId: string;
   clientId?: string;
   userId?: string;
   markerId?: string;
-  uri: string;
-  tags: string[];
+  payload: string;
+  tags?: string[];
 }
 
 export interface XrOcclusionDto {
