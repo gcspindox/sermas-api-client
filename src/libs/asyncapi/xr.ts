@@ -2,13 +2,14 @@
 
 import { Broker } from '../broker';
 
-import { XrMarkerDto, XrMarkerChangedDto, XrOcclusionDto } from './models';
+import { XRMarkerChangedDto, XROcclusionDto } from './models';
+import { XRMarkerDto } from '../openapi/models';
 
 export class Xr {
   constructor(private readonly broker: Broker) {}
 
-  async detected(event: XrMarkerDto, params?: { appId?: string }) {
-    return this.broker.publish<XrMarkerDto>(
+  async detected(event: XRMarkerDto, params?: { appId?: string }) {
+    return this.broker.publish<XRMarkerDto>(
       'app/:appId/xr/marker/detected',
       event,
       params,
@@ -16,10 +17,10 @@ export class Xr {
   }
 
   async onDetected(
-    fn: (event: XrMarkerDto) => void | Promise<void>,
+    fn: (event: XRMarkerDto) => void | Promise<void>,
     params?: { appId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<XrMarkerDto>(
+    return this.broker.subscribe<XRMarkerDto>(
       'app/:appId/xr/marker/detected',
       fn,
       params,
@@ -27,10 +28,10 @@ export class Xr {
   }
 
   async changed(
-    event: XrMarkerChangedDto,
+    event: XRMarkerChangedDto,
     params?: { appId?: string; markerId?: string },
   ) {
-    return this.broker.publish<XrMarkerChangedDto>(
+    return this.broker.publish<XRMarkerChangedDto>(
       'app/:appId/xr/marker/changed/:markerId',
       event,
       params,
@@ -38,18 +39,18 @@ export class Xr {
   }
 
   async onChanged(
-    fn: (event: XrMarkerChangedDto) => void | Promise<void>,
+    fn: (event: XRMarkerChangedDto) => void | Promise<void>,
     params?: { appId?: string; markerId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<XrMarkerChangedDto>(
+    return this.broker.subscribe<XRMarkerChangedDto>(
       'app/:appId/xr/marker/changed/:markerId',
       fn,
       params,
     );
   }
 
-  async occluded(event: XrOcclusionDto, params?: { appId?: string }) {
-    return this.broker.publish<XrOcclusionDto>(
+  async occluded(event: XROcclusionDto, params?: { appId?: string }) {
+    return this.broker.publish<XROcclusionDto>(
       'app/:appId/xr/occlusion',
       event,
       params,
@@ -57,10 +58,10 @@ export class Xr {
   }
 
   async onOccluded(
-    fn: (event: XrOcclusionDto) => void | Promise<void>,
+    fn: (event: XROcclusionDto) => void | Promise<void>,
     params?: { appId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<XrOcclusionDto>(
+    return this.broker.subscribe<XROcclusionDto>(
       'app/:appId/xr/occlusion',
       fn,
       params,

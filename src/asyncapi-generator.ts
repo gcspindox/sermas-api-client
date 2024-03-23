@@ -1,4 +1,8 @@
-import { FormatHelpers, TypeScriptGenerator } from '@asyncapi/modelina';
+import {
+  FormatHelpers,
+  TypeScriptGenerator,
+  typeScriptDefaultModelNameConstraints,
+} from '@asyncapi/modelina';
 import { Parser } from '@asyncapi/parser';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -23,6 +27,14 @@ const generateModels = async (raw: any) => {
     mapType: 'record',
     enumType: 'union',
     rawPropertyNames: true,
+    constraints: {
+      modelName: typeScriptDefaultModelNameConstraints({
+        NAMING_FORMATTER: (name) => {
+          // console.warn(name);
+          return name;
+        },
+      }),
+    },
     processorOptions: {
       interpreter: {
         ignoreAdditionalProperties: true,
@@ -96,9 +108,10 @@ const generateClient = async (
         const isSubcribe = action === 'subscribe';
 
         const operationId = op.operationId();
-        const payload = FormatHelpers.toPascalCase(
-          op.messages().at(0).payload().id(),
-        );
+        // const payload = FormatHelpers.toPascalCase(
+        //   op.messages().at(0).payload().id(),
+        // );
+        const payload = op.messages().at(0).payload().id();
 
         const address = c.address();
         const [, , resource, scope] = address.split('/');

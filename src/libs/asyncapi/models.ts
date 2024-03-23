@@ -8,6 +8,7 @@ import {
   AppClientDto,
   AppSettingsDto,
   AppPromptDto,
+  AppToolsDTO,
   ToolsRequestSchema,
   PlatformModuleConfigDto,
   PositionDto,
@@ -15,6 +16,9 @@ import {
   DialogueMessageDto,
   SessionDto,
   SessionStorageRecordDto,
+  UIContentDto,
+  UIInteractionDTO,
+  XRMarkerDto,
   ActuationEventDto,
   MovementEventDto,
   MovementDto,
@@ -39,22 +43,12 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export interface AppToolsDto {
-  name: string;
-  description: string;
-  schema?: string[];
-  request?: ToolsRequestSchema;
-  emitter?: string;
-  returnDirect?: boolean;
-  url?: string;
-}
-
-export interface AnonymousSchema_60 {
+export interface anonymous_schema_60 {
   username?: string;
   password: string;
 }
 
-export interface AnonymousSchema_63 {
+export interface anonymous_schema_63 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -124,7 +118,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type AnonymousSchema_125 = 'start' | 'stop';
+export type anonymous_schema_125 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -178,7 +172,7 @@ export interface ObjectDetectionDto {
   value: string;
 }
 
-export interface QrCodeEventDto {
+export interface QRCodeEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
@@ -217,11 +211,11 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: AnonymousSchema_199;
+  status: anonymous_schema_199;
   modules: string[];
 }
 
-export type AnonymousSchema_199 =
+export type anonymous_schema_199 =
   | 'unavailable'
   | 'error'
   | 'not_ready'
@@ -259,7 +253,7 @@ export interface SessionStorageEventDto {
   record: SessionStorageRecordDto;
 }
 
-export interface UiStatusDto {
+export interface UIStatusDto {
   appId: string;
   clientId?: string;
   userId?: string;
@@ -268,20 +262,7 @@ export interface UiStatusDto {
   visible: boolean;
 }
 
-export interface UiContentDto {
-  appId: string;
-  clientId?: string;
-  userId?: string;
-  sessionId?: string;
-  contentType: AnonymousSchema_235;
-  content: Record<string, any>;
-  metadata?: Record<string, any>;
-  options: Record<string, any>;
-  chunkId?: number;
-  messageId?: string;
-}
-
-export type AnonymousSchema_235 =
+export type anonymous_schema_235 =
   | 'video'
   | 'image'
   | 'pdf'
@@ -297,39 +278,24 @@ export type AnonymousSchema_235 =
   | 'quiz'
   | 'clear-screen';
 
-export interface UiInteractionEventDto {
+export interface UIInteractionEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
   sessionId?: string;
   moduleId: string;
-  interaction: UiInteractionDto;
+  interaction: UIInteractionDTO;
 }
 
-export interface UiInteractionDto {
-  context: Record<string, any>;
-  element: string;
-  value: string;
-}
-
-export interface XrMarkerDto {
-  appId: string;
-  clientId?: string;
-  userId?: string;
-  markerId?: string;
-  payload: string;
-  tags?: string[];
-}
-
-export interface XrMarkerChangedDto {
+export interface XRMarkerChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
   operation: string;
-  record: XrMarkerDto;
+  record: XRMarkerDto;
 }
 
-export interface XrOcclusionDto {
+export interface XROcclusionDto {
   appId: string;
   clientId?: string;
   userId?: string;

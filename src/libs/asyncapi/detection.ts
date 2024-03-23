@@ -7,7 +7,7 @@ import {
   UserCharacterizationEventDto,
   AudioClassificationEventDto,
   ObjectDetectionEventDto,
-  QrCodeEventDto,
+  QRCodeEventDto,
   NoiseEventDto,
 } from './models';
 import { UserInteractionIntentionDto } from '../openapi/models';
@@ -125,8 +125,8 @@ export class Detection {
     );
   }
 
-  async qrCodeDetected(event: QrCodeEventDto, params?: { appId?: string }) {
-    return this.broker.publish<QrCodeEventDto>(
+  async qrCodeDetected(event: QRCodeEventDto, params?: { appId?: string }) {
+    return this.broker.publish<QRCodeEventDto>(
       'app/:appId/detection/qr_code',
       event,
       params,
@@ -134,10 +134,10 @@ export class Detection {
   }
 
   async onQrCodeDetected(
-    fn: (event: QrCodeEventDto) => void | Promise<void>,
+    fn: (event: QRCodeEventDto) => void | Promise<void>,
     params?: { appId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<QrCodeEventDto>(
+    return this.broker.subscribe<QRCodeEventDto>(
       'app/:appId/detection/qr_code',
       fn,
       params,

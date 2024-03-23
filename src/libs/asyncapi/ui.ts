@@ -2,13 +2,14 @@
 
 import { Broker } from '../broker';
 
-import { UiStatusDto, UiContentDto, UiInteractionEventDto } from './models';
+import { UIStatusDto, UIInteractionEventDto } from './models';
+import { UIContentDto } from '../openapi/models';
 
 export class Ui {
   constructor(private readonly broker: Broker) {}
 
-  async assetChange(event: UiStatusDto, params?: { appId?: string }) {
-    return this.broker.publish<UiStatusDto>(
+  async assetChange(event: UIStatusDto, params?: { appId?: string }) {
+    return this.broker.publish<UIStatusDto>(
       'app/:appId/ui/status',
       event,
       params,
@@ -16,18 +17,18 @@ export class Ui {
   }
 
   async onAssetChange(
-    fn: (event: UiStatusDto) => void | Promise<void>,
+    fn: (event: UIStatusDto) => void | Promise<void>,
     params?: { appId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<UiStatusDto>(
+    return this.broker.subscribe<UIStatusDto>(
       'app/:appId/ui/status',
       fn,
       params,
     );
   }
 
-  async content(event: UiContentDto, params?: { appId?: string }) {
-    return this.broker.publish<UiContentDto>(
+  async content(event: UIContentDto, params?: { appId?: string }) {
+    return this.broker.publish<UIContentDto>(
       'app/:appId/ui/content',
       event,
       params,
@@ -35,10 +36,10 @@ export class Ui {
   }
 
   async onContent(
-    fn: (event: UiContentDto) => void | Promise<void>,
+    fn: (event: UIContentDto) => void | Promise<void>,
     params?: { appId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<UiContentDto>(
+    return this.broker.subscribe<UIContentDto>(
       'app/:appId/ui/content',
       fn,
       params,
@@ -46,10 +47,10 @@ export class Ui {
   }
 
   async interaction(
-    event: UiInteractionEventDto,
+    event: UIInteractionEventDto,
     params?: { appId?: string; moduleId?: string },
   ) {
-    return this.broker.publish<UiInteractionEventDto>(
+    return this.broker.publish<UIInteractionEventDto>(
       'app/:appId/ui/interaction/:moduleId',
       event,
       params,
@@ -57,10 +58,10 @@ export class Ui {
   }
 
   async onInteraction(
-    fn: (event: UiInteractionEventDto) => void | Promise<void>,
+    fn: (event: UIInteractionEventDto) => void | Promise<void>,
     params?: { appId?: string; moduleId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<UiInteractionEventDto>(
+    return this.broker.subscribe<UIInteractionEventDto>(
       'app/:appId/ui/interaction/:moduleId',
       fn,
       params,
