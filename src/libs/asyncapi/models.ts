@@ -17,6 +17,7 @@ import {
   SessionDto,
   SessionStorageRecordDto,
   UIContentDto,
+  UIContentOptionsDto,
   UIInteractionDTO,
   XRMarkerDto,
   ActuationEventDto,

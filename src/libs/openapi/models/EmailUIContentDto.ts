@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { EmailContentDto } from './EmailContentDto';
+import type { UIContentOptionsDto } from './UIContentOptionsDto';
 export type EmailUIContentDto = {
     appId: string;
     /**
@@ -20,7 +21,7 @@ export type EmailUIContentDto = {
     contentType: 'video' | 'image' | 'pdf' | 'webpage' | 'object' | 'text' | 'email' | 'html' | 'link' | 'dialogue-message' | 'navigation' | 'buttons' | 'quiz' | 'clear-screen';
     content: EmailContentDto;
     metadata?: Record<string, any>;
-    options: Record<string, any>;
+    options?: UIContentOptionsDto;
     chunkId?: number;
     messageId?: string;
 };

@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { UIContentOptionsDto } from './UIContentOptionsDto';
 import type { VideoContentDto } from './VideoContentDto';
 export type VideoUIContentDto = {
     appId: string;
@@ -20,7 +21,7 @@ export type VideoUIContentDto = {
     contentType: 'video' | 'image' | 'pdf' | 'webpage' | 'object' | 'text' | 'email' | 'html' | 'link' | 'dialogue-message' | 'navigation' | 'buttons' | 'quiz' | 'clear-screen';
     content: VideoContentDto;
     metadata?: Record<string, any>;
-    options: Record<string, any>;
+    options?: UIContentOptionsDto;
     chunkId?: number;
     messageId?: string;
 };

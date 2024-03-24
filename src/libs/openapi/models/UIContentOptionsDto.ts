@@ -2,9 +2,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ButtonDto } from './ButtonDto';
-export type ButtonsContentDto = {
-    label: string;
-    list: Array<ButtonDto>;
+export type UIContentOptionsDto = {
+    clearScreen?: boolean;
+    ttsEnabled?: boolean;
 };
 

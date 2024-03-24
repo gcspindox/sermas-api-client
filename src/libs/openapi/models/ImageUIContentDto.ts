@@ -3,6 +3,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { ImageContentDto } from './ImageContentDto';
+import type { UIContentOptionsDto } from './UIContentOptionsDto';
 export type ImageUIContentDto = {
     appId: string;
     /**
@@ -20,7 +21,7 @@ export type ImageUIContentDto = {
     contentType: 'video' | 'image' | 'pdf' | 'webpage' | 'object' | 'text' | 'email' | 'html' | 'link' | 'dialogue-message' | 'navigation' | 'buttons' | 'quiz' | 'clear-screen';
     content: ImageContentDto;
     metadata?: Record<string, any>;
-    options: Record<string, any>;
+    options?: UIContentOptionsDto;
     chunkId?: number;
     messageId?: string;
 };
