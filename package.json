@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sermas-organization/sermas-api-client.git"
+    "url": "https://github.com/sermas-eu/sermas-api-client.git"
   },
   "scripts": {
     "clean": "rm -rf ./dist",
