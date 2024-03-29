@@ -201,6 +201,13 @@ export type anonymous_schema_174 = 'user' | 'agent';
 
 export type Buffer = Record<string, any>;
 
+export interface SermasSessionDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  sessionId?: string;
+}
+
 export interface SessionChangedDto {
   appId: string;
   clientId?: string;
@@ -214,11 +221,11 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: anonymous_schema_199;
+  status: anonymous_schema_203;
   modules: string[];
 }
 
-export type anonymous_schema_199 =
+export type anonymous_schema_203 =
   | 'unavailable'
   | 'error'
   | 'not_ready'
@@ -265,7 +272,7 @@ export interface UIStatusDto {
   visible: boolean;
 }
 
-export type anonymous_schema_235 =
+export type anonymous_schema_239 =
   | 'video'
   | 'image'
   | 'pdf'

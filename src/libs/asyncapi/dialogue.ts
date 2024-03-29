@@ -2,7 +2,11 @@
 
 import { Broker } from '../broker';
 
-import { DialogueToolTriggeredEventDto, Buffer } from './models';
+import {
+  DialogueToolTriggeredEventDto,
+  Buffer,
+  SermasSessionDto,
+} from './models';
 import { DialogueMessageDto } from '../openapi/models';
 
 export class Dialogue {
@@ -69,6 +73,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<Buffer>(
       'app/:appId/dialogue/speech/:sessionId/:chunkId',
+      fn,
+      params,
+    );
+  }
+
+  async agentStopSpeech(
+    event: SermasSessionDto,
+    params?: { appId?: string; sessionId?: string },
+  ) {
+    return this.broker.publish<SermasSessionDto>(
+      'app/:appId/dialogue/stop/:sessionId',
+      event,
+      params,
+    );
+  }
+
+  async onAgentStopSpeech(
+    fn: (event: SermasSessionDto) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<SermasSessionDto>(
+      'app/:appId/dialogue/stop/:sessionId',
       fn,
       params,
     );
