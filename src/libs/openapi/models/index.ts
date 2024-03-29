@@ -70,7 +70,6 @@ export type * from './HtmlUIContentDto';
 export type * from './HtmlContentDto';
 export type * from './EmailUIContentDto';
 export type * from './EmailContentDto';
-export type * from './DialogueUserMessageDto';
 export type * from './DialogueTextToSpeechDto';
 export type * from './DialogueMessageUIContentDto';
 export type * from './DialogueMessageDto';

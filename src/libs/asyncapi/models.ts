@@ -197,6 +197,8 @@ export interface DialogueToolTriggeredEventDto {
   name: string;
 }
 
+export type anonymous_schema_174 = 'user' | 'agent';
+
 export type Buffer = Record<string, any>;
 
 export interface SessionChangedDto {

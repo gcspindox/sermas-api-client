@@ -13,18 +13,36 @@ export type DialogueTextToSpeechDto = {
      */
     userId?: string;
     /**
-     * Track the interaction session, if available
+     * User session identifier
      */
     sessionId?: string;
+    /**
+     * Unique identifier of the message
+     */
     messageId?: string;
-    actor: string;
+    /**
+     * Actor providing the text, can be user or agent
+     */
+    actor?: 'user' | 'agent';
     /**
      * Text to convert to speech. If emotion field is set, it will be converted to SSML. If also `ssml` field is set, this field will be ignored
      */
     text?: string;
-    gender: string;
-    language: string;
+    /**
+     * Assistant gender (M or F)
+     */
+    gender?: string;
+    /**
+     * Text language
+     */
+    language?: string;
+    /**
+     * User emotion, if available
+     */
     emotion?: string;
+    /**
+     * LLM engine to use
+     */
     llm?: string;
     /**
      * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.

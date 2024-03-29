@@ -13,15 +13,36 @@ export type DialogueMessageDto = {
      */
     userId?: string;
     /**
-     * Track the interaction session, if available
+     * User session identifier
      */
     sessionId?: string;
+    /**
+     * Unique identifier of the message
+     */
     messageId?: string;
-    actor: string;
+    /**
+     * Actor providing the text, can be user or agent
+     */
+    actor?: 'user' | 'agent';
+    /**
+     * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
+     */
     text: string;
-    gender: string;
-    language: string;
+    /**
+     * Assistant gender (M or F)
+     */
+    gender?: string;
+    /**
+     * Text language
+     */
+    language?: string;
+    /**
+     * User emotion, if available
+     */
     emotion?: string;
+    /**
+     * LLM engine to use
+     */
     llm?: string;
     /**
      * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.

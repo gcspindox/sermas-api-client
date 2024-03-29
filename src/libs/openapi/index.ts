@@ -32,7 +32,6 @@ export type { DialogueDocumentMetadataDto } from './models/DialogueDocumentMetad
 export type { DialogueMessageDto } from './models/DialogueMessageDto';
 export type { DialogueMessageUIContentDto } from './models/DialogueMessageUIContentDto';
 export type { DialogueTextToSpeechDto } from './models/DialogueTextToSpeechDto';
-export type { DialogueUserMessageDto } from './models/DialogueUserMessageDto';
 export type { EmailContentDto } from './models/EmailContentDto';
 export type { EmailUIContentDto } from './models/EmailUIContentDto';
 export type { HtmlContentDto } from './models/HtmlContentDto';

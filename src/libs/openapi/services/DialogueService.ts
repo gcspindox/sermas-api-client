@@ -3,8 +3,8 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { DialogueDocumentDto } from '../models/DialogueDocumentDto';
+import type { DialogueMessageDto } from '../models/DialogueMessageDto';
 import type { DialogueTextToSpeechDto } from '../models/DialogueTextToSpeechDto';
-import type { DialogueUserMessageDto } from '../models/DialogueUserMessageDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 export class DialogueService {
@@ -81,9 +81,6 @@ export class DialogueService {
     /**
      * @param appId
      * @param sessionId
-     * @param language
-     * @param gender
-     * @param llm
      * @param sampleRate
      * @param formData
      * @returns any
@@ -92,9 +89,6 @@ export class DialogueService {
     public text(
         appId: string,
         sessionId: string,
-        language: string,
-        gender: string,
-        llm: string,
         sampleRate: number,
         formData: {
             file?: Blob;
@@ -108,9 +102,6 @@ export class DialogueService {
                 'sessionId': sessionId,
             },
             query: {
-                'language': language,
-                'gender': gender,
-                'llm': llm,
                 'sampleRate': sampleRate,
             },
             formData: formData,
@@ -120,10 +111,6 @@ export class DialogueService {
     /**
      * @param appId
      * @param sessionId
-     * @param language
-     * @param gender
-     * @param llm
-     * @param actor
      * @param requestBody
      * @returns any
      * @throws ApiError
@@ -131,11 +118,7 @@ export class DialogueService {
     public chatMessage(
         appId: string,
         sessionId: string,
-        language: string,
-        gender: string,
-        llm: string,
-        actor: string,
-        requestBody: DialogueUserMessageDto,
+        requestBody: DialogueMessageDto,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'POST',
@@ -143,12 +126,6 @@ export class DialogueService {
             path: {
                 'appId': appId,
                 'sessionId': sessionId,
-            },
-            query: {
-                'language': language,
-                'gender': gender,
-                'llm': llm,
-                'actor': actor,
             },
             body: requestBody,
             mediaType: 'application/json',
