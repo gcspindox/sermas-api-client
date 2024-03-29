@@ -183,4 +183,27 @@ export class DialogueService {
             url: '/api/dialogue/admin/document',
         });
     }
+    /**
+     * @param appId
+     * @param sessionId
+     * @param requestBody
+     * @returns any
+     * @throws ApiError
+     */
+    public getToolsfFromAppId(
+        appId: string,
+        sessionId: string,
+        requestBody: Array<string>,
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/api/dialogue/tools/{appId}/{sessionId}',
+            path: {
+                'appId': appId,
+                'sessionId': sessionId,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+        });
+    }
 }
