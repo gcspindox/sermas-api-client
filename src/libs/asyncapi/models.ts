@@ -14,8 +14,10 @@ import {
   PositionDto,
   UserInteractionIntentionDto,
   DialogueMessageDto,
+  Buffer,
   SessionDto,
   SessionStorageRecordDto,
+  UIAssetDto,
   UIContentDto,
   UIContentOptionsDto,
   UIInteractionDTO,
@@ -199,8 +201,6 @@ export interface DialogueToolTriggeredEventDto {
 
 export type anonymous_schema_174 = 'user' | 'agent';
 
-export type Buffer = Record<string, any>;
-
 export interface SermasSessionDto {
   appId: string;
   clientId?: string;
@@ -263,16 +263,21 @@ export interface SessionStorageEventDto {
   record: SessionStorageRecordDto;
 }
 
-export interface UIStatusDto {
+export interface UIAssetChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
-  assetId: string;
-  status: string;
-  visible: boolean;
+  operation: string;
+  record: UIAssetDto;
 }
 
-export type anonymous_schema_239 =
+export type anonymous_schema_235 =
+  | 'models'
+  | 'backgrounds'
+  | 'animations'
+  | 'documents';
+
+export type anonymous_schema_242 =
   | 'video'
   | 'image'
   | 'pdf'

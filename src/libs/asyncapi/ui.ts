@@ -2,25 +2,25 @@
 
 import { Broker } from '../broker';
 
-import { UIStatusDto, UIInteractionEventDto } from './models';
+import { UIAssetChangedDto, UIInteractionEventDto } from './models';
 import { UIContentDto } from '../openapi/models';
 
 export class Ui {
   constructor(private readonly broker: Broker) {}
 
-  async assetChange(event: UIStatusDto, params?: { appId?: string }) {
-    return this.broker.publish<UIStatusDto>(
+  async assetChanged(event: UIAssetChangedDto, params?: { appId?: string }) {
+    return this.broker.publish<UIAssetChangedDto>(
       'app/:appId/ui/status',
       event,
       params,
     );
   }
 
-  async onAssetChange(
-    fn: (event: UIStatusDto) => void | Promise<void>,
+  async onAssetChanged(
+    fn: (event: UIAssetChangedDto) => void | Promise<void>,
     params?: { appId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<UIStatusDto>(
+    return this.broker.subscribe<UIAssetChangedDto>(
       'app/:appId/ui/status',
       fn,
       params,

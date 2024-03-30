@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Buffer } from '../models/Buffer';
 import type { UIContentDto } from '../models/UIContentDto';
 import type { UIInteractionDTO } from '../models/UIInteractionDTO';
 import type { UIModelMapBlendShapesRequestDto } from '../models/UIModelMapBlendShapesRequestDto';
@@ -47,8 +48,8 @@ export class UiService {
         requestBody: UIContentDto,
     ): CancelablePromise<UIContentDto> {
         return this.httpRequest.request({
-            method: 'GET',
-            url: '/api/ui/asset/{appId}',
+            method: 'PUT',
+            url: '/api/ui/content/{appId}',
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -73,6 +74,79 @@ export class UiService {
             errors: {
                 401: `unauthorized`,
             },
+        });
+    }
+    /**
+     * Retrieve an asset
+     * @param path
+     * @param appId
+     * @returns Buffer Download an asset by url
+     * @throws ApiError
+     */
+    public getAsset(
+        path: string,
+        appId: string,
+    ): CancelablePromise<Buffer> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/api/ui/asset/{appId}',
+            path: {
+                'appId': appId,
+            },
+            query: {
+                'path': path,
+            },
+        });
+    }
+    /**
+     * @param formData
+     * @returns any
+     * @throws ApiError
+     */
+    public saveModel(
+        formData: {
+            file?: Blob;
+        },
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/api/ui/asset/models',
+            formData: formData,
+            mediaType: 'multipart/form-data',
+        });
+    }
+    /**
+     * @param formData
+     * @returns any
+     * @throws ApiError
+     */
+    public saveBackground(
+        formData: {
+            file?: Blob;
+        },
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/api/ui/asset/backgrounds',
+            formData: formData,
+            mediaType: 'multipart/form-data',
+        });
+    }
+    /**
+     * @param formData
+     * @returns any
+     * @throws ApiError
+     */
+    public saveDocuments(
+        formData: {
+            file?: Blob;
+        },
+    ): CancelablePromise<any> {
+        return this.httpRequest.request({
+            method: 'POST',
+            url: '/api/ui/asset/documents',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
 }
