@@ -93,6 +93,10 @@ export const $RefreshTokenRequestDto = {
   },
 } as const;
 
+export const $RepositoryAssetMetadataDto = {
+  properties: {},
+} as const;
+
 export const $Point3D = {
   properties: {
     x: {
@@ -123,18 +127,28 @@ export const $AvatarCameraConfig = {
   },
 } as const;
 
-export const $RepositoryAvatarModelDto = {
+export const $RepositoryAvatarDto = {
   properties: {
-    modelType: {
+    id: {
+      type: 'string',
+      isRequired: true,
+    },
+    type: {
       type: 'Enum',
       isRequired: true,
     },
     name: {
       type: 'string',
+    },
+    path: {
+      type: 'string',
       isRequired: true,
     },
-    modelPath: {
-      type: 'string',
+    metadata: {
+      type: 'RepositoryAssetMetadataDto',
+    },
+    modelType: {
+      type: 'Enum',
       isRequired: true,
     },
     gender: {
@@ -158,11 +172,18 @@ export const $RepositoryBackgroundMetadataDto = {
   },
 } as const;
 
-export const $RepositoryBackgroundModelDto = {
+export const $RepositoryBackgroundDto = {
   properties: {
-    name: {
+    id: {
       type: 'string',
       isRequired: true,
+    },
+    type: {
+      type: 'Enum',
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
     },
     path: {
       type: 'string',
@@ -174,7 +195,7 @@ export const $RepositoryBackgroundModelDto = {
   },
 } as const;
 
-export const $RepositoryMapModelDto = {
+export const $RobotMapDto = {
   properties: {
     imageUrl: {
       type: 'string',
@@ -196,16 +217,76 @@ export const $RepositoryMapModelDto = {
 
 export const $RepositoryRobotModelDto = {
   properties: {
-    name: {
+    id: {
       type: 'string',
       isRequired: true,
+    },
+    type: {
+      type: 'Enum',
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+    },
+    path: {
+      type: 'string',
+      isRequired: true,
+    },
+    metadata: {
+      type: 'RepositoryAssetMetadataDto',
     },
     videoUrl: {
       type: 'string',
       isRequired: true,
     },
     map: {
-      type: 'RepositoryMapModelDto',
+      type: 'RobotMapDto',
+    },
+  },
+} as const;
+
+export const $RepositoryDocumentDto = {
+  properties: {
+    id: {
+      type: 'string',
+      isRequired: true,
+    },
+    type: {
+      type: 'Enum',
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+    },
+    path: {
+      type: 'string',
+      isRequired: true,
+    },
+    metadata: {
+      type: 'RepositoryAssetMetadataDto',
+    },
+  },
+} as const;
+
+export const $RepositoryAnimationDto = {
+  properties: {
+    id: {
+      type: 'string',
+      isRequired: true,
+    },
+    type: {
+      type: 'Enum',
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+    },
+    path: {
+      type: 'string',
+      isRequired: true,
+    },
+    metadata: {
+      type: 'RepositoryAssetMetadataDto',
     },
   },
 } as const;
@@ -215,14 +296,14 @@ export const $RepositoryConfigDto = {
     avatars: {
       type: 'array',
       contains: {
-        type: 'RepositoryAvatarModelDto',
+        type: 'RepositoryAvatarDto',
       },
       isRequired: true,
     },
     backgrounds: {
       type: 'array',
       contains: {
-        type: 'RepositoryBackgroundModelDto',
+        type: 'RepositoryBackgroundDto',
       },
       isRequired: true,
     },
@@ -230,6 +311,18 @@ export const $RepositoryConfigDto = {
       type: 'array',
       contains: {
         type: 'RepositoryRobotModelDto',
+      },
+    },
+    documents: {
+      type: 'array',
+      contains: {
+        type: 'RepositoryDocumentDto',
+      },
+    },
+    animations: {
+      type: 'array',
+      contains: {
+        type: 'RepositoryAnimationDto',
       },
     },
   },
@@ -2322,22 +2415,32 @@ export const $UIModelMapBlendShapesResponseDto = {
   },
 } as const;
 
-export const $UIAssetMetadataDto = {
-  properties: {},
-} as const;
-
 export const $UIAssetDto = {
   properties: {
-    filename: {
-      type: 'string',
-      isRequired: true,
-    },
-    appId: {
+    id: {
       type: 'string',
       isRequired: true,
     },
     type: {
       type: 'Enum',
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+    },
+    path: {
+      type: 'string',
+      isRequired: true,
+    },
+    metadata: {
+      type: 'RepositoryAssetMetadataDto',
+    },
+    filename: {
+      type: 'string',
+    },
+    appId: {
+      type: 'string',
+      isRequired: true,
     },
     userId: {
       type: 'string',
@@ -2345,35 +2448,6 @@ export const $UIAssetDto = {
     ts: {
       type: 'string',
       format: 'date-time',
-    },
-    metadata: {
-      type: 'UIAssetMetadataDto',
-    },
-  },
-} as const;
-
-export const $UIModelAssetDto = {
-  properties: {
-    filename: {
-      type: 'string',
-      isRequired: true,
-    },
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    type: {
-      type: 'Enum',
-    },
-    userId: {
-      type: 'string',
-    },
-    ts: {
-      type: 'string',
-      format: 'date-time',
-    },
-    metadata: {
-      type: 'UIAssetMetadataDto',
     },
   },
 } as const;

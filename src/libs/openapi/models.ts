@@ -34,6 +34,8 @@ export type RefreshTokenRequestDto = {
   clientSecret?: string;
 };
 
+export type RepositoryAssetMetadataDto = {};
+
 export type Point3D = {
   x: number;
   y: number;
@@ -45,10 +47,13 @@ export type AvatarCameraConfig = {
   rotation: Point3D;
 };
 
-export type RepositoryAvatarModelDto = {
+export type RepositoryAvatarDto = {
+  id: string;
+  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  name?: string;
+  path: string;
+  metadata?: RepositoryAssetMetadataDto;
   modelType: 'readyplayerme' | 'custom';
-  name: string;
-  modelPath: string;
   gender: 'M' | 'F';
   camera?: AvatarCameraConfig;
   cameraMobile?: AvatarCameraConfig;
@@ -58,13 +63,15 @@ export type RepositoryBackgroundMetadataDto = {
   credits?: string;
 };
 
-export type RepositoryBackgroundModelDto = {
-  name: string;
+export type RepositoryBackgroundDto = {
+  id: string;
+  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  name?: string;
   path: string;
   metadata?: RepositoryBackgroundMetadataDto;
 };
 
-export type RepositoryMapModelDto = {
+export type RobotMapDto = {
   imageUrl?: string;
   width?: number;
   height?: number;
@@ -73,15 +80,37 @@ export type RepositoryMapModelDto = {
 };
 
 export type RepositoryRobotModelDto = {
-  name: string;
+  id: string;
+  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  name?: string;
+  path: string;
+  metadata?: RepositoryAssetMetadataDto;
   videoUrl: string;
-  map?: RepositoryMapModelDto;
+  map?: RobotMapDto;
+};
+
+export type RepositoryDocumentDto = {
+  id: string;
+  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  name?: string;
+  path: string;
+  metadata?: RepositoryAssetMetadataDto;
+};
+
+export type RepositoryAnimationDto = {
+  id: string;
+  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  name?: string;
+  path: string;
+  metadata?: RepositoryAssetMetadataDto;
 };
 
 export type RepositoryConfigDto = {
-  avatars: Array<RepositoryAvatarModelDto>;
-  backgrounds: Array<RepositoryBackgroundModelDto>;
+  avatars: Array<RepositoryAvatarDto>;
+  backgrounds: Array<RepositoryBackgroundDto>;
   robots?: Array<RepositoryRobotModelDto>;
+  documents?: Array<RepositoryDocumentDto>;
+  animations?: Array<RepositoryAnimationDto>;
 };
 
 export type KeycloakCredentials = {
@@ -1295,24 +1324,16 @@ export type UIModelMapBlendShapesResponseDto = {
   blendShapes: Record<string, unknown>;
 };
 
-export type UIAssetMetadataDto = {};
-
 export type UIAssetDto = {
-  filename: string;
+  id: string;
+  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  name?: string;
+  path: string;
+  metadata?: RepositoryAssetMetadataDto;
+  filename?: string;
   appId: string;
-  type?: 'models' | 'backgrounds' | 'animations' | 'documents';
   userId?: string;
   ts?: string;
-  metadata?: UIAssetMetadataDto;
-};
-
-export type UIModelAssetDto = {
-  filename: string;
-  appId: string;
-  type?: 'models' | 'backgrounds' | 'animations' | 'documents';
-  userId?: string;
-  ts?: string;
-  metadata?: UIAssetMetadataDto;
 };
 
 export type Buffer = {};

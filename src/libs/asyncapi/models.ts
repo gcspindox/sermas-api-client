@@ -5,13 +5,15 @@ import {
   ModuleSettingsDto,
   ModuleResourceDto,
   RepositoryConfigDto,
-  RepositoryAvatarModelDto,
+  RepositoryAvatarDto,
   AvatarCameraConfig,
   Point3D,
-  RepositoryBackgroundModelDto,
+  RepositoryBackgroundDto,
   RepositoryBackgroundMetadataDto,
   RepositoryRobotModelDto,
-  RepositoryMapModelDto,
+  RobotMapDto,
+  RepositoryDocumentDto,
+  RepositoryAnimationDto,
   AppClientDto,
   AppSettingsDto,
   AppPromptDto,
@@ -53,16 +55,51 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export type anonymous_schema_36 = 'readyplayerme' | 'custom';
+export type anonymous_schema_37 =
+  | 'avatars'
+  | 'backgrounds'
+  | 'robots'
+  | 'documents'
+  | 'animations';
 
-export type anonymous_schema_39 = 'M' | 'F';
+export type anonymous_schema_40 = 'readyplayerme' | 'custom';
 
-export interface anonymous_schema_77 {
+export type anonymous_schema_41 = 'M' | 'F';
+
+export type anonymous_schema_47 =
+  | 'avatars'
+  | 'backgrounds'
+  | 'robots'
+  | 'documents'
+  | 'animations';
+
+export type anonymous_schema_53 =
+  | 'avatars'
+  | 'backgrounds'
+  | 'robots'
+  | 'documents'
+  | 'animations';
+
+export type anonymous_schema_64 =
+  | 'avatars'
+  | 'backgrounds'
+  | 'robots'
+  | 'documents'
+  | 'animations';
+
+export type anonymous_schema_69 =
+  | 'avatars'
+  | 'backgrounds'
+  | 'robots'
+  | 'documents'
+  | 'animations';
+
+export interface anonymous_schema_94 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_80 {
+export interface anonymous_schema_97 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -132,7 +169,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_142 = 'start' | 'stop';
+export type anonymous_schema_159 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -210,7 +247,7 @@ export interface DialogueToolTriggeredEventDto {
   name: string;
 }
 
-export type anonymous_schema_191 = 'user' | 'agent';
+export type anonymous_schema_208 = 'user' | 'agent';
 
 export interface SermasSessionDto {
   appId: string;
@@ -232,11 +269,11 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: anonymous_schema_220;
+  status: anonymous_schema_237;
   modules: string[];
 }
 
-export type anonymous_schema_220 =
+export type anonymous_schema_237 =
   | 'unavailable'
   | 'error'
   | 'not_ready'
@@ -282,13 +319,14 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export type anonymous_schema_252 =
-  | 'models'
+export type anonymous_schema_268 =
+  | 'avatars'
   | 'backgrounds'
-  | 'animations'
-  | 'documents';
+  | 'robots'
+  | 'documents'
+  | 'animations';
 
-export type anonymous_schema_259 =
+export type anonymous_schema_279 =
   | 'video'
   | 'image'
   | 'pdf'

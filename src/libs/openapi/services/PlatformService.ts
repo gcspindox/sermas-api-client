@@ -11,7 +11,7 @@ import type {
   PlatformModuleConfigDto,
   PlatformSettingsDto,
   RefreshTokenRequestDto,
-  RepositoryAvatarModelDto,
+  RepositoryAvatarDto,
   RepositoryConfigDto,
   RepositoryRobotModelDto,
   ViewLogsRequestDto,
@@ -336,12 +336,12 @@ export class PlatformService {
   }
 
   /**
-   * @returns RepositoryAvatarModelDto
+   * @returns RepositoryAvatarDto
    * @throws ApiError
    */
   public getAppRepositoryAvatars(
     data: TDataGetAppRepositoryAvatars,
-  ): CancelablePromise<RepositoryAvatarModelDto> {
+  ): CancelablePromise<RepositoryAvatarDto> {
     const { appId, name } = data;
     return this.httpRequest.request({
       method: 'GET',

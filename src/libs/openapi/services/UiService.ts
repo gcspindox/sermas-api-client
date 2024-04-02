@@ -1,6 +1,6 @@
 import type {
   Buffer,
-  UIAssetMetadataDto,
+  RepositoryAssetMetadataDto,
   UIContentDto,
   UIInteractionDTO,
   UIModelMapBlendShapesRequestDto,
@@ -22,49 +22,34 @@ export type TDataUiModelControllerMapBlendShapes = {
 };
 export type TDataGetAsset = {
   appId: string;
-  path: string;
-};
-export type TDataSaveModel = {
-  formData: {
-    filename?: string;
-    appId?: string;
-    type?: 'models' | 'backgrounds' | 'animations' | 'documents';
-    userId?: string;
-    ts?: string;
-    metadata?: UIAssetMetadataDto;
-    file?: Blob | File;
-  };
-};
-export type TDataSaveBackground = {
-  formData: {
-    filename?: string;
-    appId?: string;
-    type?: 'models' | 'backgrounds' | 'animations' | 'documents';
-    userId?: string;
-    ts?: string;
-    metadata?: UIAssetMetadataDto;
-    file?: Blob | File;
-  };
-};
-export type TDataSaveDocuments = {
-  formData: {
-    filename?: string;
-    appId?: string;
-    type?: 'models' | 'backgrounds' | 'animations' | 'documents';
-    userId?: string;
-    ts?: string;
-    metadata?: UIAssetMetadataDto;
-    file?: Blob | File;
-  };
+  assetId: string;
+  type: string;
 };
 export type TDataSaveAsset = {
   formData: {
+    id?: string;
+    type?: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+    name?: string;
+    path?: string;
+    metadata?: RepositoryAssetMetadataDto;
     filename?: string;
     appId?: string;
-    type?: 'models' | 'backgrounds' | 'animations' | 'documents';
     userId?: string;
     ts?: string;
-    metadata?: UIAssetMetadataDto;
+    file?: Blob | File;
+  };
+};
+export type TDataAdminSaveAsset = {
+  formData: {
+    id?: string;
+    type?: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+    name?: string;
+    path?: string;
+    metadata?: RepositoryAssetMetadataDto;
+    filename?: string;
+    appId?: string;
+    userId?: string;
+    ts?: string;
     file?: Blob | File;
   };
 };
@@ -136,70 +121,42 @@ export class UiService {
 
   /**
    * Retrieve an asset
-   * @returns Buffer Download an asset by url
+   * @returns Buffer Asset content
    * @throws ApiError
    */
   public getAsset(data: TDataGetAsset): CancelablePromise<Buffer> {
-    const { appId, path } = data;
+    const { appId, assetId, type } = data;
     return this.httpRequest.request({
       method: 'GET',
-      url: '/api/ui/asset/{appId}',
+      url: '/api/ui/asset/{appId}/{type}/{assetId}',
       path: {
         appId,
+        type,
+        assetId,
       },
-      query: {
-        path,
-      },
     });
   }
 
   /**
-   * @returns any
-   * @throws ApiError
-   */
-  public saveModel(data: TDataSaveModel): CancelablePromise<any> {
-    const { formData } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/ui/asset/models',
-      formData: formData,
-      mediaType: 'multipart/form-data',
-    });
-  }
-
-  /**
-   * @returns any
-   * @throws ApiError
-   */
-  public saveBackground(data: TDataSaveBackground): CancelablePromise<any> {
-    const { formData } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/ui/asset/backgrounds',
-      formData: formData,
-      mediaType: 'multipart/form-data',
-    });
-  }
-
-  /**
-   * @returns any
-   * @throws ApiError
-   */
-  public saveDocuments(data: TDataSaveDocuments): CancelablePromise<any> {
-    const { formData } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/ui/asset/documents',
-      formData: formData,
-      mediaType: 'multipart/form-data',
-    });
-  }
-
-  /**
+   * Retrieve an asset
    * @returns any
    * @throws ApiError
    */
   public saveAsset(data: TDataSaveAsset): CancelablePromise<any> {
+    const { formData } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/ui/asset',
+      formData: formData,
+      mediaType: 'multipart/form-data',
+    });
+  }
+
+  /**
+   * @returns any
+   * @throws ApiError
+   */
+  public adminSaveAsset(data: TDataAdminSaveAsset): CancelablePromise<any> {
     const { formData } = data;
     return this.httpRequest.request({
       method: 'POST',
