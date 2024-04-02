@@ -5,6 +5,13 @@ import {
   ModuleSettingsDto,
   ModuleResourceDto,
   RepositoryConfigDto,
+  RepositoryAvatarModelDto,
+  AvatarCameraConfig,
+  Point3D,
+  RepositoryBackgroundModelDto,
+  RepositoryBackgroundMetadataDto,
+  RepositoryRobotModelDto,
+  RepositoryMapModelDto,
   AppClientDto,
   AppSettingsDto,
   AppPromptDto,
@@ -46,12 +53,16 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export interface anonymous_schema_60 {
+export type anonymous_schema_36 = 'readyplayerme' | 'custom';
+
+export type anonymous_schema_39 = 'M' | 'F';
+
+export interface anonymous_schema_77 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_63 {
+export interface anonymous_schema_80 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -121,7 +132,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_125 = 'start' | 'stop';
+export type anonymous_schema_142 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -199,7 +210,7 @@ export interface DialogueToolTriggeredEventDto {
   name: string;
 }
 
-export type anonymous_schema_174 = 'user' | 'agent';
+export type anonymous_schema_191 = 'user' | 'agent';
 
 export interface SermasSessionDto {
   appId: string;
@@ -221,11 +232,11 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: anonymous_schema_203;
+  status: anonymous_schema_220;
   modules: string[];
 }
 
-export type anonymous_schema_203 =
+export type anonymous_schema_220 =
   | 'unavailable'
   | 'error'
   | 'not_ready'
@@ -271,13 +282,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export type anonymous_schema_235 =
+export type anonymous_schema_252 =
   | 'models'
   | 'backgrounds'
   | 'animations'
   | 'documents';
 
-export type anonymous_schema_242 =
+export type anonymous_schema_259 =
   | 'video'
   | 'image'
   | 'pdf'

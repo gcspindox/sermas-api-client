@@ -129,10 +129,12 @@ export class SermasApiClient {
     let res;
     try {
       res = await this.api.platform.getClientRefreshToken({
-        refreshToken: this.config.refresh_token,
-        appId: this.config.appId,
-        clientId: this.config.clientId,
-        clientSecret: this.config.clientSecret,
+        requestBody: {
+          refreshToken: this.config.refresh_token,
+          appId: this.config.appId,
+          clientId: this.config.clientId,
+          clientSecret: this.config.clientSecret,
+        },
       });
     } catch (e) {
       this.logger.error(`Refresh token failed: ${e.stack}`);
@@ -159,9 +161,11 @@ export class SermasApiClient {
     this.config.appId = appId || this.config.appId;
 
     const res = await client.platform.getClientAccessToken({
-      clientId,
-      clientSecret,
-      appId: this.config.appId,
+      requestBody: {
+        clientId,
+        clientSecret,
+        appId: this.config.appId,
+      },
     });
 
     this.config.clientId = clientId;
@@ -203,9 +207,11 @@ export class SermasApiClient {
     this.config.appId = appId || this.config.appId;
 
     const res = await client.authentication.login({
-      username,
-      password,
-      appId: this.config.appId,
+      requestBody: {
+        username,
+        password,
+        appId: this.config.appId,
+      },
     });
 
     this.config.access_token = res.access_token;

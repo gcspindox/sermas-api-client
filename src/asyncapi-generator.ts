@@ -8,13 +8,28 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 
 import { ESLint } from 'eslint';
-import { glob } from 'glob';
+
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const loadOpenApiModels = async () => {
-  const list = await glob('./src/libs/openapi/models/*.ts');
-  return list.map((file) =>
-    path.basename(file).replace(path.extname(file), ''),
-  );
+  // const list = await glob('./src/libs/openapi/models.ts');
+  // return list.map((file) =>
+  //   path.basename(file).replace(path.extname(file), ''),
+  // );
+
+  const openapiModelsPath = path.resolve(__dirname, './libs/openapi/models.ts');
+  console.warn('openapiModelsPath', openapiModelsPath);
+
+  const raw = (await fs.readFile(openapiModelsPath)).toString();
+  const matches = raw.matchAll(/export type ([a-z0-9]+) /gim);
+  if (!matches) throw new Error('Failed to parse OpenAPI DTOs');
+
+  const models = Array.from(matches).map(([, name]) => name);
+  // console.warn(models);
+  return models;
 };
 
 const generateModels = async (raw: any) => {
