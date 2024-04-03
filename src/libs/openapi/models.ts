@@ -86,6 +86,7 @@ export type RepositoryAvatarDto = {
   gender: ModelGender;
   camera?: AvatarCameraConfig;
   cameraMobile?: AvatarCameraConfig;
+  prompt?: string;
 };
 
 export type RepositoryBackgroundMetadataDto = {

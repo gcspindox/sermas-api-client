@@ -211,6 +211,18 @@ export class PlatformService {
   }
 
   /**
+   * retrieve app repository defaults
+   * @returns RepositoryConfigDto
+   * @throws ApiError
+   */
+  public getRepositoryDefaults(): CancelablePromise<RepositoryConfigDto> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/api/app/repository/defaults',
+    });
+  }
+
+  /**
    * @returns PlatformAppDto
    * @throws ApiError
    */

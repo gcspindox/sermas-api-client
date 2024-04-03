@@ -173,6 +173,9 @@ export const $RepositoryAvatarDto = {
     cameraMobile: {
       type: 'AvatarCameraConfig',
     },
+    prompt: {
+      type: 'string',
+    },
   },
 } as const;
 
