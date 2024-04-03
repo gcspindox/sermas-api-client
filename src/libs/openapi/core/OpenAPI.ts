@@ -1,4 +1,3 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import type { ApiRequestOptions } from './ApiRequestOptions';
 import type { TResult } from './types';
 
@@ -37,8 +36,8 @@ export type OpenAPIConfig = {
   VERSION: string;
   WITH_CREDENTIALS: boolean;
   interceptors: {
-    request: Interceptors<AxiosRequestConfig>;
-    response: Interceptors<AxiosResponse>;
+    request: Interceptors<RequestInit>;
+    response: Interceptors<Response>;
   };
 };
 

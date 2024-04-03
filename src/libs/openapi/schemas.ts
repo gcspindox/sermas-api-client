@@ -93,8 +93,20 @@ export const $RefreshTokenRequestDto = {
   },
 } as const;
 
+export const $RepositoryAssetTypes = {
+  type: 'Enum',
+} as const;
+
 export const $RepositoryAssetMetadataDto = {
   properties: {},
+} as const;
+
+export const $ModelType = {
+  type: 'Enum',
+} as const;
+
+export const $ModelGender = {
+  type: 'Enum',
 } as const;
 
 export const $Point3D = {
@@ -134,7 +146,7 @@ export const $RepositoryAvatarDto = {
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'RepositoryAssetTypes',
       isRequired: true,
     },
     name: {
@@ -148,11 +160,11 @@ export const $RepositoryAvatarDto = {
       type: 'RepositoryAssetMetadataDto',
     },
     modelType: {
-      type: 'Enum',
+      type: 'ModelType',
       isRequired: true,
     },
     gender: {
-      type: 'Enum',
+      type: 'ModelGender',
       isRequired: true,
     },
     camera: {
@@ -179,7 +191,7 @@ export const $RepositoryBackgroundDto = {
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'RepositoryAssetTypes',
       isRequired: true,
     },
     name: {
@@ -222,7 +234,7 @@ export const $RepositoryRobotModelDto = {
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'RepositoryAssetTypes',
       isRequired: true,
     },
     name: {
@@ -252,7 +264,7 @@ export const $RepositoryDocumentDto = {
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'RepositoryAssetTypes',
       isRequired: true,
     },
     name: {
@@ -275,7 +287,7 @@ export const $RepositoryAnimationDto = {
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'RepositoryAssetTypes',
       isRequired: true,
     },
     name: {
@@ -1202,6 +1214,10 @@ export const $DialogueDocumentDto = {
   },
 } as const;
 
+export const $DialogueActor = {
+  type: 'Enum',
+} as const;
+
 export const $DialogueTextToSpeechDto = {
   properties: {
     appId: {
@@ -1225,7 +1241,8 @@ export const $DialogueTextToSpeechDto = {
       description: `Unique identifier of the message`,
     },
     actor: {
-      type: 'Enum',
+      type: 'DialogueActor',
+      description: `Actor providing the text, can be user or agent`,
     },
     text: {
       type: 'string',
@@ -1281,7 +1298,8 @@ export const $DialogueMessageDto = {
       description: `Unique identifier of the message`,
     },
     actor: {
-      type: 'Enum',
+      type: 'DialogueActor',
+      description: `Actor providing the text, can be user or agent`,
     },
     text: {
       type: 'string',
@@ -1356,6 +1374,10 @@ export const $SessionDto = {
   },
 } as const;
 
+export const $AgentStatus = {
+  type: 'Enum',
+} as const;
+
 export const $AgentHeartBeatEventDto = {
   properties: {
     appId: {
@@ -1379,7 +1401,7 @@ export const $AgentHeartBeatEventDto = {
       isRequired: true,
     },
     status: {
-      type: 'Enum',
+      type: 'AgentStatus',
       isRequired: true,
     },
   },
@@ -1492,6 +1514,10 @@ export const $SessionStorageSearchDto = {
   },
 } as const;
 
+export const $SupportedContentTypes = {
+  type: 'Enum',
+} as const;
+
 export const $ImageContentDto = {
   properties: {
     src: {
@@ -1547,7 +1573,7 @@ export const $ImageUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1621,7 +1647,7 @@ export const $VideoUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1674,7 +1700,7 @@ export const $PdfUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1727,7 +1753,7 @@ export const $WebpageUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1780,7 +1806,7 @@ export const $ObjectUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1833,7 +1859,7 @@ export const $TextUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1910,7 +1936,7 @@ export const $QuizUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -1954,7 +1980,7 @@ export const $ClearUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2001,7 +2027,7 @@ export const $ClearScreenDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2088,7 +2114,7 @@ export const $ButtonsUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2132,7 +2158,7 @@ export const $DialogueMessageUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2189,7 +2215,7 @@ export const $LinkUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2242,7 +2268,7 @@ export const $HtmlUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2299,7 +2325,7 @@ export const $EmailUIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2363,7 +2389,7 @@ export const $UIContentDto = {
       description: `Track the interaction session, if available`,
     },
     contentType: {
-      type: 'Enum',
+      type: 'SupportedContentTypes',
       isRequired: true,
     },
     content: {
@@ -2422,7 +2448,7 @@ export const $UIAssetDto = {
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'RepositoryAssetTypes',
       isRequired: true,
     },
     name: {

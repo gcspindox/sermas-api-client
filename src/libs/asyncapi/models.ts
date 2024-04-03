@@ -6,6 +6,9 @@ import {
   ModuleResourceDto,
   RepositoryConfigDto,
   RepositoryAvatarDto,
+  RepositoryAssetTypes,
+  ModelType,
+  ModelGender,
   AvatarCameraConfig,
   Point3D,
   RepositoryBackgroundDto,
@@ -23,11 +26,14 @@ import {
   PositionDto,
   UserInteractionIntentionDto,
   DialogueMessageDto,
+  DialogueActor,
   Buffer,
   SessionDto,
+  AgentStatus,
   SessionStorageRecordDto,
   UIAssetDto,
   UIContentDto,
+  SupportedContentTypes,
   UIContentOptionsDto,
   UIInteractionDTO,
   XRMarkerDto,
@@ -55,51 +61,12 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export type anonymous_schema_37 =
-  | 'avatars'
-  | 'backgrounds'
-  | 'robots'
-  | 'documents'
-  | 'animations';
-
-export type anonymous_schema_40 = 'readyplayerme' | 'custom';
-
-export type anonymous_schema_41 = 'M' | 'F';
-
-export type anonymous_schema_47 =
-  | 'avatars'
-  | 'backgrounds'
-  | 'robots'
-  | 'documents'
-  | 'animations';
-
-export type anonymous_schema_53 =
-  | 'avatars'
-  | 'backgrounds'
-  | 'robots'
-  | 'documents'
-  | 'animations';
-
-export type anonymous_schema_64 =
-  | 'avatars'
-  | 'backgrounds'
-  | 'robots'
-  | 'documents'
-  | 'animations';
-
-export type anonymous_schema_69 =
-  | 'avatars'
-  | 'backgrounds'
-  | 'robots'
-  | 'documents'
-  | 'animations';
-
-export interface anonymous_schema_94 {
+export interface anonymous_schema_87 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_97 {
+export interface anonymous_schema_90 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -169,7 +136,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_159 = 'start' | 'stop';
+export type anonymous_schema_152 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -247,8 +214,6 @@ export interface DialogueToolTriggeredEventDto {
   name: string;
 }
 
-export type anonymous_schema_208 = 'user' | 'agent';
-
 export interface SermasSessionDto {
   appId: string;
   clientId?: string;
@@ -269,19 +234,9 @@ export interface AgentDto {
   clientId?: string;
   userId?: string;
   agentId: string;
-  status: anonymous_schema_237;
+  status: AgentStatus;
   modules: string[];
 }
-
-export type anonymous_schema_237 =
-  | 'unavailable'
-  | 'error'
-  | 'not_ready'
-  | 'ready'
-  | 'loading'
-  | 'interacting'
-  | 'waiting'
-  | 'processing';
 
 export interface AgentChangedDto {
   appId: string;
@@ -318,29 +273,6 @@ export interface UIAssetChangedDto {
   operation: string;
   record: UIAssetDto;
 }
-
-export type anonymous_schema_268 =
-  | 'avatars'
-  | 'backgrounds'
-  | 'robots'
-  | 'documents'
-  | 'animations';
-
-export type anonymous_schema_279 =
-  | 'video'
-  | 'image'
-  | 'pdf'
-  | 'webpage'
-  | 'object'
-  | 'text'
-  | 'email'
-  | 'html'
-  | 'link'
-  | 'dialogue-message'
-  | 'navigation'
-  | 'buttons'
-  | 'quiz'
-  | 'clear-screen';
 
 export interface UIInteractionEventDto {
   appId: string;

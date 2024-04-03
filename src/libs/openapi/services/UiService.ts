@@ -1,6 +1,7 @@
 import type {
   Buffer,
   RepositoryAssetMetadataDto,
+  RepositoryAssetTypes,
   UIContentDto,
   UIInteractionDTO,
   UIModelMapBlendShapesRequestDto,
@@ -28,7 +29,7 @@ export type TDataGetAsset = {
 export type TDataSaveAsset = {
   formData: {
     id?: string;
-    type?: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+    type?: RepositoryAssetTypes;
     name?: string;
     path?: string;
     metadata?: RepositoryAssetMetadataDto;
@@ -42,7 +43,7 @@ export type TDataSaveAsset = {
 export type TDataAdminSaveAsset = {
   formData: {
     id?: string;
-    type?: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+    type?: RepositoryAssetTypes;
     name?: string;
     path?: string;
     metadata?: RepositoryAssetMetadataDto;

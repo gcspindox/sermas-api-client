@@ -34,7 +34,36 @@ export type RefreshTokenRequestDto = {
   clientSecret?: string;
 };
 
+export type RepositoryAssetTypes =
+  | 'avatars'
+  | 'backgrounds'
+  | 'robots'
+  | 'documents'
+  | 'animations';
+
+export const RepositoryAssetTypesEnum = {
+  AVATARS: 'avatars',
+  BACKGROUNDS: 'backgrounds',
+  ROBOTS: 'robots',
+  DOCUMENTS: 'documents',
+  ANIMATIONS: 'animations',
+} as const;
+
 export type RepositoryAssetMetadataDto = {};
+
+export type ModelType = 'readyplayerme' | 'custom';
+
+export const ModelTypeEnum = {
+  READYPLAYERME: 'readyplayerme',
+  CUSTOM: 'custom',
+} as const;
+
+export type ModelGender = 'M' | 'F';
+
+export const ModelGenderEnum = {
+  M: 'M',
+  F: 'F',
+} as const;
 
 export type Point3D = {
   x: number;
@@ -49,12 +78,12 @@ export type AvatarCameraConfig = {
 
 export type RepositoryAvatarDto = {
   id: string;
-  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  type: RepositoryAssetTypes;
   name?: string;
   path: string;
   metadata?: RepositoryAssetMetadataDto;
-  modelType: 'readyplayerme' | 'custom';
-  gender: 'M' | 'F';
+  modelType: ModelType;
+  gender: ModelGender;
   camera?: AvatarCameraConfig;
   cameraMobile?: AvatarCameraConfig;
 };
@@ -65,7 +94,7 @@ export type RepositoryBackgroundMetadataDto = {
 
 export type RepositoryBackgroundDto = {
   id: string;
-  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  type: RepositoryAssetTypes;
   name?: string;
   path: string;
   metadata?: RepositoryBackgroundMetadataDto;
@@ -81,7 +110,7 @@ export type RobotMapDto = {
 
 export type RepositoryRobotModelDto = {
   id: string;
-  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  type: RepositoryAssetTypes;
   name?: string;
   path: string;
   metadata?: RepositoryAssetMetadataDto;
@@ -91,7 +120,7 @@ export type RepositoryRobotModelDto = {
 
 export type RepositoryDocumentDto = {
   id: string;
-  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  type: RepositoryAssetTypes;
   name?: string;
   path: string;
   metadata?: RepositoryAssetMetadataDto;
@@ -99,7 +128,7 @@ export type RepositoryDocumentDto = {
 
 export type RepositoryAnimationDto = {
   id: string;
-  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  type: RepositoryAssetTypes;
   name?: string;
   path: string;
   metadata?: RepositoryAssetMetadataDto;
@@ -472,6 +501,11 @@ export type UserInteractionIntentionDto = {
   sessionId: string;
 };
 
+export const InteractionTypeEnum = {
+  START: 'start',
+  STOP: 'stop',
+} as const;
+
 export type DialogueDocumentMetadataDto = {
   uri?: string;
   source?: string;
@@ -483,6 +517,13 @@ export type DialogueDocumentDto = {
   content: string;
   metadata: DialogueDocumentMetadataDto;
 };
+
+export type DialogueActor = 'user' | 'agent';
+
+export const DialogueActorEnum = {
+  USER: 'user',
+  AGENT: 'agent',
+} as const;
 
 export type DialogueTextToSpeechDto = {
   appId: string;
@@ -505,7 +546,7 @@ export type DialogueTextToSpeechDto = {
   /**
    * Actor providing the text, can be user or agent
    */
-  actor?: 'user' | 'agent';
+  actor?: DialogueActor;
   /**
    * Text to convert to speech. If emotion field is set, it will be converted to SSML. If also `ssml` field is set, this field will be ignored
    */
@@ -557,7 +598,7 @@ export type DialogueMessageDto = {
   /**
    * Actor providing the text, can be user or agent
    */
-  actor?: 'user' | 'agent';
+  actor?: DialogueActor;
   /**
    * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
    */
@@ -608,6 +649,27 @@ export type SessionDto = {
   closedAt: string;
 };
 
+export type AgentStatus =
+  | 'unavailable'
+  | 'error'
+  | 'not_ready'
+  | 'ready'
+  | 'loading'
+  | 'interacting'
+  | 'waiting'
+  | 'processing';
+
+export const AgentStatusEnum = {
+  UNAVAILABLE: 'unavailable',
+  ERROR: 'error',
+  NOT_READY: 'not_ready',
+  READY: 'ready',
+  LOADING: 'loading',
+  INTERACTING: 'interacting',
+  WAITING: 'waiting',
+  PROCESSING: 'processing',
+} as const;
+
 export type AgentHeartBeatEventDto = {
   appId: string;
   /**
@@ -623,15 +685,7 @@ export type AgentHeartBeatEventDto = {
    */
   sessionId?: string;
   moduleId: string;
-  status:
-    | 'unavailable'
-    | 'error'
-    | 'not_ready'
-    | 'ready'
-    | 'loading'
-    | 'interacting'
-    | 'waiting'
-    | 'processing';
+  status: AgentStatus;
 };
 
 export type SessionSupportRequestDto = {
@@ -684,6 +738,39 @@ export type SessionStorageSearchDto = {
   storageId?: Array<string>;
 };
 
+export type SupportedContentTypes =
+  | 'video'
+  | 'image'
+  | 'pdf'
+  | 'webpage'
+  | 'object'
+  | 'text'
+  | 'email'
+  | 'html'
+  | 'link'
+  | 'dialogue-message'
+  | 'navigation'
+  | 'buttons'
+  | 'quiz'
+  | 'clear-screen';
+
+export const SupportedContentTypesEnum = {
+  VIDEO: 'video',
+  IMAGE: 'image',
+  PDF: 'pdf',
+  WEBPAGE: 'webpage',
+  OBJECT: 'object',
+  TEXT: 'text',
+  EMAIL: 'email',
+  HTML: 'html',
+  LINK: 'link',
+  DIALOGUE_MESSAGE: 'dialogue-message',
+  NAVIGATION: 'navigation',
+  BUTTONS: 'buttons',
+  QUIZ: 'quiz',
+  CLEAR_SCREEN: 'clear-screen',
+} as const;
+
 export type ImageContentDto = {
   src: string;
   width?: number;
@@ -720,21 +807,7 @@ export type ImageUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: ImageContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -766,21 +839,7 @@ export type VideoUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: VideoContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -806,21 +865,7 @@ export type PdfUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: PdfContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -846,21 +891,7 @@ export type WebpageUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: WebpageContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -886,21 +917,7 @@ export type ObjectUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: ObjectContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -926,21 +943,7 @@ export type TextUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: TextContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -973,21 +976,7 @@ export type QuizUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: QuizContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1009,21 +998,7 @@ export type ClearUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: Record<string, unknown>;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1045,21 +1020,7 @@ export type ClearScreenDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: Record<string, unknown>;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1094,21 +1055,7 @@ export type ButtonsUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: ButtonsContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1130,21 +1077,7 @@ export type DialogueMessageUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: DialogueMessageDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1171,21 +1104,7 @@ export type LinkUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: LinkContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1211,21 +1130,7 @@ export type HtmlUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: HtmlContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1252,21 +1157,7 @@ export type EmailUIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: EmailContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1294,21 +1185,7 @@ export type UIContentDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  contentType:
-    | 'video'
-    | 'image'
-    | 'pdf'
-    | 'webpage'
-    | 'object'
-    | 'text'
-    | 'email'
-    | 'html'
-    | 'link'
-    | 'dialogue-message'
-    | 'navigation'
-    | 'buttons'
-    | 'quiz'
-    | 'clear-screen';
+  contentType: SupportedContentTypes;
   content: Record<string, unknown>;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
@@ -1326,7 +1203,7 @@ export type UIModelMapBlendShapesResponseDto = {
 
 export type UIAssetDto = {
   id: string;
-  type: 'avatars' | 'backgrounds' | 'robots' | 'documents' | 'animations';
+  type: RepositoryAssetTypes;
   name?: string;
   path: string;
   metadata?: RepositoryAssetMetadataDto;
@@ -1343,6 +1220,12 @@ export type ViewLogsRequestDto = {
   type?: 'speech' | 'characterization' | 'speechToText';
   ts?: string;
 };
+
+export const TypeEnum = {
+  SPEECH: 'speech',
+  CHARACTERIZATION: 'characterization',
+  SPEECH_TO_TEXT: 'speechToText',
+} as const;
 
 export type XRMarkerListRequestDto = {
   appId: string;

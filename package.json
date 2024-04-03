@@ -23,7 +23,7 @@
     "build": "npm run clean && tsup && cp ./package.json ./README.md ./dist",
     "build:watch": "nodemon --watch ./src --exec 'npm run build'",
     "test": "jest",
-    "generate:openapi": "rm -rf ./src/libs/openapi && openapi-ts --enums typescript --input ./openapi.json --output ./src/libs/openapi --name SermasApi --client axios",
+    "generate:openapi": "rm -rf ./src/libs/openapi && openapi-ts --enums javascript  --client fetch --input ./openapi.json --output ./src/libs/openapi --name SermasApi",
     "generate:asyncapi": "rm -rf ./src/libs/asyncapi && mkdir -p ./src/libs/asyncapi && node --loader ts-node/esm ./src/asyncapi-generator.ts",
     "generate:asyncapi:dev": "nodemon --watch ./src/asyncapi-generator.ts ./src/asyncapi-generator.ts"
   },

@@ -1,7 +1,7 @@
 import type { BaseHttpRequest } from './core/BaseHttpRequest';
 import type { OpenAPIConfig } from './core/OpenAPI';
 import { Interceptors } from './core/OpenAPI';
-import { AxiosHttpRequest } from './core/AxiosHttpRequest';
+import { FetchHttpRequest } from './core/FetchHttpRequest';
 
 import { AgentService } from './services/AgentService';
 import { AuthenticationService } from './services/AuthenticationService';
@@ -30,7 +30,7 @@ export class SermasApi {
 
   constructor(
     config?: Partial<OpenAPIConfig>,
-    HttpRequest: HttpRequestConstructor = AxiosHttpRequest,
+    HttpRequest: HttpRequestConstructor = FetchHttpRequest,
   ) {
     this.request = new HttpRequest({
       BASE: config?.BASE ?? '',

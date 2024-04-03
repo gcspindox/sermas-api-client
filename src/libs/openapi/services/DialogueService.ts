@@ -1,4 +1,5 @@
 import type {
+  DialogueActor,
   DialogueDocumentDto,
   DialogueMessageDto,
   DialogueTextToSpeechDto,
@@ -45,7 +46,7 @@ export type TDataText = {
     /**
      * Actor providing the text, can be user or agent
      */
-    actor?: 'user' | 'agent';
+    actor?: DialogueActor;
     /**
      * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
      */
