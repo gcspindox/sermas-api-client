@@ -32,10 +32,10 @@ export class Dialogue {
 
   async dialogueMessages(
     event: DialogueMessageDto,
-    params?: { appId?: string },
+    params?: { appId?: string; sessionId?: string },
   ) {
     return this.broker.publish<DialogueMessageDto>(
-      'app/:appId/dialogue/messages',
+      'app/:appId/dialogue/messages/:sessionId',
       event,
       params,
     );
@@ -43,10 +43,10 @@ export class Dialogue {
 
   async onDialogueMessages(
     fn: (event: DialogueMessageDto) => void | Promise<void>,
-    params?: { appId?: string },
+    params?: { appId?: string; sessionId?: string },
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueMessageDto>(
-      'app/:appId/dialogue/messages',
+      'app/:appId/dialogue/messages/:sessionId',
       fn,
       params,
     );
