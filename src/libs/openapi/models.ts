@@ -469,6 +469,27 @@ export type UpdateUserRequestDto = {
   authorization?: Array<AuthorizationUser>;
 };
 
+export type ObjectDetectionType = 'CARRIED_OBJECT';
+
+export const ObjectDetectionTypeEnum = {
+  CARRIED_OBJECT: 'CARRIED_OBJECT',
+} as const;
+
+export type ObjectDetectionRequest = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  image: string;
+  detectionType: ObjectDetectionType;
+  filter: Array<string>;
+};
+
 export type SentimentAnalysisRequest = {
   appId: string;
   /**

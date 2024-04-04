@@ -188,6 +188,7 @@ export interface ObjectDetectionEventDto {
 export interface ObjectDetectionDto {
   probability: number;
   value: string;
+  bbox: BoundingBox;
 }
 
 export interface QRCodeEventDto {

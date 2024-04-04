@@ -1126,6 +1126,43 @@ export const $UpdateUserRequestDto = {
   },
 } as const;
 
+export const $ObjectDetectionType = {
+  type: 'Enum',
+} as const;
+
+export const $ObjectDetectionRequest = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    image: {
+      type: 'string',
+      isRequired: true,
+      format: 'byte',
+    },
+    detectionType: {
+      type: 'ObjectDetectionType',
+      isRequired: true,
+    },
+    filter: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
 export const $SentimentAnalysisRequest = {
   properties: {
     appId: {

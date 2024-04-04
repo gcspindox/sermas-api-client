@@ -1,10 +1,14 @@
 import type {
+  ObjectDetectionRequest,
   SentimentAnalysisRequest,
   UserInteractionIntentionDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
+export type TDataObjecTdEtection = {
+  requestBody: ObjectDetectionRequest;
+};
 export type TDataDetectionControllerSentimentAnalysis = {
   requestBody: SentimentAnalysisRequest;
 };
@@ -26,6 +30,20 @@ export type TDataDetectionControllerServe = {
 
 export class DetectionService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
+
+  /**
+   * @returns any
+   * @throws ApiError
+   */
+  public objecTdEtection(data: TDataObjecTdEtection): CancelablePromise<any> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/detection/object-detection',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
 
   /**
    * @returns any
