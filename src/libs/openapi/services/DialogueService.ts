@@ -68,6 +68,10 @@ export type TDataText = {
      */
     llm?: string;
     /**
+     * The avatar id used for interaction
+     */
+    avatar?: string;
+    /**
      * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
      */
     chunkId?: number;

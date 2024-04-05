@@ -590,6 +590,10 @@ export type DialogueTextToSpeechDto = {
    */
   llm?: string;
   /**
+   * The avatar id used for interaction
+   */
+  avatar?: string;
+  /**
    * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
    */
   chunkId?: number;
@@ -641,6 +645,10 @@ export type DialogueMessageDto = {
    * LLM engine to use
    */
   llm?: string;
+  /**
+   * The avatar id used for interaction
+   */
+  avatar?: string;
   /**
    * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
    */

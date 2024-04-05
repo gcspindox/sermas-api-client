@@ -1304,6 +1304,10 @@ export const $DialogueTextToSpeechDto = {
       type: 'string',
       description: `LLM engine to use`,
     },
+    avatar: {
+      type: 'string',
+      description: `The avatar id used for interaction`,
+    },
     chunkId: {
       type: 'number',
       description: `Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.`,
@@ -1361,6 +1365,10 @@ export const $DialogueMessageDto = {
     llm: {
       type: 'string',
       description: `LLM engine to use`,
+    },
+    avatar: {
+      type: 'string',
+      description: `The avatar id used for interaction`,
     },
     chunkId: {
       type: 'number',
