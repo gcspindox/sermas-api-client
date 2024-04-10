@@ -256,6 +256,38 @@ export type AppSettingsDto = {
   llm?: string;
   background: string;
   prompt?: AppPromptDto;
+  skipWelcomeMessage?: boolean;
+};
+
+export type ToolsParameterSchemaTypes = 'string' | 'number' | 'boolean';
+
+export const ToolsParameterSchemaTypesEnum = {
+  STRING: 'string',
+  NUMBER: 'number',
+  BOOLEAN: 'boolean',
+} as const;
+
+export type ToolsParameterSchema = {
+  /**
+   * function parameter name
+   */
+  parameter: string;
+  /**
+   * parameter type (one of string,number,boolean)
+   */
+  type: ToolsParameterSchemaTypes;
+  /**
+   * description for the parameter, useful to give an hint while matching from the user input
+   */
+  description: string;
+  /**
+   * flag as required
+   */
+  required?: boolean;
+  /**
+   * provide a predefined value, useful to fill data otherwise missing from the context
+   */
+  value?: string | number | boolean;
 };
 
 export type ToolsRequestSchemaAuthBasic = {
@@ -316,7 +348,7 @@ export type ToolsRequestSchema = {
 export type AppToolsDTO = {
   name: string;
   description: string;
-  schema?: Array<string>;
+  schema?: Array<ToolsParameterSchema>;
   request?: ToolsRequestSchema;
   emitter?: string;
   returnDirect?: boolean;
@@ -677,6 +709,7 @@ export type SessionDto = {
   modifiedAt: string;
   createdAt: string;
   closedAt: string;
+  settings?: AppSettingsDto;
 };
 
 export type AgentStatus =

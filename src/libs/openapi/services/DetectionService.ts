@@ -6,7 +6,7 @@ import type {
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
-export type TDataObjecTdEtection = {
+export type TDataObjectDetection = {
   requestBody: ObjectDetectionRequest;
 };
 export type TDataDetectionControllerSentimentAnalysis = {
@@ -35,7 +35,7 @@ export class DetectionService {
    * @returns any
    * @throws ApiError
    */
-  public objecTdEtection(data: TDataObjecTdEtection): CancelablePromise<any> {
+  public objectDetection(data: TDataObjectDetection): CancelablePromise<any> {
     const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',

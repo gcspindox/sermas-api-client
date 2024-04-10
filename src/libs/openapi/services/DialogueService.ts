@@ -1,4 +1,5 @@
 import type {
+  AppToolsDTO,
   DialogueActor,
   DialogueDocumentDto,
   DialogueMessageDto,
@@ -89,9 +90,14 @@ export type TDataStopAgentSpeech = {
   appId: string;
   sessionId: string;
 };
-export type TDataGetToolsfFromAppId = {
+export type TDataSetTools = {
   appId: string;
-  requestBody: Array<string>;
+  requestBody: Array<AppToolsDTO>;
+  sessionId: string;
+};
+export type TDataAddTools = {
+  appId: string;
+  requestBody: Array<AppToolsDTO>;
   sessionId: string;
 };
 
@@ -230,15 +236,33 @@ export class DialogueService {
   }
 
   /**
+   * Set the tools, overriding existing ones
    * @returns any
    * @throws ApiError
    */
-  public getToolsfFromAppId(
-    data: TDataGetToolsfFromAppId,
-  ): CancelablePromise<any> {
+  public setTools(data: TDataSetTools): CancelablePromise<any> {
     const { appId, requestBody, sessionId } = data;
     return this.httpRequest.request({
       method: 'POST',
+      url: '/api/dialogue/tools/{appId}/{sessionId}',
+      path: {
+        appId,
+        sessionId,
+      },
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * Add tools to the session. Existing with the same name will be overridden.
+   * @returns any
+   * @throws ApiError
+   */
+  public addTools(data: TDataAddTools): CancelablePromise<any> {
+    const { appId, requestBody, sessionId } = data;
+    return this.httpRequest.request({
+      method: 'PUT',
       url: '/api/dialogue/tools/{appId}/{sessionId}',
       path: {
         appId,

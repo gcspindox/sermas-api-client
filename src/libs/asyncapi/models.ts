@@ -21,6 +21,8 @@ import {
   AppSettingsDto,
   AppPromptDto,
   AppToolsDTO,
+  ToolsParameterSchema,
+  ToolsParameterSchemaTypes,
   ToolsRequestSchema,
   PlatformModuleConfigDto,
   PositionDto,
@@ -58,15 +60,16 @@ export interface PlatformAppChangedDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: PlatformAppDto;
 }
 
-export interface anonymous_schema_88 {
+export interface anonymous_schema_96 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_91 {
+export interface anonymous_schema_99 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -82,6 +85,7 @@ export interface PlatformAppClientChangedDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: AppClientDto;
 }
 
@@ -90,6 +94,7 @@ export interface PlatformAppModuleConfigEventDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: AppModuleConfigDto;
 }
 
@@ -136,7 +141,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_153 = 'start' | 'stop';
+export type anonymous_schema_163 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -213,6 +218,16 @@ export interface DialogueToolTriggeredEventDto {
   userId?: string;
   sessionId?: string;
   name: string;
+  tool: AppToolsDTO;
+}
+
+export interface DialogueToolsChanged {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  operation: string;
+  sessionId?: string;
+  record: AppToolsDTO[];
 }
 
 export interface SermasSessionDto {
@@ -227,6 +242,7 @@ export interface SessionChangedDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: SessionDto;
 }
 
@@ -244,8 +260,8 @@ export interface AgentChangedDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   moduleId: string;
-  sessionId: string;
   record: AgentDto;
 }
 
@@ -264,6 +280,7 @@ export interface SessionStorageEventDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: SessionStorageRecordDto;
 }
 
@@ -272,6 +289,7 @@ export interface UIAssetChangedDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: UIAssetDto;
 }
 
@@ -289,6 +307,7 @@ export interface XRMarkerChangedDto {
   clientId?: string;
   userId?: string;
   operation: string;
+  sessionId?: string;
   record: XRMarkerDto;
 }
 

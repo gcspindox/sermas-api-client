@@ -581,6 +581,52 @@ export const $AppSettingsDto = {
     prompt: {
       type: 'AppPromptDto',
     },
+    skipWelcomeMessage: {
+      type: 'boolean',
+    },
+  },
+} as const;
+
+export const $ToolsParameterSchemaTypes = {
+  type: 'Enum',
+} as const;
+
+export const $ToolsParameterSchema = {
+  properties: {
+    parameter: {
+      type: 'string',
+      description: `function parameter name`,
+      isRequired: true,
+    },
+    type: {
+      type: 'ToolsParameterSchemaTypes',
+      description: `parameter type (one of string,number,boolean)`,
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `description for the parameter, useful to give an hint while matching from the user input`,
+      isRequired: true,
+    },
+    required: {
+      type: 'boolean',
+      description: `flag as required`,
+    },
+    value: {
+      type: 'any-of',
+      description: `provide a predefined value, useful to fill data otherwise missing from the context`,
+      contains: [
+        {
+          type: 'string',
+        },
+        {
+          type: 'number',
+        },
+        {
+          type: 'boolean',
+        },
+      ],
+    },
   },
 } as const;
 
@@ -687,7 +733,7 @@ export const $AppToolsDTO = {
     schema: {
       type: 'array',
       contains: {
-        type: 'string',
+        type: 'ToolsParameterSchema',
       },
     },
     request: {
@@ -1418,6 +1464,9 @@ export const $SessionDto = {
       type: 'string',
       isRequired: true,
       format: 'date-time',
+    },
+    settings: {
+      type: 'AppSettingsDto',
     },
   },
 } as const;

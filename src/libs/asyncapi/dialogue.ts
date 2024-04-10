@@ -2,7 +2,11 @@
 
 import { Broker } from '../broker';
 
-import { DialogueToolTriggeredEventDto, SermasSessionDto } from './models';
+import {
+  DialogueToolTriggeredEventDto,
+  DialogueToolsChanged,
+  SermasSessionDto,
+} from './models';
 import { DialogueMessageDto, Buffer } from '../openapi/models';
 
 export class Dialogue {
@@ -25,6 +29,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueToolTriggeredEventDto>(
       'app/:appId/dialogue/tool/:name',
+      fn,
+      params,
+    );
+  }
+
+  async toolChanged(
+    event: DialogueToolsChanged,
+    params?: { appId?: string; sessionId?: string },
+  ) {
+    return this.broker.publish<DialogueToolsChanged>(
+      'app/:appId/dialogue/tool/changed/:sessionId',
+      event,
+      params,
+    );
+  }
+
+  async onToolChanged(
+    fn: (event: DialogueToolsChanged) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueToolsChanged>(
+      'app/:appId/dialogue/tool/changed/:sessionId',
       fn,
       params,
     );
