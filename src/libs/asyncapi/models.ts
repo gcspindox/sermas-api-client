@@ -20,6 +20,7 @@ import {
   AppClientDto,
   AppSettingsDto,
   AppPromptDto,
+  InteractionStartTypes,
   AppToolsDTO,
   ToolsParameterSchema,
   ToolsParameterSchemaTypes,

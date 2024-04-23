@@ -556,6 +556,10 @@ export const $AppPromptDto = {
   },
 } as const;
 
+export const $InteractionStartTypes = {
+  type: 'Enum',
+} as const;
+
 export const $AppSettingsDto = {
   properties: {
     ttsEnabled: {
@@ -584,6 +588,9 @@ export const $AppSettingsDto = {
     skipWelcomeMessage: {
       type: 'boolean',
     },
+    interactionStart: {
+      type: 'InteractionStartTypes',
+    },
   },
 } as const;
 
@@ -600,7 +607,6 @@ export const $ToolsParameterSchema = {
     },
     type: {
       type: 'ToolsParameterSchemaTypes',
-      description: `parameter type (one of string,number,boolean)`,
       isRequired: true,
     },
     description: {
@@ -1328,7 +1334,6 @@ export const $DialogueTextToSpeechDto = {
     },
     actor: {
       type: 'DialogueActor',
-      description: `Actor providing the text, can be user or agent`,
     },
     text: {
       type: 'string',
@@ -1389,7 +1394,6 @@ export const $DialogueMessageDto = {
     },
     actor: {
       type: 'DialogueActor',
-      description: `Actor providing the text, can be user or agent`,
     },
     text: {
       type: 'string',

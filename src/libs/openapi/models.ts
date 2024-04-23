@@ -248,6 +248,19 @@ export type AppPromptDto = {
   text: string;
 };
 
+export type InteractionStartTypes =
+  | 'on-load'
+  | 'touch'
+  | 'speak'
+  | 'intent-detection';
+
+export const InteractionStartTypesEnum = {
+  ON_LOAD: 'on-load',
+  TOUCH: 'touch',
+  SPEAK: 'speak',
+  INTENT_DETECTION: 'intent-detection',
+} as const;
+
 export type AppSettingsDto = {
   ttsEnabled?: boolean;
   login?: boolean;
@@ -257,14 +270,23 @@ export type AppSettingsDto = {
   background: string;
   prompt?: AppPromptDto;
   skipWelcomeMessage?: boolean;
+  interactionStart?: InteractionStartTypes;
 };
 
-export type ToolsParameterSchemaTypes = 'string' | 'number' | 'boolean';
+/**
+ * parameter type (one of string,number,boolean,object)
+ */
+export type ToolsParameterSchemaTypes =
+  | 'string'
+  | 'number'
+  | 'boolean'
+  | 'object';
 
 export const ToolsParameterSchemaTypesEnum = {
   STRING: 'string',
   NUMBER: 'number',
   BOOLEAN: 'boolean',
+  OBJECT: 'object',
 } as const;
 
 export type ToolsParameterSchema = {
@@ -272,9 +294,6 @@ export type ToolsParameterSchema = {
    * function parameter name
    */
   parameter: string;
-  /**
-   * parameter type (one of string,number,boolean)
-   */
   type: ToolsParameterSchemaTypes;
   /**
    * description for the parameter, useful to give an hint while matching from the user input
@@ -572,6 +591,9 @@ export type DialogueDocumentDto = {
   metadata: DialogueDocumentMetadataDto;
 };
 
+/**
+ * Actor providing the text, can be user or agent
+ */
 export type DialogueActor = 'user' | 'agent';
 
 export const DialogueActorEnum = {
@@ -597,9 +619,6 @@ export type DialogueTextToSpeechDto = {
    * Unique identifier of the message
    */
   messageId?: string;
-  /**
-   * Actor providing the text, can be user or agent
-   */
   actor?: DialogueActor;
   /**
    * Text to convert to speech. If emotion field is set, it will be converted to SSML. If also `ssml` field is set, this field will be ignored
@@ -653,9 +672,6 @@ export type DialogueMessageDto = {
    * Unique identifier of the message
    */
   messageId?: string;
-  /**
-   * Actor providing the text, can be user or agent
-   */
   actor?: DialogueActor;
   /**
    * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
