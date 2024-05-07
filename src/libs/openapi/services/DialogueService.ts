@@ -222,6 +222,17 @@ export class DialogueService {
   }
 
   /**
+   * @returns any
+   * @throws ApiError
+   */
+  public listModels(): CancelablePromise<any> {
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/api/dialogue/speech/models',
+    });
+  }
+
+  /**
    * Set the tools, overriding existing ones
    * @returns any
    * @throws ApiError

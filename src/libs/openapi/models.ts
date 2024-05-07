@@ -271,6 +271,7 @@ export type AppSettingsDto = {
   prompt?: AppPromptDto;
   skipWelcomeMessage?: boolean;
   interactionStart?: InteractionStartTypes;
+  theme?: Record<string, unknown>;
 };
 
 /**
@@ -584,11 +585,22 @@ export type DialogueDocumentMetadataDto = {
   source?: string;
 };
 
+export type DialogueDocumentOptionsDto = {
+  /**
+   * Define the document splitting strategy. "phrase" split by sentence, "single-line" use each line as document, "double-line" use double break-line as document
+   */
+  parser?: Record<string, unknown>;
+};
+
 export type DialogueDocumentDto = {
   appId: string;
   documentId: string;
   content: string;
   metadata: DialogueDocumentMetadataDto;
+  /**
+   * Configure the document import handling, such as parser
+   */
+  options: DialogueDocumentOptionsDto;
 };
 
 /**
