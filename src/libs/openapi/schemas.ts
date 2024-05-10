@@ -83,6 +83,11 @@ export const $RefreshTokenRequestDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     refreshToken: {
       type: 'string',
       isRequired: true,
@@ -1047,6 +1052,11 @@ export const $LoginRequestDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     username: {
       type: 'string',
       isRequired: true,
@@ -1104,6 +1114,11 @@ export const $RegistrationRequestDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     username: {
       type: 'string',
@@ -1166,6 +1181,11 @@ export const $UpdateUserRequestDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     password: {
       type: 'string',
     },
@@ -1202,6 +1222,11 @@ export const $ObjectDetectionRequest = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     image: {
       type: 'string',
       isRequired: true,
@@ -1235,6 +1260,11 @@ export const $SentimentAnalysisRequest = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     text: {
       type: 'string',
       isRequired: true,
@@ -1255,6 +1285,11 @@ export const $UserInteractionIntentionDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     moduleId: {
       type: 'string',
@@ -1351,13 +1386,14 @@ export const $DialogueTextToSpeechDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `User session identifier`,
-    },
-    messageId: {
-      type: 'string',
-      description: `Unique identifier of the message`,
     },
     actor: {
       type: 'DialogueActor',
@@ -1386,9 +1422,13 @@ export const $DialogueTextToSpeechDto = {
       type: 'string',
       description: `The avatar id used for interaction`,
     },
+    messageId: {
+      type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
     chunkId: {
-      type: 'number',
-      description: `Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.`,
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
     ssml: {
       type: 'string',
@@ -1411,13 +1451,14 @@ export const $DialogueMessageDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `User session identifier`,
-    },
-    messageId: {
-      type: 'string',
-      description: `Unique identifier of the message`,
     },
     actor: {
       type: 'DialogueActor',
@@ -1447,9 +1488,13 @@ export const $DialogueMessageDto = {
       type: 'string',
       description: `The avatar id used for interaction`,
     },
+    messageId: {
+      type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
     chunkId: {
-      type: 'number',
-      description: `Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.`,
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -1467,6 +1512,11 @@ export const $SessionDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     sessionId: {
       type: 'string',
@@ -1520,6 +1570,11 @@ export const $AgentHeartBeatEventDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -1548,6 +1603,11 @@ export const $SessionSupportRequestDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     sessionId: {
       type: 'string',
@@ -1578,6 +1638,11 @@ export const $SessionSupportResponseDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     supportId: {
       type: 'string',
       isRequired: true,
@@ -1598,6 +1663,11 @@ export const $SessionStorageRecordDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     storageId: {
       type: 'string',
@@ -1696,6 +1766,11 @@ export const $ImageUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -1717,11 +1792,13 @@ export const $ImageUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -1770,6 +1847,11 @@ export const $VideoUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -1791,11 +1873,13 @@ export const $VideoUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -1823,6 +1907,11 @@ export const $PdfUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -1844,11 +1933,13 @@ export const $PdfUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -1876,6 +1967,11 @@ export const $WebpageUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -1897,11 +1993,13 @@ export const $WebpageUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -1929,6 +2027,11 @@ export const $ObjectUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -1950,11 +2053,13 @@ export const $ObjectUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -1982,6 +2087,11 @@ export const $TextUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2003,11 +2113,13 @@ export const $TextUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2059,6 +2171,11 @@ export const $QuizUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2080,11 +2197,13 @@ export const $QuizUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2103,6 +2222,11 @@ export const $ClearUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2127,11 +2251,13 @@ export const $ClearUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2150,6 +2276,11 @@ export const $ClearScreenDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2174,11 +2305,13 @@ export const $ClearScreenDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2237,6 +2370,11 @@ export const $ButtonsUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2258,11 +2396,13 @@ export const $ButtonsUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2280,6 +2420,11 @@ export const $DialogueMessageUIContentDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     sessionId: {
       type: 'string',
@@ -2302,11 +2447,13 @@ export const $DialogueMessageUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2338,6 +2485,11 @@ export const $LinkUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2359,11 +2511,13 @@ export const $LinkUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2391,6 +2545,11 @@ export const $HtmlUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2412,11 +2571,13 @@ export const $HtmlUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2448,6 +2609,11 @@ export const $EmailUIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2469,11 +2635,13 @@ export const $EmailUIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2512,6 +2680,11 @@ export const $UIContentDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
@@ -2536,11 +2709,13 @@ export const $UIContentDto = {
     options: {
       type: 'UIContentOptionsDto',
     },
-    chunkId: {
-      type: 'number',
-    },
     messageId: {
       type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
   },
 } as const;
@@ -2667,6 +2842,11 @@ export const $XRMarkerDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     markerId: {
       type: 'string',
       description: `ID of the marker`,
@@ -2698,6 +2878,11 @@ export const $XROcclusionResponseDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     occlusion: {
       type: 'boolean',
@@ -2791,6 +2976,11 @@ export const $MovementEventDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
     movement: {
       type: 'MovementDto',
       isRequired: true,
@@ -2812,6 +3002,11 @@ export const $SermasBaseDto = {
       type: 'string',
       description: `Reference to the user interacting with the system`,
     },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
   },
 } as const;
 
@@ -2828,6 +3023,11 @@ export const $ActuationEventDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     actuations: {
       type: 'array',
@@ -2882,6 +3082,11 @@ export const $StatusEventDto = {
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
     },
     status: {
       type: 'StatusDto',

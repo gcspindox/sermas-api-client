@@ -37,13 +37,13 @@ export type TDataText = {
      */
     userId?: string;
     /**
+     * Reference date
+     */
+    ts?: string;
+    /**
      * User session identifier
      */
     sessionId?: string;
-    /**
-     * Unique identifier of the message
-     */
-    messageId?: string;
     actor?: DialogueActor;
     /**
      * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
@@ -70,9 +70,13 @@ export type TDataText = {
      */
     avatar?: string;
     /**
-     * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
+     * Unique sortable ID used to group and sort messages
      */
-    chunkId?: number;
+    messageId?: string;
+    /**
+     * Unique sortable ID used to sort chunks from the same messageId
+     */
+    chunkId?: string;
     file?: Blob | File;
   };
   sampleRate: number;

@@ -30,6 +30,10 @@ export type RefreshTokenRequestDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   refreshToken: string;
   clientSecret?: string;
 };
@@ -466,6 +470,10 @@ export type LoginRequestDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   username: string;
   password: string;
 };
@@ -490,6 +498,10 @@ export type RegistrationRequestDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   username: string;
   email: string;
   password: string;
@@ -515,6 +527,10 @@ export type UpdateUserRequestDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   password?: string;
   roles?: string;
   enabled?: boolean;
@@ -537,6 +553,10 @@ export type ObjectDetectionRequest = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   image: string;
   detectionType: ObjectDetectionType;
   filter: Array<string>;
@@ -552,6 +572,10 @@ export type SentimentAnalysisRequest = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   text: string;
 };
 
@@ -565,6 +589,10 @@ export type UserInteractionIntentionDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   /**
    * Module generating the event
    */
@@ -624,13 +652,13 @@ export type DialogueTextToSpeechDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * User session identifier
    */
   sessionId?: string;
-  /**
-   * Unique identifier of the message
-   */
-  messageId?: string;
   actor?: DialogueActor;
   /**
    * Text to convert to speech. If emotion field is set, it will be converted to SSML. If also `ssml` field is set, this field will be ignored
@@ -657,9 +685,13 @@ export type DialogueTextToSpeechDto = {
    */
   avatar?: string;
   /**
-   * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
+   * Unique sortable ID used to group and sort messages
    */
-  chunkId?: number;
+  messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
   /**
    * SSML markup to render as speech.
    */
@@ -677,13 +709,13 @@ export type DialogueMessageDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * User session identifier
    */
   sessionId?: string;
-  /**
-   * Unique identifier of the message
-   */
-  messageId?: string;
   actor?: DialogueActor;
   /**
    * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
@@ -710,9 +742,13 @@ export type DialogueMessageDto = {
    */
   avatar?: string;
   /**
-   * Indicate a chunck identifier as timestamp, usually indicating it is part of a stream.
+   * Unique sortable ID used to group and sort messages
    */
-  chunkId?: number;
+  messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type SessionDto = {
@@ -725,6 +761,10 @@ export type SessionDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   sessionId?: string;
   /**
    * Agent instance associated to the session
@@ -772,6 +812,10 @@ export type AgentHeartBeatEventDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -789,6 +833,10 @@ export type SessionSupportRequestDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   sessionId: string;
   code: string;
   message: string;
@@ -804,6 +852,10 @@ export type SessionSupportResponseDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   supportId: string;
 };
 
@@ -817,6 +869,10 @@ export type SessionStorageRecordDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   storageId?: string;
   sessionId?: string;
   data: Record<string, unknown>;
@@ -895,6 +951,10 @@ export type ImageUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -902,8 +962,14 @@ export type ImageUIContentDto = {
   content: ImageContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type VideoContentDto = {
@@ -927,6 +993,10 @@ export type VideoUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -934,8 +1004,14 @@ export type VideoUIContentDto = {
   content: VideoContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type PdfContentDto = {
@@ -953,6 +1029,10 @@ export type PdfUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -960,8 +1040,14 @@ export type PdfUIContentDto = {
   content: PdfContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type WebpageContentDto = {
@@ -979,6 +1065,10 @@ export type WebpageUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -986,8 +1076,14 @@ export type WebpageUIContentDto = {
   content: WebpageContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type ObjectContentDto = {
@@ -1005,6 +1101,10 @@ export type ObjectUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1012,8 +1112,14 @@ export type ObjectUIContentDto = {
   content: ObjectContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type TextContentDto = {
@@ -1031,6 +1137,10 @@ export type TextUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1038,8 +1148,14 @@ export type TextUIContentDto = {
   content: TextContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type QuizAnswerDto = {
@@ -1064,6 +1180,10 @@ export type QuizUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1071,8 +1191,14 @@ export type QuizUIContentDto = {
   content: QuizContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type ClearUIContentDto = {
@@ -1086,6 +1212,10 @@ export type ClearUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1093,8 +1223,14 @@ export type ClearUIContentDto = {
   content: Record<string, unknown>;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type ClearScreenDto = {
@@ -1108,6 +1244,10 @@ export type ClearScreenDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1115,8 +1255,14 @@ export type ClearScreenDto = {
   content: Record<string, unknown>;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type ButtonDto = {
@@ -1143,6 +1289,10 @@ export type ButtonsUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1150,8 +1300,14 @@ export type ButtonsUIContentDto = {
   content: ButtonsContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type DialogueMessageUIContentDto = {
@@ -1165,6 +1321,10 @@ export type DialogueMessageUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1172,8 +1332,14 @@ export type DialogueMessageUIContentDto = {
   content: DialogueMessageDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type LinkContentDto = {
@@ -1192,6 +1358,10 @@ export type LinkUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1199,8 +1369,14 @@ export type LinkUIContentDto = {
   content: LinkContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type HtmlContentDto = {
@@ -1218,6 +1394,10 @@ export type HtmlUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1225,8 +1405,14 @@ export type HtmlUIContentDto = {
   content: HtmlContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type EmailContentDto = {
@@ -1245,6 +1431,10 @@ export type EmailUIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1252,8 +1442,14 @@ export type EmailUIContentDto = {
   content: EmailContentDto;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type UIInteractionDTO = {
@@ -1273,6 +1469,10 @@ export type UIContentDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * Track the interaction session, if available
    */
   sessionId?: string;
@@ -1280,8 +1480,14 @@ export type UIContentDto = {
   content: Record<string, unknown>;
   metadata?: Record<string, unknown>;
   options?: UIContentOptionsDto;
-  chunkId?: number;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
   messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
 };
 
 export type UIModelMapBlendShapesRequestDto = {
@@ -1342,6 +1548,10 @@ export type XRMarkerDto = {
    */
   userId?: string;
   /**
+   * Reference date
+   */
+  ts?: string;
+  /**
    * ID of the marker
    */
   markerId?: string;
@@ -1365,6 +1575,10 @@ export type XROcclusionResponseDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   occlusion: boolean;
 };
 
@@ -1402,6 +1616,10 @@ export type MovementEventDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   movement: MovementDto;
 };
 
@@ -1415,6 +1633,10 @@ export type SermasBaseDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
 };
 
 export type ActuationEventDto = {
@@ -1427,6 +1649,10 @@ export type ActuationEventDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   actuations: Array<string>;
 };
 
@@ -1452,6 +1678,10 @@ export type StatusEventDto = {
    * Reference to the user interacting with the system
    */
   userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
   status: StatusDto;
   robotId: string;
 };

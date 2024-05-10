@@ -54,23 +54,25 @@ export interface PlatformTokenDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
 }
 
 export interface PlatformAppChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: PlatformAppDto;
 }
 
-export interface anonymous_schema_97 {
+export interface anonymous_schema_99 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_100 {
+export interface anonymous_schema_102 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -85,6 +87,7 @@ export interface PlatformAppClientChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: AppClientDto;
@@ -94,6 +97,7 @@ export interface PlatformAppModuleConfigEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: AppModuleConfigDto;
@@ -109,6 +113,7 @@ export interface UpdateUserEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   enabled: boolean;
 }
 
@@ -116,6 +121,7 @@ export interface UserDetectionEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   cameraId: string;
   source: string;
   detections: UserDetectionDto[];
@@ -142,12 +148,13 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_164 = 'start' | 'stop';
+export type anonymous_schema_171 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   source: string;
   detections: UserCharacterizationDto[];
   sessionId?: string;
@@ -173,10 +180,10 @@ export interface AudioClassificationEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   source: string;
   detections: AudioClassificationValue[];
   sessionId?: string;
-  ts?: string;
 }
 
 export interface AudioClassificationValue {
@@ -188,6 +195,7 @@ export interface ObjectDetectionEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   detections: ObjectDetectionDto[];
 }
 
@@ -201,6 +209,7 @@ export interface QRCodeEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   uri: string;
 }
 
@@ -208,6 +217,7 @@ export interface NoiseEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   noiseType: string;
   level: string;
   speakerId: string[];
@@ -217,6 +227,7 @@ export interface DialogueToolTriggeredEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   sessionId?: string;
   name: string;
   tool: AppToolsDTO;
@@ -226,6 +237,7 @@ export interface DialogueToolsChanged {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: AppToolsDTO[];
@@ -235,6 +247,7 @@ export interface SermasSessionDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   sessionId?: string;
 }
 
@@ -242,6 +255,7 @@ export interface SessionChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: SessionDto;
@@ -251,6 +265,7 @@ export interface AgentDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   agentId: string;
   status: AgentStatus;
   modules: string[];
@@ -260,6 +275,7 @@ export interface AgentChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   moduleId: string;
@@ -270,6 +286,7 @@ export interface SessionSupportEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   supportId: string;
   status: string;
   feedback: string;
@@ -280,6 +297,7 @@ export interface SessionStorageEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: SessionStorageRecordDto;
@@ -289,6 +307,7 @@ export interface UIAssetChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: UIAssetDto;
@@ -298,6 +317,7 @@ export interface UIInteractionEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   sessionId?: string;
   moduleId: string;
   interaction: UIInteractionDTO;
@@ -307,6 +327,7 @@ export interface XRMarkerChangedDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   operation: string;
   sessionId?: string;
   record: XRMarkerDto;
@@ -316,6 +337,7 @@ export interface XROcclusionDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   occlusion: boolean;
 }
 
@@ -323,6 +345,7 @@ export interface InitialPoseEventDto {
   appId: string;
   clientId?: string;
   userId?: string;
+  ts?: string;
   initialPose: InitialPoseDto;
 }
 
