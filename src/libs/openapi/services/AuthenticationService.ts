@@ -29,6 +29,9 @@ export type TDataDelete = {
 export type TDataAuthAdminControllerSaveUser = {
   requestBody: RegistrationRequestDto;
 };
+export type TDataAuthAdminControllerImportUser = {
+  requestBody: Array<string>;
+};
 
 export class AuthenticationService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -148,6 +151,22 @@ export class AuthenticationService {
     return this.httpRequest.request({
       method: 'POST',
       url: '/api/auth/admin/user',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * @returns any
+   * @throws ApiError
+   */
+  public authAdminControllerImportUser(
+    data: TDataAuthAdminControllerImportUser,
+  ): CancelablePromise<any> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/auth/admin/import',
       body: requestBody,
       mediaType: 'application/json',
     });
