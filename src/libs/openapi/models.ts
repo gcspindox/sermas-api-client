@@ -162,6 +162,8 @@ export type AppUserDto = {
   clientRoles: Array<string>;
   groups: Array<string>;
   password: string;
+  firstName?: string;
+  lastName?: string;
   attributes: Record<string, unknown>;
   appId?: string;
 };
@@ -502,6 +504,8 @@ export type RegistrationRequestDto = {
    * Reference date
    */
   ts?: string;
+  firstName?: string;
+  lastName?: string;
   username: string;
   email: string;
   password: string;

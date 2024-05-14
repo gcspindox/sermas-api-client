@@ -26,11 +26,11 @@ export type TDataEdit = {
 export type TDataDelete = {
   userId: string;
 };
-export type TDataAuthAdminControllerSaveUser = {
+export type TDataSaveUser = {
   requestBody: RegistrationRequestDto;
 };
-export type TDataAuthAdminControllerImportUser = {
-  requestBody: Array<string>;
+export type TDataImportUsers = {
+  requestBody: Array<RegistrationRequestDto>;
 };
 
 export class AuthenticationService {
@@ -141,12 +141,11 @@ export class AuthenticationService {
   }
 
   /**
+   * create or update an user
    * @returns any
    * @throws ApiError
    */
-  public authAdminControllerSaveUser(
-    data: TDataAuthAdminControllerSaveUser,
-  ): CancelablePromise<any> {
+  public saveUser(data: TDataSaveUser): CancelablePromise<any> {
     const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',
@@ -157,12 +156,13 @@ export class AuthenticationService {
   }
 
   /**
-   * @returns any
+   * import users
+   * @returns RegistrationResponseDto
    * @throws ApiError
    */
-  public authAdminControllerImportUser(
-    data: TDataAuthAdminControllerImportUser,
-  ): CancelablePromise<any> {
+  public importUsers(
+    data: TDataImportUsers,
+  ): CancelablePromise<Array<RegistrationResponseDto>> {
     const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',

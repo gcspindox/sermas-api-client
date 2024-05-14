@@ -408,6 +408,12 @@ export const $AppUserDto = {
       type: 'string',
       isRequired: true,
     },
+    firstName: {
+      type: 'string',
+    },
+    lastName: {
+      type: 'string',
+    },
     attributes: {
       type: 'dictionary',
       contains: {
@@ -1119,6 +1125,12 @@ export const $RegistrationRequestDto = {
       type: 'string',
       description: `Reference date`,
       format: 'date-time',
+    },
+    firstName: {
+      type: 'string',
+    },
+    lastName: {
+      type: 'string',
     },
     username: {
       type: 'string',
