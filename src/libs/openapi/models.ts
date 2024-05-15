@@ -162,6 +162,8 @@ export type AppUserDto = {
   clientRoles: Array<string>;
   groups: Array<string>;
   password: string;
+  firstName?: string;
+  lastName?: string;
   attributes: Record<string, unknown>;
   appId?: string;
 };
@@ -266,6 +268,7 @@ export const InteractionStartTypesEnum = {
 } as const;
 
 export type AppSettingsDto = {
+  skipToolResponse?: boolean;
   ttsEnabled?: boolean;
   login?: boolean;
   avatar: string;
@@ -502,6 +505,8 @@ export type RegistrationRequestDto = {
    * Reference date
    */
   ts?: string;
+  firstName?: string;
+  lastName?: string;
   username: string;
   email: string;
   password: string;

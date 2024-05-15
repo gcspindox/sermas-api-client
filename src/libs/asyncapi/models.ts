@@ -67,12 +67,12 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export interface anonymous_schema_99 {
+export interface anonymous_schema_100 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_102 {
+export interface anonymous_schema_103 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -148,7 +148,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_171 = 'start' | 'stop';
+export type anonymous_schema_172 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;

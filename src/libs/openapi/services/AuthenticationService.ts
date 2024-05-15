@@ -26,8 +26,11 @@ export type TDataEdit = {
 export type TDataDelete = {
   userId: string;
 };
-export type TDataAuthAdminControllerSaveUser = {
+export type TDataSaveUser = {
   requestBody: RegistrationRequestDto;
+};
+export type TDataImportUsers = {
+  requestBody: Array<RegistrationRequestDto>;
 };
 
 export class AuthenticationService {
@@ -138,16 +141,32 @@ export class AuthenticationService {
   }
 
   /**
+   * create or update an user
    * @returns any
    * @throws ApiError
    */
-  public authAdminControllerSaveUser(
-    data: TDataAuthAdminControllerSaveUser,
-  ): CancelablePromise<any> {
+  public saveUser(data: TDataSaveUser): CancelablePromise<any> {
     const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',
       url: '/api/auth/admin/user',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * import users
+   * @returns RegistrationResponseDto
+   * @throws ApiError
+   */
+  public importUsers(
+    data: TDataImportUsers,
+  ): CancelablePromise<Array<RegistrationResponseDto>> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/auth/admin/import',
       body: requestBody,
       mediaType: 'application/json',
     });
