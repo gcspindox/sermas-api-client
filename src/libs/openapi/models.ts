@@ -310,7 +310,7 @@ export type ToolsParameterSchema = {
   /**
    * flag as required
    */
-  required?: boolean;
+  ignore?: boolean;
   /**
    * provide a predefined value, useful to fill data otherwise missing from the context
    */
@@ -373,12 +373,34 @@ export type ToolsRequestSchema = {
 };
 
 export type AppToolsDTO = {
+  /**
+   * Tool name used in the LLM, a descriptive name may help in identifying it correctly
+   */
   name: string;
+  /**
+   * Tool description used in the LLM, this is key to correctly match the user intent
+   */
   description: string;
+  /**
+   * List of parameters of the tool
+   */
   schema?: Array<ToolsParameterSchema>;
+  /**
+   * Provide details to trigger an HTTP API call on tool match
+   */
   request?: ToolsRequestSchema;
+  /**
+   * Internal event emitted on match
+   */
   emitter?: string;
   returnDirect?: boolean;
+  /**
+   * Ignore the LLM response when the tool matches
+   */
+  skipResponse?: boolean;
+  /**
+   * API url to call on tool match, defaults to unauthenticated POST if no `request` are provided.
+   */
   url?: string;
 };
 
@@ -1455,6 +1477,12 @@ export type EmailUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+};
+
+export type UiInteractionButtonDto = {
+  context: Record<string, unknown>;
+  element: string;
+  value: string;
 };
 
 export type UIInteractionDTO = {

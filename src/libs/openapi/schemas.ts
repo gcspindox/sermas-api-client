@@ -634,7 +634,7 @@ export const $ToolsParameterSchema = {
       description: `description for the parameter, useful to give an hint while matching from the user input`,
       isRequired: true,
     },
-    required: {
+    ignore: {
       type: 'boolean',
       description: `flag as required`,
     },
@@ -750,10 +750,12 @@ export const $AppToolsDTO = {
   properties: {
     name: {
       type: 'string',
+      description: `Tool name used in the LLM, a descriptive name may help in identifying it correctly`,
       isRequired: true,
     },
     description: {
       type: 'string',
+      description: `Tool description used in the LLM, this is key to correctly match the user intent`,
       isRequired: true,
     },
     schema: {
@@ -763,16 +765,28 @@ export const $AppToolsDTO = {
       },
     },
     request: {
-      type: 'ToolsRequestSchema',
+      type: 'all-of',
+      description: `Provide details to trigger an HTTP API call on tool match`,
+      contains: [
+        {
+          type: 'ToolsRequestSchema',
+        },
+      ],
     },
     emitter: {
       type: 'string',
+      description: `Internal event emitted on match`,
     },
     returnDirect: {
       type: 'boolean',
     },
+    skipResponse: {
+      type: 'boolean',
+      description: `Ignore the LLM response when the tool matches`,
+    },
     url: {
       type: 'string',
+      description: `API url to call on tool match, defaults to unauthenticated POST if no \`request\` are provided.`,
     },
   },
 } as const;
@@ -2657,6 +2671,26 @@ export const $EmailUIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+  },
+} as const;
+
+export const $UiInteractionButtonDto = {
+  properties: {
+    context: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+    element: {
+      type: 'string',
+      isRequired: true,
+    },
+    value: {
+      type: 'string',
+      isRequired: true,
     },
   },
 } as const;

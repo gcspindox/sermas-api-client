@@ -24,7 +24,6 @@ import {
   AppToolsDTO,
   ToolsParameterSchema,
   ToolsParameterSchemaTypes,
-  ToolsRequestSchema,
   PlatformModuleConfigDto,
   PositionDto,
   UserInteractionIntentionDto,
@@ -67,12 +66,21 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export interface anonymous_schema_100 {
+export interface anonymous_schema_99 {
+  auth?: string;
+  basic?: anonymous_schema_101;
+  bearer?: anonymous_schema_104;
+  moduleId: string;
+  url: string;
+  headers?: Record<string, any>;
+}
+
+export interface anonymous_schema_101 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_103 {
+export interface anonymous_schema_104 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -148,7 +156,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_172 = 'start' | 'stop';
+export type anonymous_schema_174 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
