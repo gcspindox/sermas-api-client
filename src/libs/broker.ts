@@ -24,6 +24,21 @@ export class Broker {
     },
   ) {}
 
+  async reconnect() {
+    this.logger.warn(`Forcing reconnection`);
+    try {
+      await this.disconnect();
+    } catch (e: any) {
+      this.logger.warn(`reconnect: disconnection error ${e.stack}`);
+    }
+    try {
+      this.client = undefined;
+      await this.connect();
+    } catch (e: any) {
+      this.logger.warn(`reconnect: connection error ${e.stack}`);
+    }
+  }
+
   async disconnect() {
     if (!this.client) return;
     try {
@@ -67,13 +82,14 @@ export class Broker {
 
     this.client.on('connect', async () => {
       this.logger.debug('client connected');
-      for (const sub of this.subscriptions) {
-        try {
+      try {
+        for (const sub of this.subscriptions) {
           this.logger.debug(`SUB ${sub.topic}`);
           await this.client.subscribeAsync(sub.topic);
-        } catch (e: any) {
-          this.logger.warn(`Failed to subscribe ${sub.topic}: ${e.stack}`);
         }
+      } catch (e: any) {
+        this.logger.warn(`Subscription failed: ${e.stack}`);
+        setTimeout(() => this.reconnect(), 1000);
       }
     });
 
