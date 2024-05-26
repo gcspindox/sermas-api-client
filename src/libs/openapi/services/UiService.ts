@@ -1,5 +1,6 @@
 import type {
   Buffer,
+  QrCodePayloadDto,
   RepositoryAssetMetadataDto,
   RepositoryAssetTypes,
   UIContentDto,
@@ -17,6 +18,9 @@ export type TDataNotifyInteraction = {
 };
 export type TDataShowContent = {
   requestBody: UIContentDto;
+};
+export type TDataGenerateQrCode = {
+  requestBody: QrCodePayloadDto;
 };
 export type TDataUiModelControllerMapBlendShapes = {
   requestBody: UIModelMapBlendShapesRequestDto;
@@ -97,6 +101,21 @@ export class UiService {
       errors: {
         401: `unauthorized`,
       },
+    });
+  }
+
+  /**
+   * Generate a QR code
+   * @returns any
+   * @throws ApiError
+   */
+  public generateQrCode(data: TDataGenerateQrCode): CancelablePromise<any> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/ui/qrcode/generate',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 
