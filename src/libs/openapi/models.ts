@@ -778,52 +778,6 @@ export type DialogueMessageDto = {
   chunkId?: string;
 };
 
-export type DialogueToolsRepositoryOptionsDto = {
-  /**
-   * Trigger one of the tools in the list once, then remove the tools.
-   */
-  triggerOnce?: boolean;
-};
-
-export type DialogueToolsRepositoryDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  /**
-   * Track the interaction session, if available
-   */
-  sessionId?: string;
-  /**
-   * Tool repository ID
-   */
-  repositoryId?: string;
-  /**
-   * Tool repository options
-   */
-  options?: DialogueToolsRepositoryOptionsDto;
-  /**
-   * Tools list
-   */
-  tools: Array<AppToolsDTO>;
-};
-
-export type SessionProperties = {
-  /**
-   * Reference to the current tool repository
-   */
-  repositoryId?: string;
-};
-
 export type SessionDto = {
   appId: string;
   /**
@@ -851,7 +805,6 @@ export type SessionDto = {
   createdAt: string;
   closedAt: string;
   settings?: AppSettingsDto;
-  properties?: SessionProperties;
 };
 
 export type AgentStatus =
@@ -959,28 +912,6 @@ export type SessionStorageSearchDto = {
   storageId?: Array<string>;
 };
 
-export type UIContentMetadataDto = {
-  /**
-   * Reference to a tool repository ID
-   */
-  repositoryId?: string;
-};
-
-export type UIContentOptionsDto = {
-  /**
-   * Clear the UI screen
-   */
-  clearScreen?: boolean;
-  /**
-   * Enable agent reading the content (text to speech)
-   */
-  ttsEnabled?: boolean;
-  /**
-   * Stop the agent speech
-   */
-  stopSpeech?: boolean;
-};
-
 export type SupportedContentTypes =
   | 'video'
   | 'image'
@@ -1021,6 +952,21 @@ export type ImageContentDto = {
   alt: string;
 };
 
+export type UIContentOptionsDto = {
+  /**
+   * Clear the UI screen
+   */
+  clearScreen?: boolean;
+  /**
+   * Enable agent reading the content (text to speech)
+   */
+  ttsEnabled?: boolean;
+  /**
+   * Stop the agent speech
+   */
+  stopSpeech?: boolean;
+};
+
 export type ImageUIContentDto = {
   appId: string;
   /**
@@ -1041,8 +987,8 @@ export type ImageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ImageContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1083,8 +1029,8 @@ export type VideoUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: VideoContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1119,8 +1065,8 @@ export type PdfUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: PdfContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1155,8 +1101,8 @@ export type WebpageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: WebpageContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1191,8 +1137,8 @@ export type ObjectUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ObjectContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1227,8 +1173,8 @@ export type TextUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: TextContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1270,8 +1216,8 @@ export type QuizUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: QuizContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1302,8 +1248,8 @@ export type ClearUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1334,8 +1280,8 @@ export type ClearScreenDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1379,8 +1325,8 @@ export type ButtonsUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ButtonsContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1411,8 +1357,8 @@ export type DialogueMessageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: DialogueMessageDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1448,8 +1394,8 @@ export type LinkUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: LinkContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1484,8 +1430,8 @@ export type HtmlUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: HtmlContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1521,8 +1467,8 @@ export type EmailUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: EmailContentDto;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */
@@ -1565,8 +1511,8 @@ export type UIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
-  metadata?: UIContentMetadataDto & Record<string, unknown>;
-  options?: UIContentOptionsDto & Record<string, unknown>;
+  metadata?: Record<string, unknown>;
+  options?: UIContentOptionsDto;
   /**
    * Unique sortable ID used to group and sort messages
    */

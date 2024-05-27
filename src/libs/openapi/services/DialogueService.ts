@@ -1,9 +1,9 @@
 import type {
+  AppToolsDTO,
   DialogueActor,
   DialogueDocumentDto,
   DialogueMessageDto,
   DialogueTextToSpeechDto,
-  DialogueToolsRepositoryDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -92,15 +92,14 @@ export type TDataStopAgentSpeech = {
   sessionId: string;
 };
 export type TDataSetTools = {
-  repositoryId: string;
-  requestBody: DialogueToolsRepositoryDto;
+  appId: string;
+  requestBody: Array<AppToolsDTO>;
+  sessionId: string;
 };
 export type TDataAddTools = {
-  repositoryId: string;
-  requestBody: DialogueToolsRepositoryDto;
-};
-export type TDataRemoveRepository = {
-  repositoryId: string;
+  appId: string;
+  requestBody: Array<AppToolsDTO>;
+  sessionId: string;
 };
 
 export class DialogueService {
@@ -238,28 +237,18 @@ export class DialogueService {
   }
 
   /**
-   * @returns any
-   * @throws ApiError
-   */
-  public import1(): CancelablePromise<any> {
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/dialogue/admin/document',
-    });
-  }
-
-  /**
-   * Save tools, overwriting existing ones.
+   * Set the tools, overriding existing ones
    * @returns any
    * @throws ApiError
    */
   public setTools(data: TDataSetTools): CancelablePromise<any> {
-    const { repositoryId, requestBody } = data;
+    const { appId, requestBody, sessionId } = data;
     return this.httpRequest.request({
       method: 'POST',
-      url: '/api/dialogue/tools/{repositoryId}',
+      url: '/api/dialogue/tools/{appId}/{sessionId}',
       path: {
-        repositoryId,
+        appId,
+        sessionId,
       },
       body: requestBody,
       mediaType: 'application/json',
@@ -272,12 +261,13 @@ export class DialogueService {
    * @throws ApiError
    */
   public addTools(data: TDataAddTools): CancelablePromise<any> {
-    const { repositoryId, requestBody } = data;
+    const { appId, requestBody, sessionId } = data;
     return this.httpRequest.request({
       method: 'PUT',
-      url: '/api/dialogue/tools/{repositoryId}',
+      url: '/api/dialogue/tools/{appId}/{sessionId}',
       path: {
-        repositoryId,
+        appId,
+        sessionId,
       },
       body: requestBody,
       mediaType: 'application/json',
@@ -285,18 +275,13 @@ export class DialogueService {
   }
 
   /**
-   * Remove a set of tools
    * @returns any
    * @throws ApiError
    */
-  public removeRepository(data: TDataRemoveRepository): CancelablePromise<any> {
-    const { repositoryId } = data;
+  public import1(): CancelablePromise<any> {
     return this.httpRequest.request({
-      method: 'DELETE',
-      url: '/api/dialogue/tools/{repositoryId}',
-      path: {
-        repositoryId,
-      },
+      method: 'POST',
+      url: '/api/dialogue/admin/document',
     });
   }
 }
