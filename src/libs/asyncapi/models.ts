@@ -31,12 +31,12 @@ import {
   DialogueActor,
   Buffer,
   SessionDto,
+  SessionProperties,
   AgentStatus,
   SessionStorageRecordDto,
   UIAssetDto,
   UIContentDto,
   SupportedContentTypes,
-  UIContentOptionsDto,
   UIInteractionDTO,
   XRMarkerDto,
   ActuationEventDto,
@@ -231,6 +231,14 @@ export interface NoiseEventDto {
   speakerId: string[];
 }
 
+export interface SermasSessionDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  sessionId?: string;
+}
+
 export interface DialogueToolTriggeredEventDto {
   appId: string;
   clientId?: string;
@@ -241,22 +249,29 @@ export interface DialogueToolTriggeredEventDto {
   tool: AppToolsDTO;
 }
 
-export interface DialogueToolsChanged {
+export interface DialogueToolsRepositoryChanged {
   appId: string;
   clientId?: string;
   userId?: string;
   ts?: string;
   operation: string;
   sessionId?: string;
-  record: AppToolsDTO[];
+  record: DialogueToolsRepositoryRecordDto;
 }
 
-export interface SermasSessionDto {
+export interface DialogueToolsRepositoryRecordDto {
   appId: string;
   clientId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
+  repositoryId?: string;
+  options?: anonymous_schema_253;
+  tools: AppToolsDTO[];
+}
+
+export interface anonymous_schema_253 {
+  triggerOnce?: boolean;
 }
 
 export interface SessionChangedDto {
@@ -319,6 +334,18 @@ export interface UIAssetChangedDto {
   operation: string;
   sessionId?: string;
   record: UIAssetDto;
+}
+
+export interface anonymous_schema_328 {
+  repositoryId?: string;
+  additionalProperties?: Record<string, any>;
+}
+
+export interface anonymous_schema_331 {
+  clearScreen?: boolean;
+  ttsEnabled?: boolean;
+  stopSpeech?: boolean;
+  additionalProperties?: Record<string, any>;
 }
 
 export interface UIInteractionEventDto {

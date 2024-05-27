@@ -3,58 +3,14 @@
 import { Broker } from '../broker';
 
 import {
-  DialogueToolTriggeredEventDto,
-  DialogueToolsChanged,
   SermasSessionDto,
+  DialogueToolTriggeredEventDto,
+  DialogueToolsRepositoryChanged,
 } from './models';
 import { DialogueMessageDto, Buffer } from '../openapi/models';
 
 export class Dialogue {
   constructor(private readonly broker: Broker) {}
-
-  async toolTriggered(
-    event: DialogueToolTriggeredEventDto,
-    params?: { appId?: string; name?: string },
-  ) {
-    return this.broker.publish<DialogueToolTriggeredEventDto>(
-      'app/:appId/dialogue/tool/:name',
-      event,
-      params,
-    );
-  }
-
-  async onToolTriggered(
-    fn: (event: DialogueToolTriggeredEventDto) => void | Promise<void>,
-    params?: { appId?: string; name?: string },
-  ): Promise<() => void> {
-    return this.broker.subscribe<DialogueToolTriggeredEventDto>(
-      'app/:appId/dialogue/tool/:name',
-      fn,
-      params,
-    );
-  }
-
-  async toolChanged(
-    event: DialogueToolsChanged,
-    params?: { appId?: string; sessionId?: string },
-  ) {
-    return this.broker.publish<DialogueToolsChanged>(
-      'app/:appId/dialogue/tool/changed/:sessionId',
-      event,
-      params,
-    );
-  }
-
-  async onToolChanged(
-    fn: (event: DialogueToolsChanged) => void | Promise<void>,
-    params?: { appId?: string; sessionId?: string },
-  ): Promise<() => void> {
-    return this.broker.subscribe<DialogueToolsChanged>(
-      'app/:appId/dialogue/tool/changed/:sessionId',
-      fn,
-      params,
-    );
-  }
 
   async dialogueMessages(
     event: DialogueMessageDto,
@@ -117,6 +73,50 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<SermasSessionDto>(
       'app/:appId/dialogue/stop/:sessionId',
+      fn,
+      params,
+    );
+  }
+
+  async toolTriggered(
+    event: DialogueToolTriggeredEventDto,
+    params?: { appId?: string; name?: string },
+  ) {
+    return this.broker.publish<DialogueToolTriggeredEventDto>(
+      'app/:appId/dialogue/tool/:name',
+      event,
+      params,
+    );
+  }
+
+  async onToolTriggered(
+    fn: (event: DialogueToolTriggeredEventDto) => void | Promise<void>,
+    params?: { appId?: string; name?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueToolTriggeredEventDto>(
+      'app/:appId/dialogue/tool/:name',
+      fn,
+      params,
+    );
+  }
+
+  async toolChanged(
+    event: DialogueToolsRepositoryChanged,
+    params?: { appId?: string; repositoryId?: string },
+  ) {
+    return this.broker.publish<DialogueToolsRepositoryChanged>(
+      'app/:appId/dialogue/tool/changed/:repositoryId',
+      event,
+      params,
+    );
+  }
+
+  async onToolChanged(
+    fn: (event: DialogueToolsRepositoryChanged) => void | Promise<void>,
+    params?: { appId?: string; repositoryId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueToolsRepositoryChanged>(
+      'app/:appId/dialogue/tool/changed/:repositoryId',
       fn,
       params,
     );

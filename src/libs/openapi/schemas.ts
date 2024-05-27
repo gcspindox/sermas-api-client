@@ -1528,6 +1528,70 @@ export const $DialogueMessageDto = {
   },
 } as const;
 
+export const $DialogueToolsRepositoryOptionsDto = {
+  properties: {
+    triggerOnce: {
+      type: 'boolean',
+      description: `Trigger one of the tools in the list once, then remove the tools.`,
+    },
+  },
+} as const;
+
+export const $DialogueToolsRepositoryDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Track the interaction session, if available`,
+    },
+    repositoryId: {
+      type: 'string',
+      description: `Tool repository ID`,
+    },
+    options: {
+      type: 'all-of',
+      description: `Tool repository options`,
+      contains: [
+        {
+          type: 'DialogueToolsRepositoryOptionsDto',
+        },
+      ],
+    },
+    tools: {
+      type: 'array',
+      contains: {
+        type: 'AppToolsDTO',
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $SessionProperties = {
+  properties: {
+    repositoryId: {
+      type: 'string',
+      description: `Reference to the current tool repository`,
+    },
+  },
+} as const;
+
 export const $SessionDto = {
   properties: {
     appId: {
@@ -1577,6 +1641,9 @@ export const $SessionDto = {
     },
     settings: {
       type: 'AppSettingsDto',
+    },
+    properties: {
+      type: 'SessionProperties',
     },
   },
 } as const;
@@ -1741,6 +1808,32 @@ export const $SessionStorageSearchDto = {
   },
 } as const;
 
+export const $UIContentMetadataDto = {
+  properties: {
+    repositoryId: {
+      type: 'string',
+      description: `Reference to a tool repository ID`,
+    },
+  },
+} as const;
+
+export const $UIContentOptionsDto = {
+  properties: {
+    clearScreen: {
+      type: 'boolean',
+      description: `Clear the UI screen`,
+    },
+    ttsEnabled: {
+      type: 'boolean',
+      description: `Enable agent reading the content (text to speech)`,
+    },
+    stopSpeech: {
+      type: 'boolean',
+      description: `Stop the agent speech`,
+    },
+  },
+} as const;
+
 export const $SupportedContentTypes = {
   type: 'Enum',
 } as const;
@@ -1760,23 +1853,6 @@ export const $ImageContentDto = {
     alt: {
       type: 'string',
       isRequired: true,
-    },
-  },
-} as const;
-
-export const $UIContentOptionsDto = {
-  properties: {
-    clearScreen: {
-      type: 'boolean',
-      description: `Clear the UI screen`,
-    },
-    ttsEnabled: {
-      type: 'boolean',
-      description: `Enable agent reading the content (text to speech)`,
-    },
-    stopSpeech: {
-      type: 'boolean',
-      description: `Stop the agent speech`,
     },
   },
 } as const;
@@ -1813,13 +1889,32 @@ export const $ImageUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -1894,13 +1989,32 @@ export const $VideoUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -1954,13 +2068,32 @@ export const $PdfUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2014,13 +2147,32 @@ export const $WebpageUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2074,13 +2226,32 @@ export const $ObjectUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2134,13 +2305,32 @@ export const $TextUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2218,13 +2408,32 @@ export const $QuizUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2272,13 +2481,32 @@ export const $ClearUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2326,13 +2554,32 @@ export const $ClearScreenDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2417,13 +2664,32 @@ export const $ButtonsUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2468,13 +2734,32 @@ export const $DialogueMessageUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2532,13 +2817,32 @@ export const $LinkUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2592,13 +2896,32 @@ export const $HtmlUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2656,13 +2979,32 @@ export const $EmailUIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
@@ -2750,13 +3092,32 @@ export const $UIContentDto = {
       isRequired: true,
     },
     metadata: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     options: {
-      type: 'UIContentOptionsDto',
+      type: 'all-of',
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     messageId: {
       type: 'string',
