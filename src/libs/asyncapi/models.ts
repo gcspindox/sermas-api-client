@@ -272,6 +272,7 @@ export interface DialogueToolsRepositoryRecordDto {
 
 export interface anonymous_schema_253 {
   triggerOnce?: boolean;
+  exclusive?: boolean;
 }
 
 export interface SessionChangedDto {
@@ -336,12 +337,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_328 {
+export interface anonymous_schema_329 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_331 {
+export interface anonymous_schema_332 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

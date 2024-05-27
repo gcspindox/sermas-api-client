@@ -1534,6 +1534,10 @@ export const $DialogueToolsRepositoryOptionsDto = {
       type: 'boolean',
       description: `Trigger one of the tools in the list once, then remove the tools.`,
     },
+    exclusive: {
+      type: 'boolean',
+      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
+    },
   },
 } as const;
 

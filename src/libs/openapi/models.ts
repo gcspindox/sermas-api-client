@@ -783,6 +783,10 @@ export type DialogueToolsRepositoryOptionsDto = {
    * Trigger one of the tools in the list once, then remove the tools.
    */
   triggerOnce?: boolean;
+  /**
+   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
+   */
+  exclusive?: boolean;
 };
 
 export type DialogueToolsRepositoryDto = {
