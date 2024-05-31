@@ -1652,44 +1652,6 @@ export const $SessionDto = {
   },
 } as const;
 
-export const $AgentStatus = {
-  type: 'Enum',
-} as const;
-
-export const $AgentHeartBeatEventDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    sessionId: {
-      type: 'string',
-      description: `Track the interaction session, if available`,
-    },
-    moduleId: {
-      type: 'string',
-      isRequired: true,
-    },
-    status: {
-      type: 'AgentStatus',
-      isRequired: true,
-    },
-  },
-} as const;
-
 export const $SessionSupportRequestDto = {
   properties: {
     appId: {
@@ -1745,6 +1707,144 @@ export const $SessionSupportResponseDto = {
     },
     supportId: {
       type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $AgentStatus = {
+  type: 'Enum',
+} as const;
+
+export const $AgentHeartBeatEventDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Track the interaction session, if available`,
+    },
+    moduleId: {
+      type: 'string',
+      isRequired: true,
+    },
+    status: {
+      type: 'AgentStatus',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $AgentEvaluatePromptOptionsDto = {
+  properties: {
+    history: {
+      type: 'boolean',
+      description: `Include chat history`,
+    },
+    documents: {
+      type: 'boolean',
+      description: `Include contents from documents`,
+    },
+    app: {
+      type: 'boolean',
+      description: `Include application prompt`,
+    },
+    avatar: {
+      type: 'string',
+      description: `Use specified avatar characterization prompt`,
+    },
+    json: {
+      type: 'boolean',
+      description: `Provide response as JSON`,
+    },
+    language: {
+      type: 'string',
+      description: `Response language`,
+    },
+  },
+} as const;
+
+export const $LLMProvider = {
+  type: 'Enum',
+} as const;
+
+export const $AgentEvaluatePromptDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Id of the session`,
+    },
+    prompt: {
+      type: 'string',
+      description: `Prompt to evaluate`,
+      isRequired: true,
+    },
+    options: {
+      type: 'all-of',
+      description: `Prompt options`,
+      contains: [
+        {
+          type: 'AgentEvaluatePromptOptionsDto',
+        },
+      ],
+    },
+    provider: {
+      type: 'LLMProvider',
+    },
+    model: {
+      type: 'string',
+      description: `LLM provider model name`,
+    },
+  },
+} as const;
+
+export const $AgentEvaluatePromptFormat = {
+  type: 'Enum',
+} as const;
+
+export const $AgentEvaluatePromptResponseDto = {
+  properties: {
+    result: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+    format: {
+      type: 'AgentEvaluatePromptFormat',
       isRequired: true,
     },
   },

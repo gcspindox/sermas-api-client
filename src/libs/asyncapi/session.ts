@@ -4,9 +4,9 @@ import { Broker } from '../broker';
 
 import {
   SessionChangedDto,
+  SessionSupportEventDto,
   AgentDto,
   AgentChangedDto,
-  SessionSupportEventDto,
   SessionStorageEventDto,
 } from './models';
 import { SessionDto } from '../openapi/models';
@@ -55,6 +55,25 @@ export class Session {
     );
   }
 
+  async support(event: SessionSupportEventDto, params?: { appId?: string }) {
+    return this.broker.publish<SessionSupportEventDto>(
+      'app/:appId/session/support',
+      event,
+      params,
+    );
+  }
+
+  async onSupport(
+    fn: (event: SessionSupportEventDto) => void | Promise<void>,
+    params?: { appId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<SessionSupportEventDto>(
+      'app/:appId/session/support',
+      fn,
+      params,
+    );
+  }
+
   async agentInteraction(event: AgentDto, params?: { appId?: string }) {
     return this.broker.publish<AgentDto>(
       'app/:appId/session/interaction/agent',
@@ -91,25 +110,6 @@ export class Session {
   ): Promise<() => void> {
     return this.broker.subscribe<AgentChangedDto>(
       'app/:appId/session/agent/changed/:agentId',
-      fn,
-      params,
-    );
-  }
-
-  async support(event: SessionSupportEventDto, params?: { appId?: string }) {
-    return this.broker.publish<SessionSupportEventDto>(
-      'app/:appId/session/support',
-      event,
-      params,
-    );
-  }
-
-  async onSupport(
-    fn: (event: SessionSupportEventDto) => void | Promise<void>,
-    params?: { appId?: string },
-  ): Promise<() => void> {
-    return this.broker.subscribe<SessionSupportEventDto>(
-      'app/:appId/session/support',
       fn,
       params,
     );

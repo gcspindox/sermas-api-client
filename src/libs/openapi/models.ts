@@ -858,6 +858,42 @@ export type SessionDto = {
   properties?: SessionProperties;
 };
 
+export type SessionSupportRequestDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  sessionId: string;
+  code: string;
+  message: string;
+};
+
+export type SessionSupportResponseDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  supportId: string;
+};
+
 export type AgentStatus =
   | 'unavailable'
   | 'error'
@@ -901,26 +937,46 @@ export type AgentHeartBeatEventDto = {
   status: AgentStatus;
 };
 
-export type SessionSupportRequestDto = {
-  appId: string;
+export type AgentEvaluatePromptOptionsDto = {
   /**
-   * Reference to the authenticated client the request originated from
+   * Include chat history
    */
-  clientId?: string;
+  history?: boolean;
   /**
-   * Reference to the user interacting with the system
+   * Include contents from documents
    */
-  userId?: string;
+  documents?: boolean;
   /**
-   * Reference date
+   * Include application prompt
    */
-  ts?: string;
-  sessionId: string;
-  code: string;
-  message: string;
+  app?: boolean;
+  /**
+   * Use specified avatar characterization prompt
+   */
+  avatar?: string;
+  /**
+   * Provide response as JSON
+   */
+  json?: boolean;
+  /**
+   * Response language
+   */
+  language?: string;
 };
 
-export type SessionSupportResponseDto = {
+/**
+ * LLM provider
+ */
+export type LLMProvider = 'ollama' | 'openai' | 'groq' | 'antrophic';
+
+export const LLMProviderEnum = {
+  OLLAMA: 'ollama',
+  OPENAI: 'openai',
+  GROQ: 'groq',
+  ANTROPHIC: 'antrophic',
+} as const;
+
+export type AgentEvaluatePromptDto = {
   appId: string;
   /**
    * Reference to the authenticated client the request originated from
@@ -934,7 +990,41 @@ export type SessionSupportResponseDto = {
    * Reference date
    */
   ts?: string;
-  supportId: string;
+  /**
+   * Id of the session
+   */
+  sessionId?: string;
+  /**
+   * Prompt to evaluate
+   */
+  prompt: string;
+  /**
+   * Prompt options
+   */
+  options?: AgentEvaluatePromptOptionsDto;
+  provider?: LLMProvider;
+  /**
+   * LLM provider model name
+   */
+  model?: string;
+};
+
+/**
+ * Response format (text,string)
+ */
+export type AgentEvaluatePromptFormat = 'text' | 'string';
+
+export const AgentEvaluatePromptFormatEnum = {
+  TEXT: 'text',
+  STRING: 'string',
+} as const;
+
+export type AgentEvaluatePromptResponseDto = {
+  /**
+   * Result of the call
+   */
+  result: Record<string, unknown>;
+  format: AgentEvaluatePromptFormat;
 };
 
 export type SessionStorageRecordDto = {

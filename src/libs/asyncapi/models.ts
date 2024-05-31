@@ -285,6 +285,17 @@ export interface SessionChangedDto {
   record: SessionDto;
 }
 
+export interface SessionSupportEventDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  supportId: string;
+  status: string;
+  feedback: string;
+  code: string;
+}
+
 export interface AgentDto {
   appId: string;
   clientId?: string;
@@ -304,17 +315,6 @@ export interface AgentChangedDto {
   sessionId?: string;
   moduleId: string;
   record: AgentDto;
-}
-
-export interface SessionSupportEventDto {
-  appId: string;
-  clientId?: string;
-  userId?: string;
-  ts?: string;
-  supportId: string;
-  status: string;
-  feedback: string;
-  code: string;
 }
 
 export interface SessionStorageEventDto {

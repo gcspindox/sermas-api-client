@@ -238,17 +238,6 @@ export class DialogueService {
   }
 
   /**
-   * @returns any
-   * @throws ApiError
-   */
-  public import1(): CancelablePromise<any> {
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/dialogue/admin/document',
-    });
-  }
-
-  /**
    * Save tools, overwriting existing ones.
    * @returns any
    * @throws ApiError
