@@ -4,6 +4,8 @@ import { Broker } from '../broker';
 
 import {
   SermasSessionDto,
+  DialogueTaskChangedDto,
+  DialogueTaskRecordChangedDto,
   DialogueToolTriggeredEventDto,
   DialogueToolsRepositoryChanged,
 } from './models';
@@ -73,6 +75,50 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<SermasSessionDto>(
       'app/:appId/dialogue/stop/:sessionId',
+      fn,
+      params,
+    );
+  }
+
+  async taskChanged(
+    event: DialogueTaskChangedDto,
+    params?: { appId?: string; taskId?: string },
+  ) {
+    return this.broker.publish<DialogueTaskChangedDto>(
+      'app/:appId/dialogue/task/changed/:taskId',
+      event,
+      params,
+    );
+  }
+
+  async onTaskChanged(
+    fn: (event: DialogueTaskChangedDto) => void | Promise<void>,
+    params?: { appId?: string; taskId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueTaskChangedDto>(
+      'app/:appId/dialogue/task/changed/:taskId',
+      fn,
+      params,
+    );
+  }
+
+  async recordChanged(
+    event: DialogueTaskRecordChangedDto,
+    params?: { appId?: string; taskId?: string },
+  ) {
+    return this.broker.publish<DialogueTaskRecordChangedDto>(
+      'app/:appId/dialogue/task/record/:taskId',
+      event,
+      params,
+    );
+  }
+
+  async onRecordChanged(
+    fn: (event: DialogueTaskRecordChangedDto) => void | Promise<void>,
+    params?: { appId?: string; taskId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueTaskRecordChangedDto>(
+      'app/:appId/dialogue/task/record/:taskId',
       fn,
       params,
     );

@@ -1,6 +1,7 @@
 import type {
   DialogueActor,
   DialogueDocumentDto,
+  DialogueMemoryMessageDto,
   DialogueMessageDto,
   DialogueTextToSpeechDto,
   DialogueToolsRepositoryDto,
@@ -89,6 +90,9 @@ export type TDataChatMessage = {
 };
 export type TDataStopAgentSpeech = {
   appId: string;
+  sessionId: string;
+};
+export type TDataGetChatHistory = {
   sessionId: string;
 };
 export type TDataSetTools = {
@@ -234,6 +238,24 @@ export class DialogueService {
     return this.httpRequest.request({
       method: 'GET',
       url: '/api/dialogue/speech/models',
+    });
+  }
+
+  /**
+   * Get a session chat history
+   * @returns DialogueMemoryMessageDto
+   * @throws ApiError
+   */
+  public getChatHistory(
+    data: TDataGetChatHistory,
+  ): CancelablePromise<Array<DialogueMemoryMessageDto>> {
+    const { sessionId } = data;
+    return this.httpRequest.request({
+      method: 'GET',
+      url: '/api/dialogue/memory/{sessionId}',
+      path: {
+        sessionId,
+      },
     });
   }
 

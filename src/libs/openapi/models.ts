@@ -404,6 +404,125 @@ export type AppToolsDTO = {
   url?: string;
 };
 
+/**
+ * Type of event to trigger
+ */
+export type TaskEventType = 'started' | 'completed';
+
+export const TaskEventTypeEnum = {
+  STARTED: 'started',
+  COMPLETED: 'completed',
+} as const;
+
+export type TaskEventTriggerDto = {
+  /**
+   * Tool to trigger
+   */
+  name?: string;
+  /**
+   * Tool values passed to the tool handlers
+   */
+  values?: Record<string, unknown>;
+};
+
+export type TaskEventDto = {
+  type: TaskEventType;
+  /**
+   * Chat message to send to the user
+   */
+  message?: string;
+  /**
+   * Trigger a tool
+   */
+  trigger?: Array<TaskEventTriggerDto>;
+};
+
+/**
+ * Data type
+ */
+export type TaskSchemaDataType = 'text' | 'boolean' | 'date' | 'select';
+
+export const TaskSchemaDataTypeEnum = {
+  TEXT: 'text',
+  BOOLEAN: 'boolean',
+  DATE: 'date',
+  SELECT: 'select',
+} as const;
+
+export type OptionSelection = {
+  /**
+   * Selection value
+   */
+  value: string;
+  /**
+   * Selection label (value is used if not provided)
+   */
+  label?: string;
+};
+
+export type TaskFieldDto = {
+  /**
+   * Name of the field
+   */
+  name: string;
+  /**
+   * Label of the field
+   */
+  label?: string;
+  /**
+   * Priority order (lower first)
+   */
+  order?: number;
+  type: TaskSchemaDataType;
+  /**
+   * Indicate if the field is required
+   */
+  required?: boolean;
+  /**
+   * A prompt to validate and transform the input
+   */
+  validation?: string;
+  /**
+   * Provde an activation condition based on the stored record list. If omitted, the field is always proposed to the user.
+   */
+  condition?: string;
+  /**
+   * Allow to select multiple options
+   */
+  multiple?: boolean;
+  /**
+   * List of valid options
+   */
+  options?: Array<OptionSelection>;
+};
+
+export type DialogueTaskDto = {
+  /**
+   * Task ID
+   */
+  taskId: string;
+  /**
+   * Application ID references
+   */
+  appId: string;
+  /**
+   * Task name
+   */
+  name: string;
+  /**
+   * Task description
+   */
+  description?: string;
+  /**
+   * Map task events
+   */
+  events?: Array<TaskEventDto>;
+  /**
+   * Task fields
+   */
+  fields: Array<TaskFieldDto>;
+};
+
 export type PlatformAppDto = {
   appId: string;
   public?: boolean;
@@ -419,7 +538,14 @@ export type PlatformAppDto = {
   settings?: AppSettingsDto;
   createdAt?: string;
   updatedAt?: string;
+  /**
+   * Application tools offered by the application
+   */
   tools?: Array<AppToolsDTO>;
+  /**
+   * Structured tasks offered by the application
+   */
+  tasks?: Array<DialogueTaskDto>;
 };
 
 export type CreatePlatformAppDto = {
@@ -434,7 +560,14 @@ export type CreatePlatformAppDto = {
   repository: RepositoryConfigDto;
   clients: Array<AppClientDto>;
   settings?: AppSettingsDto;
+  /**
+   * Application tools offered by the application
+   */
   tools?: Array<AppToolsDTO>;
+  /**
+   * Structured tasks offered by the application
+   */
+  tasks?: Array<DialogueTaskDto>;
 };
 
 export type PlatformAppExportFilterDto = {
@@ -776,6 +909,12 @@ export type DialogueMessageDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+};
+
+export type DialogueMemoryMessageDto = {
+  content: string;
+  role: Record<string, unknown>;
+  name: string;
 };
 
 export type DialogueToolsRepositoryOptionsDto = {
@@ -1135,7 +1274,13 @@ export type ImageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ImageContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1177,7 +1322,13 @@ export type VideoUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: VideoContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1213,7 +1364,13 @@ export type PdfUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: PdfContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1249,7 +1406,13 @@ export type WebpageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: WebpageContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1285,7 +1448,13 @@ export type ObjectUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ObjectContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1321,7 +1490,13 @@ export type TextUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: TextContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1364,7 +1539,13 @@ export type QuizUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: QuizContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1396,7 +1577,13 @@ export type ClearUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1428,7 +1615,13 @@ export type ClearScreenDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1473,7 +1666,13 @@ export type ButtonsUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ButtonsContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1505,7 +1704,13 @@ export type DialogueMessageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: DialogueMessageDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1542,7 +1747,13 @@ export type LinkUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: LinkContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1578,7 +1789,13 @@ export type HtmlUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: HtmlContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1615,7 +1832,13 @@ export type EmailUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: EmailContentDto;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1659,7 +1882,13 @@ export type UIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
+  /**
+   * Provides metadata for the content
+   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages

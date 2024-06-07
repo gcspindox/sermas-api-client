@@ -24,6 +24,13 @@ import {
   AppToolsDTO,
   ToolsParameterSchema,
   ToolsParameterSchemaTypes,
+  DialogueTaskDto,
+  TaskEventDto,
+  TaskEventType,
+  TaskEventTriggerDto,
+  TaskFieldDto,
+  TaskSchemaDataType,
+  OptionSelection,
   PlatformModuleConfigDto,
   PositionDto,
   UserInteractionIntentionDto,
@@ -156,7 +163,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_174 = 'start' | 'stop';
+export type anonymous_schema_196 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -239,6 +246,34 @@ export interface SermasSessionDto {
   sessionId?: string;
 }
 
+export interface DialogueTaskChangedDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  operation: string;
+  sessionId?: string;
+  record: DialogueTaskDto;
+}
+
+export interface DialogueTaskRecordChangedDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  operation: string;
+  sessionId?: string;
+  record: DialogueTaskRecordDto;
+}
+
+export interface DialogueTaskRecordDto {
+  recordId: string;
+  taskId: string;
+  appId: string;
+  sessionId: string;
+  values: Record<string, any>;
+}
+
 export interface DialogueToolTriggeredEventDto {
   appId: string;
   clientId?: string;
@@ -266,11 +301,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_253;
+  options?: anonymous_schema_292;
   tools: AppToolsDTO[];
 }
 
-export interface anonymous_schema_253 {
+export interface anonymous_schema_292 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -337,12 +372,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_329 {
+export interface anonymous_schema_368 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_332 {
+export interface anonymous_schema_371 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

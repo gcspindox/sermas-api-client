@@ -791,6 +791,149 @@ export const $AppToolsDTO = {
   },
 } as const;
 
+export const $TaskEventType = {
+  type: 'Enum',
+} as const;
+
+export const $TaskEventTriggerDto = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Tool to trigger`,
+    },
+    values: {
+      type: 'all-of',
+      description: `Tool values passed to the tool handlers`,
+      contains: [
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+  },
+} as const;
+
+export const $TaskEventDto = {
+  properties: {
+    type: {
+      type: 'TaskEventType',
+      isRequired: true,
+    },
+    message: {
+      type: 'string',
+      description: `Chat message to send to the user`,
+    },
+    trigger: {
+      type: 'array',
+      contains: {
+        type: 'TaskEventTriggerDto',
+      },
+    },
+  },
+} as const;
+
+export const $TaskSchemaDataType = {
+  type: 'Enum',
+} as const;
+
+export const $OptionSelection = {
+  properties: {
+    value: {
+      type: 'string',
+      description: `Selection value`,
+      isRequired: true,
+    },
+    label: {
+      type: 'string',
+      description: `Selection label (value is used if not provided)`,
+    },
+  },
+} as const;
+
+export const $TaskFieldDto = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Name of the field`,
+      isRequired: true,
+    },
+    label: {
+      type: 'string',
+      description: `Label of the field`,
+    },
+    order: {
+      type: 'number',
+      description: `Priority order (lower first)`,
+    },
+    type: {
+      type: 'TaskSchemaDataType',
+      isRequired: true,
+    },
+    required: {
+      type: 'boolean',
+      description: `Indicate if the field is required`,
+    },
+    validation: {
+      type: 'string',
+      description: `A prompt to validate and transform the input`,
+    },
+    condition: {
+      type: 'string',
+      description: `Provde an activation condition based on the stored record list. If omitted, the field is always proposed to the user.`,
+    },
+    multiple: {
+      type: 'boolean',
+      description: `Allow to select multiple options`,
+    },
+    options: {
+      type: 'array',
+      contains: {
+        type: 'OptionSelection',
+      },
+    },
+  },
+} as const;
+
+export const $DialogueTaskDto = {
+  properties: {
+    taskId: {
+      type: 'string',
+      description: `Task ID`,
+      isRequired: true,
+    },
+    appId: {
+      type: 'string',
+      description: `Application ID references`,
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+      description: `Task name`,
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Task description`,
+    },
+    events: {
+      type: 'array',
+      contains: {
+        type: 'TaskEventDto',
+      },
+    },
+    fields: {
+      type: 'array',
+      contains: {
+        type: 'TaskFieldDto',
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
 export const $PlatformAppDto = {
   properties: {
     appId: {
@@ -848,6 +991,12 @@ export const $PlatformAppDto = {
         type: 'AppToolsDTO',
       },
     },
+    tasks: {
+      type: 'array',
+      contains: {
+        type: 'DialogueTaskDto',
+      },
+    },
   },
 } as const;
 
@@ -894,6 +1043,12 @@ export const $CreatePlatformAppDto = {
       type: 'array',
       contains: {
         type: 'AppToolsDTO',
+      },
+    },
+    tasks: {
+      type: 'array',
+      contains: {
+        type: 'DialogueTaskDto',
       },
     },
   },
@@ -1528,6 +1683,26 @@ export const $DialogueMessageDto = {
   },
 } as const;
 
+export const $DialogueMemoryMessageDto = {
+  properties: {
+    content: {
+      type: 'string',
+      isRequired: true,
+    },
+    role: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
 export const $DialogueToolsRepositoryOptionsDto = {
   properties: {
     triggerOnce: {
@@ -1994,6 +2169,7 @@ export const $ImageUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2008,6 +2184,7 @@ export const $ImageUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2094,6 +2271,7 @@ export const $VideoUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2108,6 +2286,7 @@ export const $VideoUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2173,6 +2352,7 @@ export const $PdfUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2187,6 +2367,7 @@ export const $PdfUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2252,6 +2433,7 @@ export const $WebpageUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2266,6 +2448,7 @@ export const $WebpageUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2331,6 +2514,7 @@ export const $ObjectUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2345,6 +2529,7 @@ export const $ObjectUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2410,6 +2595,7 @@ export const $TextUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2424,6 +2610,7 @@ export const $TextUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2513,6 +2700,7 @@ export const $QuizUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2527,6 +2715,7 @@ export const $QuizUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2586,6 +2775,7 @@ export const $ClearUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2600,6 +2790,7 @@ export const $ClearUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2659,6 +2850,7 @@ export const $ClearScreenDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2673,6 +2865,7 @@ export const $ClearScreenDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2769,6 +2962,7 @@ export const $ButtonsUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2783,6 +2977,7 @@ export const $ButtonsUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2839,6 +3034,7 @@ export const $DialogueMessageUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2853,6 +3049,7 @@ export const $DialogueMessageUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2922,6 +3119,7 @@ export const $LinkUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2936,6 +3134,7 @@ export const $LinkUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -3001,6 +3200,7 @@ export const $HtmlUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -3015,6 +3215,7 @@ export const $HtmlUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -3084,6 +3285,7 @@ export const $EmailUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -3098,6 +3300,7 @@ export const $EmailUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -3197,6 +3400,7 @@ export const $UIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -3211,6 +3415,7 @@ export const $UIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
