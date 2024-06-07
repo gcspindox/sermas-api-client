@@ -445,7 +445,8 @@ export type TaskSchemaDataType =
   | 'boolean'
   | 'date'
   | 'select'
-  | 'eval';
+  | 'eval'
+  | 'external';
 
 export const TaskSchemaDataTypeEnum = {
   TEXT: 'text',
@@ -453,6 +454,7 @@ export const TaskSchemaDataTypeEnum = {
   DATE: 'date',
   SELECT: 'select',
   EVAL: 'eval',
+  EXTERNAL: 'external',
 } as const;
 
 export type OptionSelection = {
@@ -493,9 +495,13 @@ export type TaskFieldDto = {
    */
   condition?: string;
   /**
-   * Provde a prompt to evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.
+   * Provde a prompt for type=evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.
    */
   prompt?: string;
+  /**
+   * Provde an handler for type=external to delegate the field handling to an external service
+   */
+  handler?: string;
   /**
    * Allow to select multiple options
    */
@@ -801,6 +807,12 @@ export type DialogueDocumentDto = {
   options: DialogueDocumentOptionsDto;
 };
 
+export type DialogueUrlDto = {
+  appId: string;
+  url: string;
+  filterPaths: Array<string>;
+};
+
 /**
  * Actor providing the text, can be user or agent
  */
@@ -925,6 +937,29 @@ export type DialogueMemoryMessageDto = {
   content: string;
   role: Record<string, unknown>;
   name: string;
+};
+
+export type DialogueTaskRecordDto = {
+  /**
+   * Record ID
+   */
+  recordId: string;
+  /**
+   * Task ID
+   */
+  taskId: string;
+  /**
+   * Application ID reference
+   */
+  appId: string;
+  /**
+   * Session ID reference
+   */
+  sessionId: string;
+  /**
+   * Stored values
+   */
+  values: Record<string, unknown>;
 };
 
 export type DialogueToolsRepositoryOptionsDto = {

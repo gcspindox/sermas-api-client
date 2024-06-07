@@ -886,7 +886,11 @@ export const $TaskFieldDto = {
     },
     prompt: {
       type: 'string',
-      description: `Provde a prompt to evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.`,
+      description: `Provde a prompt for type=evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.`,
+    },
+    handler: {
+      type: 'string',
+      description: `Provde an handler for type=external to delegate the field handling to an external service`,
     },
     multiple: {
       type: 'boolean',
@@ -1556,6 +1560,26 @@ export const $DialogueDocumentDto = {
   },
 } as const;
 
+export const $DialogueUrlDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    url: {
+      type: 'string',
+      isRequired: true,
+    },
+    filterPaths: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
 export const $DialogueActor = {
   type: 'Enum',
 } as const;
@@ -1702,6 +1726,38 @@ export const $DialogueMemoryMessageDto = {
     },
     name: {
       type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $DialogueTaskRecordDto = {
+  properties: {
+    recordId: {
+      type: 'string',
+      description: `Record ID`,
+      isRequired: true,
+    },
+    taskId: {
+      type: 'string',
+      description: `Task ID`,
+      isRequired: true,
+    },
+    appId: {
+      type: 'string',
+      description: `Application ID reference`,
+      isRequired: true,
+    },
+    sessionId: {
+      type: 'string',
+      description: `Session ID reference`,
+      isRequired: true,
+    },
+    values: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
       isRequired: true,
     },
   },

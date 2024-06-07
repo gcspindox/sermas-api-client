@@ -6,6 +6,7 @@ import {
   SermasSessionDto,
   DialogueTaskChangedDto,
   DialogueTaskRecordChangedDto,
+  DialogueTaskRecordHandlerDto,
   DialogueToolTriggeredEventDto,
   DialogueToolsRepositoryChanged,
 } from './models';
@@ -119,6 +120,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueTaskRecordChangedDto>(
       'app/:appId/dialogue/task/record/:taskId',
+      fn,
+      params,
+    );
+  }
+
+  async fieldHandler(
+    event: DialogueTaskRecordHandlerDto,
+    params?: { appId?: string },
+  ) {
+    return this.broker.publish<DialogueTaskRecordHandlerDto>(
+      'app/:appId/dialogue/task/handler',
+      event,
+      params,
+    );
+  }
+
+  async onFieldHandler(
+    fn: (event: DialogueTaskRecordHandlerDto) => void | Promise<void>,
+    params?: { appId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueTaskRecordHandlerDto>(
+      'app/:appId/dialogue/task/handler',
       fn,
       params,
     );

@@ -37,6 +37,7 @@ import {
   DialogueMessageDto,
   DialogueActor,
   Buffer,
+  DialogueTaskRecordDto,
   SessionDto,
   SessionProperties,
   AgentStatus,
@@ -163,7 +164,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_197 = 'start' | 'stop';
+export type anonymous_schema_198 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -266,12 +267,29 @@ export interface DialogueTaskRecordChangedDto {
   record: DialogueTaskRecordDto;
 }
 
-export interface DialogueTaskRecordDto {
-  recordId: string;
-  taskId: string;
+export interface DialogueTaskRecordHandlerDto {
   appId: string;
-  sessionId: string;
-  values: Record<string, any>;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  sessionId?: string;
+  taskId: string;
+  recordId: string;
+  field: anonymous_schema_283;
+}
+
+export interface anonymous_schema_283 {
+  name: string;
+  label?: string;
+  order?: number;
+  type: TaskSchemaDataType;
+  required?: boolean;
+  validation?: string;
+  condition?: string;
+  prompt?: string;
+  handler?: string;
+  multiple?: boolean;
+  options?: OptionSelection[];
 }
 
 export interface DialogueToolTriggeredEventDto {
@@ -301,11 +319,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_293;
+  options?: anonymous_schema_302;
   tools: AppToolsDTO[];
 }
 
-export interface anonymous_schema_293 {
+export interface anonymous_schema_302 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -372,12 +390,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_369 {
+export interface anonymous_schema_378 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_372 {
+export interface anonymous_schema_381 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

@@ -3,8 +3,10 @@ import type {
   DialogueDocumentDto,
   DialogueMemoryMessageDto,
   DialogueMessageDto,
+  DialogueTaskRecordDto,
   DialogueTextToSpeechDto,
   DialogueToolsRepositoryDto,
+  DialogueUrlDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -17,6 +19,15 @@ export type TDataImport = {
    * Documents list
    */
   requestBody: Array<DialogueDocumentDto>;
+};
+export type TDataImportWebsite = {
+  /**
+   * URL
+   */
+  requestBody: DialogueUrlDto;
+};
+export type TDataRemoveAll = {
+  appId: string;
 };
 export type TDataRemove = {
   appId: string;
@@ -95,6 +106,9 @@ export type TDataStopAgentSpeech = {
 export type TDataGetChatHistory = {
   sessionId: string;
 };
+export type TDataNextStep = {
+  requestBody: DialogueTaskRecordDto;
+};
 export type TDataSetTools = {
   repositoryId: string;
   requestBody: DialogueToolsRepositoryDto;
@@ -138,6 +152,37 @@ export class DialogueService {
       url: '/api/dialogue/document',
       body: requestBody,
       mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * Import RAG documents by website scraping
+   * @returns any
+   * @throws ApiError
+   */
+  public importWebsite(data: TDataImportWebsite): CancelablePromise<any> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/dialogue/document/website',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * Remove all RAG documents
+   * @returns any
+   * @throws ApiError
+   */
+  public removeAll(data: TDataRemoveAll): CancelablePromise<any> {
+    const { appId } = data;
+    return this.httpRequest.request({
+      method: 'DELETE',
+      url: '/api/dialogue/document/{appId}/all',
+      path: {
+        appId,
+      },
     });
   }
 
@@ -256,6 +301,21 @@ export class DialogueService {
       path: {
         sessionId,
       },
+    });
+  }
+
+  /**
+   * Set the tools, overriding existing ones
+   * @returns any
+   * @throws ApiError
+   */
+  public nextStep(data: TDataNextStep): CancelablePromise<any> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/dialogue/tasks/next-step',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 
