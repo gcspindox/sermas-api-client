@@ -163,7 +163,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_196 = 'start' | 'stop';
+export type anonymous_schema_197 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -301,11 +301,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_292;
+  options?: anonymous_schema_293;
   tools: AppToolsDTO[];
 }
 
-export interface anonymous_schema_292 {
+export interface anonymous_schema_293 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -372,12 +372,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_368 {
+export interface anonymous_schema_369 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_371 {
+export interface anonymous_schema_372 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

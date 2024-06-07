@@ -884,6 +884,10 @@ export const $TaskFieldDto = {
       type: 'string',
       description: `Provde an activation condition based on the stored record list. If omitted, the field is always proposed to the user.`,
     },
+    prompt: {
+      type: 'string',
+      description: `Provde a prompt to evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.`,
+    },
     multiple: {
       type: 'boolean',
       description: `Allow to select multiple options`,

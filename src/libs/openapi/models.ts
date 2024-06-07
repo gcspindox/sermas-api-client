@@ -440,13 +440,19 @@ export type TaskEventDto = {
 /**
  * Data type
  */
-export type TaskSchemaDataType = 'text' | 'boolean' | 'date' | 'select';
+export type TaskSchemaDataType =
+  | 'text'
+  | 'boolean'
+  | 'date'
+  | 'select'
+  | 'eval';
 
 export const TaskSchemaDataTypeEnum = {
   TEXT: 'text',
   BOOLEAN: 'boolean',
   DATE: 'date',
   SELECT: 'select',
+  EVAL: 'eval',
 } as const;
 
 export type OptionSelection = {
@@ -486,6 +492,10 @@ export type TaskFieldDto = {
    * Provde an activation condition based on the stored record list. If omitted, the field is always proposed to the user.
    */
   condition?: string;
+  /**
+   * Provde a prompt to evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.
+   */
+  prompt?: string;
   /**
    * Allow to select multiple options
    */
