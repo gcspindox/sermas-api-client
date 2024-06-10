@@ -1,9 +1,7 @@
 import type {
   DialogueActor,
   DialogueDocumentDto,
-  DialogueMemoryMessageDto,
   DialogueMessageDto,
-  DialogueTaskRecordDto,
   DialogueTextToSpeechDto,
   DialogueToolsRepositoryDto,
   DialogueUrlDto,
@@ -102,12 +100,6 @@ export type TDataChatMessage = {
 export type TDataStopAgentSpeech = {
   appId: string;
   sessionId: string;
-};
-export type TDataGetChatHistory = {
-  sessionId: string;
-};
-export type TDataNextStep = {
-  requestBody: DialogueTaskRecordDto;
 };
 export type TDataSetTools = {
   repositoryId: string;
@@ -283,39 +275,6 @@ export class DialogueService {
     return this.httpRequest.request({
       method: 'GET',
       url: '/api/dialogue/speech/models',
-    });
-  }
-
-  /**
-   * Get a session chat history
-   * @returns DialogueMemoryMessageDto
-   * @throws ApiError
-   */
-  public getChatHistory(
-    data: TDataGetChatHistory,
-  ): CancelablePromise<Array<DialogueMemoryMessageDto>> {
-    const { sessionId } = data;
-    return this.httpRequest.request({
-      method: 'GET',
-      url: '/api/dialogue/memory/{sessionId}',
-      path: {
-        sessionId,
-      },
-    });
-  }
-
-  /**
-   * Set the tools, overriding existing ones
-   * @returns any
-   * @throws ApiError
-   */
-  public nextStep(data: TDataNextStep): CancelablePromise<any> {
-    const { requestBody } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/dialogue/tasks/next-step',
-      body: requestBody,
-      mediaType: 'application/json',
     });
   }
 
