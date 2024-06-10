@@ -404,6 +404,17 @@ export type AppToolsDTO = {
   url?: string;
 };
 
+export type TaskIntentDto = {
+  /**
+   * Intent name used as identifier
+   */
+  name: string;
+  /**
+   * Intent description used to match with user input
+   */
+  description?: string;
+};
+
 /**
  * Type of event to trigger
  */
@@ -423,6 +434,10 @@ export type TaskEventTriggerDto = {
    * Tool values passed to the tool handlers
    */
   values?: Record<string, unknown>;
+  /**
+   * Evalute the condition based on values. {key} is replaced with its value.
+   */
+  condition?: string;
 };
 
 export type TaskEventDto = {
@@ -512,6 +527,32 @@ export type TaskFieldDto = {
   options?: Array<OptionSelection>;
 };
 
+export type DialogueToolsRepositoryOptionsDto = {
+  /**
+   * Trigger one of the tools in the list once, then remove the tools.
+   */
+  triggerOnce?: boolean;
+  /**
+   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
+   */
+  exclusive?: boolean;
+};
+
+export type TaskOptionsDto = {
+  /**
+   * Enable this task as tool, allowing users to invoke it directly
+   */
+  enableTool?: boolean;
+  /**
+   * Additional tool options configuration
+   */
+  toolOptions?: DialogueToolsRepositoryOptionsDto;
+  /**
+   * ID of the tool repository to add the tool to
+   */
+  repositoryId?: string;
+};
+
 export type DialogueTaskDto = {
   /**
    * Task ID
@@ -522,6 +563,10 @@ export type DialogueTaskDto = {
    */
   appId: string;
   /**
+   * Session ID references
+   */
+  sessionId?: string;
+  /**
    * Task name
    */
   name: string;
@@ -530,6 +575,10 @@ export type DialogueTaskDto = {
    */
   description?: string;
   /**
+   * A list of intents to evaluate when the user interacts with the agent
+   */
+  intents?: Array<TaskIntentDto>;
+  /**
    * Map task events
    */
   events?: Array<TaskEventDto>;
@@ -537,6 +586,10 @@ export type DialogueTaskDto = {
    * Task fields
    */
   fields: Array<TaskFieldDto>;
+  /**
+   * Task options
+   */
+  options?: TaskOptionsDto;
 };
 
 export type PlatformAppDto = {
@@ -962,17 +1015,6 @@ export type DialogueTaskRecordDto = {
   values: Record<string, unknown>;
 };
 
-export type DialogueToolsRepositoryOptionsDto = {
-  /**
-   * Trigger one of the tools in the list once, then remove the tools.
-   */
-  triggerOnce?: boolean;
-  /**
-   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
-   */
-  exclusive?: boolean;
-};
-
 export type DialogueToolsRepositoryDto = {
   appId: string;
   /**
@@ -1002,7 +1044,7 @@ export type DialogueToolsRepositoryDto = {
   /**
    * Tools list
    */
-  tools: Array<AppToolsDTO>;
+  tools: Array<unknown[]>;
 };
 
 export type SessionProperties = {

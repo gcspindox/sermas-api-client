@@ -791,6 +791,20 @@ export const $AppToolsDTO = {
   },
 } as const;
 
+export const $TaskIntentDto = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Intent name used as identifier`,
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Intent description used to match with user input`,
+    },
+  },
+} as const;
+
 export const $TaskEventType = {
   type: 'Enum',
 } as const;
@@ -812,6 +826,10 @@ export const $TaskEventTriggerDto = {
           },
         },
       ],
+    },
+    condition: {
+      type: 'string',
+      description: `Evalute the condition based on values. {key} is replaced with its value.`,
     },
   },
 } as const;
@@ -905,6 +923,41 @@ export const $TaskFieldDto = {
   },
 } as const;
 
+export const $DialogueToolsRepositoryOptionsDto = {
+  properties: {
+    triggerOnce: {
+      type: 'boolean',
+      description: `Trigger one of the tools in the list once, then remove the tools.`,
+    },
+    exclusive: {
+      type: 'boolean',
+      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
+    },
+  },
+} as const;
+
+export const $TaskOptionsDto = {
+  properties: {
+    enableTool: {
+      type: 'boolean',
+      description: `Enable this task as tool, allowing users to invoke it directly`,
+    },
+    toolOptions: {
+      type: 'all-of',
+      description: `Additional tool options configuration`,
+      contains: [
+        {
+          type: 'DialogueToolsRepositoryOptionsDto',
+        },
+      ],
+    },
+    repositoryId: {
+      type: 'string',
+      description: `ID of the tool repository to add the tool to`,
+    },
+  },
+} as const;
+
 export const $DialogueTaskDto = {
   properties: {
     taskId: {
@@ -917,6 +970,10 @@ export const $DialogueTaskDto = {
       description: `Application ID references`,
       isRequired: true,
     },
+    sessionId: {
+      type: 'string',
+      description: `Session ID references`,
+    },
     name: {
       type: 'string',
       description: `Task name`,
@@ -925,6 +982,12 @@ export const $DialogueTaskDto = {
     description: {
       type: 'string',
       description: `Task description`,
+    },
+    intents: {
+      type: 'array',
+      contains: {
+        type: 'TaskIntentDto',
+      },
     },
     events: {
       type: 'array',
@@ -938,6 +1001,15 @@ export const $DialogueTaskDto = {
         type: 'TaskFieldDto',
       },
       isRequired: true,
+    },
+    options: {
+      type: 'all-of',
+      description: `Task options`,
+      contains: [
+        {
+          type: 'TaskOptionsDto',
+        },
+      ],
     },
   },
 } as const;
@@ -1763,19 +1835,6 @@ export const $DialogueTaskRecordDto = {
   },
 } as const;
 
-export const $DialogueToolsRepositoryOptionsDto = {
-  properties: {
-    triggerOnce: {
-      type: 'boolean',
-      description: `Trigger one of the tools in the list once, then remove the tools.`,
-    },
-    exclusive: {
-      type: 'boolean',
-      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
-    },
-  },
-} as const;
-
 export const $DialogueToolsRepositoryDto = {
   properties: {
     appId: {
@@ -1815,7 +1874,7 @@ export const $DialogueToolsRepositoryDto = {
     tools: {
       type: 'array',
       contains: {
-        type: 'AppToolsDTO',
+        type: 'unknown[]',
       },
       isRequired: true,
     },
