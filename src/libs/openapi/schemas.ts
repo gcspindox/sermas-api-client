@@ -427,6 +427,183 @@ export const $AppUserDto = {
   },
 } as const;
 
+export const $ToolsParameterSchemaTypes = {
+  type: 'Enum',
+} as const;
+
+export const $ToolsParameterSchema = {
+  properties: {
+    parameter: {
+      type: 'string',
+      description: `function parameter name`,
+      isRequired: true,
+    },
+    type: {
+      type: 'ToolsParameterSchemaTypes',
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `description for the parameter, useful to give an hint while matching from the user input`,
+      isRequired: true,
+    },
+    ignore: {
+      type: 'boolean',
+      description: `flag as required`,
+    },
+    value: {
+      type: 'any-of',
+      description: `provide a predefined value, useful to fill data otherwise missing from the context`,
+      contains: [
+        {
+          type: 'string',
+        },
+        {
+          type: 'number',
+        },
+        {
+          type: 'boolean',
+        },
+      ],
+    },
+  },
+} as const;
+
+export const $ToolsRequestSchemaAuthBasic = {
+  properties: {
+    username: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $ToolsRequestSchemaAuthBearer = {
+  properties: {
+    clientType: {
+      type: 'string',
+      description: `Supported options are "client_credentials" or "password".`,
+    },
+    clientId: {
+      type: 'string',
+      description: `Required for client type "client_credentials"`,
+    },
+    clientSecret: {
+      type: 'string',
+      description: `Required for client type "client_credentials"`,
+    },
+    username: {
+      type: 'string',
+      description: `Required for client type "password"`,
+    },
+    password: {
+      type: 'string',
+      description: `Required for client type "password"`,
+    },
+    audience: {
+      type: 'string',
+    },
+    tokenUrl: {
+      type: 'string',
+      isRequired: true,
+    },
+    refreshUrl: {
+      type: 'string',
+    },
+  },
+} as const;
+
+export const $ToolsRequestSchema = {
+  properties: {
+    auth: {
+      type: 'string',
+      description: `Supported options are basic, bearer and module. Defaults to module if not specified.`,
+    },
+    basic: {
+      type: 'all-of',
+      description: `Used for "basic" auth type`,
+      contains: [
+        {
+          type: 'ToolsRequestSchemaAuthBasic',
+        },
+      ],
+    },
+    bearer: {
+      type: 'all-of',
+      description: `Used for "bearer" auth type`,
+      contains: [
+        {
+          type: 'ToolsRequestSchemaAuthBearer',
+        },
+      ],
+    },
+    moduleId: {
+      type: 'string',
+      description: `Reference to one of the modules (or clients) available in the app`,
+      isRequired: true,
+    },
+    url: {
+      type: 'string',
+      description: `Url to call with a JSON POST. Leave empty to skip API calling`,
+      isRequired: true,
+    },
+    headers: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+    },
+  },
+} as const;
+
+export const $AppToolsDTO = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Tool name used in the LLM, a descriptive name may help in identifying it correctly`,
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Tool description used in the LLM, this is key to correctly match the user intent`,
+      isRequired: true,
+    },
+    schema: {
+      type: 'array',
+      contains: {
+        type: 'ToolsParameterSchema',
+      },
+    },
+    request: {
+      type: 'all-of',
+      description: `Provide details to trigger an HTTP API call on tool match`,
+      contains: [
+        {
+          type: 'ToolsRequestSchema',
+        },
+      ],
+    },
+    emitter: {
+      type: 'string',
+      description: `Internal event emitted on match`,
+    },
+    returnDirect: {
+      type: 'boolean',
+    },
+    skipResponse: {
+      type: 'boolean',
+      description: `Ignore the LLM response when the tool matches`,
+    },
+    url: {
+      type: 'string',
+      description: `API url to call on tool match, defaults to unauthenticated POST if no \`request\` are provided.`,
+    },
+  },
+} as const;
+
 export const $ModuleResourceDto = {
   properties: {
     resource: {
@@ -614,179 +791,225 @@ export const $AppSettingsDto = {
   },
 } as const;
 
-export const $ToolsParameterSchemaTypes = {
-  type: 'Enum',
-} as const;
-
-export const $ToolsParameterSchema = {
-  properties: {
-    parameter: {
-      type: 'string',
-      description: `function parameter name`,
-      isRequired: true,
-    },
-    type: {
-      type: 'ToolsParameterSchemaTypes',
-      isRequired: true,
-    },
-    description: {
-      type: 'string',
-      description: `description for the parameter, useful to give an hint while matching from the user input`,
-      isRequired: true,
-    },
-    ignore: {
-      type: 'boolean',
-      description: `flag as required`,
-    },
-    value: {
-      type: 'any-of',
-      description: `provide a predefined value, useful to fill data otherwise missing from the context`,
-      contains: [
-        {
-          type: 'string',
-        },
-        {
-          type: 'number',
-        },
-        {
-          type: 'boolean',
-        },
-      ],
-    },
-  },
-} as const;
-
-export const $ToolsRequestSchemaAuthBasic = {
-  properties: {
-    username: {
-      type: 'string',
-    },
-    password: {
-      type: 'string',
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $ToolsRequestSchemaAuthBearer = {
-  properties: {
-    clientType: {
-      type: 'string',
-      description: `Supported options are "client_credentials" or "password".`,
-    },
-    clientId: {
-      type: 'string',
-      description: `Required for client type "client_credentials"`,
-    },
-    clientSecret: {
-      type: 'string',
-      description: `Required for client type "client_credentials"`,
-    },
-    username: {
-      type: 'string',
-      description: `Required for client type "password"`,
-    },
-    password: {
-      type: 'string',
-      description: `Required for client type "password"`,
-    },
-    audience: {
-      type: 'string',
-    },
-    tokenUrl: {
-      type: 'string',
-      isRequired: true,
-    },
-    refreshUrl: {
-      type: 'string',
-    },
-  },
-} as const;
-
-export const $ToolsRequestSchema = {
-  properties: {
-    auth: {
-      type: 'string',
-      description: `Supported options are basic, bearer and module. Defaults to module if not specified.`,
-    },
-    basic: {
-      type: 'all-of',
-      description: `Used for "basic" auth type`,
-      contains: [
-        {
-          type: 'ToolsRequestSchemaAuthBasic',
-        },
-      ],
-    },
-    bearer: {
-      type: 'all-of',
-      description: `Used for "bearer" auth type`,
-      contains: [
-        {
-          type: 'ToolsRequestSchemaAuthBearer',
-        },
-      ],
-    },
-    moduleId: {
-      type: 'string',
-      description: `Reference to one of the modules (or clients) available in the app`,
-      isRequired: true,
-    },
-    url: {
-      type: 'string',
-      description: `Url to call with a JSON POST. Leave empty to skip API calling`,
-      isRequired: true,
-    },
-    headers: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
-    },
-  },
-} as const;
-
-export const $AppToolsDTO = {
+export const $TaskIntentDto = {
   properties: {
     name: {
       type: 'string',
-      description: `Tool name used in the LLM, a descriptive name may help in identifying it correctly`,
+      description: `Intent name used as identifier`,
       isRequired: true,
     },
     description: {
       type: 'string',
-      description: `Tool description used in the LLM, this is key to correctly match the user intent`,
-      isRequired: true,
+      description: `Intent description used to match with user input`,
     },
-    schema: {
-      type: 'array',
-      contains: {
-        type: 'ToolsParameterSchema',
-      },
+  },
+} as const;
+
+export const $TaskEventType = {
+  type: 'Enum',
+} as const;
+
+export const $TaskEventTriggerDto = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Tool to trigger`,
     },
-    request: {
+    values: {
       type: 'all-of',
-      description: `Provide details to trigger an HTTP API call on tool match`,
+      description: `Tool values passed to the tool handlers`,
       contains: [
         {
-          type: 'ToolsRequestSchema',
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
         },
       ],
     },
-    emitter: {
+    condition: {
       type: 'string',
-      description: `Internal event emitted on match`,
+      description: `Evalute the condition based on values. {key} is replaced with its value.`,
     },
-    returnDirect: {
-      type: 'boolean',
+  },
+} as const;
+
+export const $TaskEventDto = {
+  properties: {
+    type: {
+      type: 'TaskEventType',
+      isRequired: true,
     },
-    skipResponse: {
-      type: 'boolean',
-      description: `Ignore the LLM response when the tool matches`,
-    },
-    url: {
+    message: {
       type: 'string',
-      description: `API url to call on tool match, defaults to unauthenticated POST if no \`request\` are provided.`,
+      description: `Chat message to send to the user`,
+    },
+    trigger: {
+      type: 'array',
+      contains: {
+        type: 'TaskEventTriggerDto',
+      },
+    },
+  },
+} as const;
+
+export const $TaskSchemaDataType = {
+  type: 'Enum',
+} as const;
+
+export const $OptionSelection = {
+  properties: {
+    value: {
+      type: 'string',
+      description: `Selection value`,
+      isRequired: true,
+    },
+    label: {
+      type: 'string',
+      description: `Selection label (value is used if not provided)`,
+    },
+  },
+} as const;
+
+export const $TaskFieldDto = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Name of the field`,
+      isRequired: true,
+    },
+    label: {
+      type: 'string',
+      description: `Label of the field`,
+    },
+    order: {
+      type: 'number',
+      description: `Priority order (lower first)`,
+    },
+    type: {
+      type: 'TaskSchemaDataType',
+      isRequired: true,
+    },
+    required: {
+      type: 'boolean',
+      description: `Indicate if the field is required`,
+    },
+    validation: {
+      type: 'string',
+      description: `A prompt to validate and transform the input`,
+    },
+    condition: {
+      type: 'string',
+      description: `Provde an activation condition based on the stored record list. If omitted, the field is always proposed to the user.`,
+    },
+    prompt: {
+      type: 'string',
+      description: `Provde a prompt for type=evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.`,
+    },
+    handler: {
+      type: 'string',
+      description: `Provde an handler for type=external to delegate the field handling to an external service`,
+    },
+    multiple: {
+      type: 'boolean',
+      description: `Allow to select multiple options`,
+    },
+    options: {
+      type: 'array',
+      contains: {
+        type: 'OptionSelection',
+      },
+    },
+  },
+} as const;
+
+export const $DialogueToolsRepositoryOptionsDto = {
+  properties: {
+    triggerOnce: {
+      type: 'boolean',
+      description: `Trigger one of the tools in the list once, then remove the tools.`,
+    },
+    exclusive: {
+      type: 'boolean',
+      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
+    },
+  },
+} as const;
+
+export const $TaskOptionsDto = {
+  properties: {
+    enableTool: {
+      type: 'boolean',
+      description: `Enable this task as tool, allowing users to invoke it directly`,
+    },
+    toolOptions: {
+      type: 'all-of',
+      description: `Additional tool options configuration`,
+      contains: [
+        {
+          type: 'DialogueToolsRepositoryOptionsDto',
+        },
+      ],
+    },
+    repositoryId: {
+      type: 'string',
+      description: `ID of the tool repository to add the tool to`,
+    },
+  },
+} as const;
+
+export const $DialogueTaskDto = {
+  properties: {
+    taskId: {
+      type: 'string',
+      description: `Task ID`,
+      isRequired: true,
+    },
+    appId: {
+      type: 'string',
+      description: `Application ID references`,
+      isRequired: true,
+    },
+    sessionId: {
+      type: 'string',
+      description: `Session ID references`,
+    },
+    name: {
+      type: 'string',
+      description: `Task name`,
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Task description`,
+    },
+    intents: {
+      type: 'array',
+      contains: {
+        type: 'TaskIntentDto',
+      },
+    },
+    events: {
+      type: 'array',
+      contains: {
+        type: 'TaskEventDto',
+      },
+    },
+    fields: {
+      type: 'array',
+      contains: {
+        type: 'TaskFieldDto',
+      },
+      isRequired: true,
+    },
+    options: {
+      type: 'all-of',
+      description: `Task options`,
+      contains: [
+        {
+          type: 'TaskOptionsDto',
+        },
+      ],
     },
   },
 } as const;
@@ -848,6 +1071,12 @@ export const $PlatformAppDto = {
         type: 'AppToolsDTO',
       },
     },
+    tasks: {
+      type: 'array',
+      contains: {
+        type: 'DialogueTaskDto',
+      },
+    },
   },
 } as const;
 
@@ -894,6 +1123,12 @@ export const $CreatePlatformAppDto = {
       type: 'array',
       contains: {
         type: 'AppToolsDTO',
+      },
+    },
+    tasks: {
+      type: 'array',
+      contains: {
+        type: 'DialogueTaskDto',
       },
     },
   },
@@ -1548,15 +1783,54 @@ export const $DialogueMessageDto = {
   },
 } as const;
 
-export const $DialogueToolsRepositoryOptionsDto = {
+export const $DialogueMemoryMessageDto = {
   properties: {
-    triggerOnce: {
-      type: 'boolean',
-      description: `Trigger one of the tools in the list once, then remove the tools.`,
+    content: {
+      type: 'string',
+      isRequired: true,
     },
-    exclusive: {
-      type: 'boolean',
-      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
+    role: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+    name: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $DialogueTaskRecordDto = {
+  properties: {
+    recordId: {
+      type: 'string',
+      description: `Record ID`,
+      isRequired: true,
+    },
+    taskId: {
+      type: 'string',
+      description: `Task ID`,
+      isRequired: true,
+    },
+    appId: {
+      type: 'string',
+      description: `Application ID reference`,
+      isRequired: true,
+    },
+    sessionId: {
+      type: 'string',
+      description: `Session ID reference`,
+      isRequired: true,
+    },
+    values: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
     },
   },
 } as const;
@@ -1600,7 +1874,7 @@ export const $DialogueToolsRepositoryDto = {
     tools: {
       type: 'array',
       contains: {
-        type: 'AppToolsDTO',
+        type: 'unknown[]',
       },
       isRequired: true,
     },
@@ -2014,6 +2288,7 @@ export const $ImageUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2028,6 +2303,7 @@ export const $ImageUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2114,6 +2390,7 @@ export const $VideoUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2128,6 +2405,7 @@ export const $VideoUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2193,6 +2471,7 @@ export const $PdfUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2207,6 +2486,7 @@ export const $PdfUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2272,6 +2552,7 @@ export const $WebpageUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2286,6 +2567,7 @@ export const $WebpageUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2351,6 +2633,7 @@ export const $ObjectUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2365,6 +2648,7 @@ export const $ObjectUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2430,6 +2714,7 @@ export const $TextUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2444,6 +2729,7 @@ export const $TextUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2533,6 +2819,7 @@ export const $QuizUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2547,6 +2834,7 @@ export const $QuizUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2606,6 +2894,7 @@ export const $ClearUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2620,6 +2909,7 @@ export const $ClearUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2679,6 +2969,7 @@ export const $ClearScreenDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2693,6 +2984,7 @@ export const $ClearScreenDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2789,6 +3081,7 @@ export const $ButtonsUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2803,6 +3096,7 @@ export const $ButtonsUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2859,6 +3153,7 @@ export const $DialogueMessageUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2873,6 +3168,7 @@ export const $DialogueMessageUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -2942,6 +3238,7 @@ export const $LinkUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -2956,6 +3253,7 @@ export const $LinkUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -3021,6 +3319,7 @@ export const $HtmlUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -3035,6 +3334,7 @@ export const $HtmlUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -3104,6 +3404,7 @@ export const $EmailUIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -3118,6 +3419,7 @@ export const $EmailUIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
@@ -3217,6 +3519,7 @@ export const $UIContentDto = {
     },
     metadata: {
       type: 'all-of',
+      description: `Provides metadata for the content`,
       contains: [
         {
           type: 'UIContentMetadataDto',
@@ -3231,6 +3534,7 @@ export const $UIContentDto = {
     },
     options: {
       type: 'all-of',
+      description: `Provides configuration options for the content`,
       contains: [
         {
           type: 'UIContentOptionsDto',
