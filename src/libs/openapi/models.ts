@@ -168,119 +168,6 @@ export type AppUserDto = {
   appId?: string;
 };
 
-export type ModuleResourceDto = {
-  /**
-   * Resource of the module operation
-   */
-  resource: string;
-  /**
-   * Scope of the module operation
-   */
-  scope: string;
-  /**
-   * Additional context, added to the request and event topic when triggered. Can contain variable substituted from the  payload, such as :appId
-   */
-  context?: Array<string>;
-  /**
-   * Name of the module operation
-   */
-  name?: string;
-  /**
-   * Description of the module operation
-   */
-  description?: string;
-  /**
-   * Unique identifier of the module
-   */
-  moduleId: string;
-  /**
-   * Operation to call from the module OpenAPI spec
-   */
-  operationId: string;
-  /**
-   * Indicate if an event should be emitted when this module resource is triggered. The format is app/:appId/<resource>/<scope>/[...context]
-   */
-  emitEvent?: boolean;
-};
-
-export type ModuleSettingsDto = {
-  /**
-   * Service URL used to load .well-known
-   */
-  url?: string;
-  /**
-   * Reference to a openapi specification to use to map requests to the modules
-   */
-  openapiSpec: string;
-  /**
-   * Reference to a asyncAPI specification to use to map requests to the modules
-   */
-  asyncapiSpec: string;
-  /**
-   * List of managed resources and scopes for this module
-   */
-  resources: Array<ModuleResourceDto>;
-};
-
-export type AppModuleConfigDto = {
-  moduleId: string;
-  /**
-   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
-   */
-  status?: string;
-  name?: string;
-  description?: string;
-  supports: Array<string>;
-  config: ModuleSettingsDto;
-  secret?: string;
-  appId?: string;
-};
-
-export type AppClientDto = {
-  appId?: string;
-  name: string;
-  /**
-   * The clientId, must be unique in the client list and in uuid format.
-   */
-  clientId?: string;
-  secret?: string;
-  /**
-   * A list of permissions for this client in the form [resource].[scope] e.g. detection.intent. User *.* for all permission
-   */
-  permissions: Array<string>;
-};
-
-export type AppPromptDto = {
-  text: string;
-};
-
-export type InteractionStartTypes =
-  | 'on-load'
-  | 'touch'
-  | 'speak'
-  | 'intent-detection';
-
-export const InteractionStartTypesEnum = {
-  ON_LOAD: 'on-load',
-  TOUCH: 'touch',
-  SPEAK: 'speak',
-  INTENT_DETECTION: 'intent-detection',
-} as const;
-
-export type AppSettingsDto = {
-  skipToolResponse?: boolean;
-  ttsEnabled?: boolean;
-  login?: boolean;
-  avatar: string;
-  language?: string;
-  llm?: string;
-  background: string;
-  prompt?: AppPromptDto;
-  skipWelcomeMessage?: boolean;
-  interactionStart?: InteractionStartTypes;
-  theme?: Record<string, unknown>;
-};
-
 /**
  * parameter type (one of string,number,boolean,object)
  */
@@ -402,6 +289,119 @@ export type AppToolsDTO = {
    * API url to call on tool match, defaults to unauthenticated POST if no `request` are provided.
    */
   url?: string;
+};
+
+export type ModuleResourceDto = {
+  /**
+   * Resource of the module operation
+   */
+  resource: string;
+  /**
+   * Scope of the module operation
+   */
+  scope: string;
+  /**
+   * Additional context, added to the request and event topic when triggered. Can contain variable substituted from the  payload, such as :appId
+   */
+  context?: Array<string>;
+  /**
+   * Name of the module operation
+   */
+  name?: string;
+  /**
+   * Description of the module operation
+   */
+  description?: string;
+  /**
+   * Unique identifier of the module
+   */
+  moduleId: string;
+  /**
+   * Operation to call from the module OpenAPI spec
+   */
+  operationId: string;
+  /**
+   * Indicate if an event should be emitted when this module resource is triggered. The format is app/:appId/<resource>/<scope>/[...context]
+   */
+  emitEvent?: boolean;
+};
+
+export type ModuleSettingsDto = {
+  /**
+   * Service URL used to load .well-known
+   */
+  url?: string;
+  /**
+   * Reference to a openapi specification to use to map requests to the modules
+   */
+  openapiSpec: string;
+  /**
+   * Reference to a asyncAPI specification to use to map requests to the modules
+   */
+  asyncapiSpec: string;
+  /**
+   * List of managed resources and scopes for this module
+   */
+  resources: Array<ModuleResourceDto>;
+};
+
+export type AppModuleConfigDto = {
+  moduleId: string;
+  /**
+   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
+   */
+  status?: string;
+  name?: string;
+  description?: string;
+  supports: Array<string>;
+  config: ModuleSettingsDto;
+  secret?: string;
+  appId?: string;
+};
+
+export type AppClientDto = {
+  appId?: string;
+  name: string;
+  /**
+   * The clientId, must be unique in the client list and in uuid format.
+   */
+  clientId?: string;
+  secret?: string;
+  /**
+   * A list of permissions for this client in the form [resource].[scope] e.g. detection.intent. User *.* for all permission
+   */
+  permissions: Array<string>;
+};
+
+export type AppPromptDto = {
+  text: string;
+};
+
+export type InteractionStartTypes =
+  | 'on-load'
+  | 'touch'
+  | 'speak'
+  | 'intent-detection';
+
+export const InteractionStartTypesEnum = {
+  ON_LOAD: 'on-load',
+  TOUCH: 'touch',
+  SPEAK: 'speak',
+  INTENT_DETECTION: 'intent-detection',
+} as const;
+
+export type AppSettingsDto = {
+  skipToolResponse?: boolean;
+  ttsEnabled?: boolean;
+  login?: boolean;
+  avatar: string;
+  language?: string;
+  llm?: string;
+  background: string;
+  prompt?: AppPromptDto;
+  skipWelcomeMessage?: boolean;
+  interactionStart?: InteractionStartTypes;
+  theme?: Record<string, unknown>;
 };
 
 export type TaskIntentDto = {

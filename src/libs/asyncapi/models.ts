@@ -238,7 +238,9 @@ export interface QRCodeEventDto {
   clientId?: string;
   userId?: string;
   ts?: string;
-  uri: string;
+  version: string;
+  payload: string;
+  sessionId?: string;
 }
 
 export interface NoiseEventDto {
@@ -287,10 +289,10 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_294;
+  field: anonymous_schema_296;
 }
 
-export interface anonymous_schema_294 {
+export interface anonymous_schema_296 {
   name: string;
   label?: string;
   order?: number;
@@ -331,11 +333,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_313;
+  options?: anonymous_schema_315;
   tools: any[][];
 }
 
-export interface anonymous_schema_313 {
+export interface anonymous_schema_315 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -402,12 +404,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_388 {
+export interface anonymous_schema_390 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_391 {
+export interface anonymous_schema_393 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
