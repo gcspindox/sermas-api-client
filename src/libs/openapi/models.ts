@@ -168,6 +168,119 @@ export type AppUserDto = {
   appId?: string;
 };
 
+export type ModuleResourceDto = {
+  /**
+   * Resource of the module operation
+   */
+  resource: string;
+  /**
+   * Scope of the module operation
+   */
+  scope: string;
+  /**
+   * Additional context, added to the request and event topic when triggered. Can contain variable substituted from the  payload, such as :appId
+   */
+  context?: Array<string>;
+  /**
+   * Name of the module operation
+   */
+  name?: string;
+  /**
+   * Description of the module operation
+   */
+  description?: string;
+  /**
+   * Unique identifier of the module
+   */
+  moduleId: string;
+  /**
+   * Operation to call from the module OpenAPI spec
+   */
+  operationId: string;
+  /**
+   * Indicate if an event should be emitted when this module resource is triggered. The format is app/:appId/<resource>/<scope>/[...context]
+   */
+  emitEvent?: boolean;
+};
+
+export type ModuleSettingsDto = {
+  /**
+   * Service URL used to load .well-known
+   */
+  url?: string;
+  /**
+   * Reference to a openapi specification to use to map requests to the modules
+   */
+  openapiSpec: string;
+  /**
+   * Reference to a asyncAPI specification to use to map requests to the modules
+   */
+  asyncapiSpec: string;
+  /**
+   * List of managed resources and scopes for this module
+   */
+  resources: Array<ModuleResourceDto>;
+};
+
+export type AppModuleConfigDto = {
+  moduleId: string;
+  /**
+   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
+   */
+  status?: string;
+  name?: string;
+  description?: string;
+  supports: Array<string>;
+  config: ModuleSettingsDto;
+  secret?: string;
+  appId?: string;
+};
+
+export type AppClientDto = {
+  appId?: string;
+  name: string;
+  /**
+   * The clientId, must be unique in the client list and in uuid format.
+   */
+  clientId?: string;
+  secret?: string;
+  /**
+   * A list of permissions for this client in the form [resource].[scope] e.g. detection.intent. User *.* for all permission
+   */
+  permissions: Array<string>;
+};
+
+export type AppPromptDto = {
+  text: string;
+};
+
+export type InteractionStartTypes =
+  | 'on-load'
+  | 'touch'
+  | 'speak'
+  | 'intent-detection';
+
+export const InteractionStartTypesEnum = {
+  ON_LOAD: 'on-load',
+  TOUCH: 'touch',
+  SPEAK: 'speak',
+  INTENT_DETECTION: 'intent-detection',
+} as const;
+
+export type AppSettingsDto = {
+  skipToolResponse?: boolean;
+  ttsEnabled?: boolean;
+  login?: boolean;
+  avatar: string;
+  language?: string;
+  llm?: string;
+  background: string;
+  prompt?: AppPromptDto;
+  skipWelcomeMessage?: boolean;
+  interactionStart?: InteractionStartTypes;
+  theme?: Record<string, unknown>;
+};
+
 /**
  * parameter type (one of string,number,boolean,object)
  */
@@ -291,307 +404,6 @@ export type AppToolsDTO = {
   url?: string;
 };
 
-export type ModuleResourceDto = {
-  /**
-   * Resource of the module operation
-   */
-  resource: string;
-  /**
-   * Scope of the module operation
-   */
-  scope: string;
-  /**
-   * Additional context, added to the request and event topic when triggered. Can contain variable substituted from the  payload, such as :appId
-   */
-  context?: Array<string>;
-  /**
-   * Name of the module operation
-   */
-  name?: string;
-  /**
-   * Description of the module operation
-   */
-  description?: string;
-  /**
-   * Unique identifier of the module
-   */
-  moduleId: string;
-  /**
-   * Operation to call from the module OpenAPI spec
-   */
-  operationId: string;
-  /**
-   * Indicate if an event should be emitted when this module resource is triggered. The format is app/:appId/<resource>/<scope>/[...context]
-   */
-  emitEvent?: boolean;
-};
-
-export type ModuleSettingsDto = {
-  /**
-   * Service URL used to load .well-known
-   */
-  url?: string;
-  /**
-   * Reference to a openapi specification to use to map requests to the modules
-   */
-  openapiSpec: string;
-  /**
-   * Reference to a asyncAPI specification to use to map requests to the modules
-   */
-  asyncapiSpec: string;
-  /**
-   * List of managed resources and scopes for this module
-   */
-  resources: Array<ModuleResourceDto>;
-};
-
-export type AppModuleConfigDto = {
-  moduleId: string;
-  /**
-   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
-   */
-  status?: string;
-  name?: string;
-  description?: string;
-  supports: Array<string>;
-  config: ModuleSettingsDto;
-  secret?: string;
-  appId?: string;
-};
-
-export type AppClientDto = {
-  appId?: string;
-  name: string;
-  /**
-   * The clientId, must be unique in the client list and in uuid format.
-   */
-  clientId?: string;
-  secret?: string;
-  /**
-   * A list of permissions for this client in the form [resource].[scope] e.g. detection.intent. User *.* for all permission
-   */
-  permissions: Array<string>;
-};
-
-export type AppPromptDto = {
-  text: string;
-};
-
-export type InteractionStartTypes =
-  | 'on-load'
-  | 'touch'
-  | 'speak'
-  | 'intent-detection';
-
-export const InteractionStartTypesEnum = {
-  ON_LOAD: 'on-load',
-  TOUCH: 'touch',
-  SPEAK: 'speak',
-  INTENT_DETECTION: 'intent-detection',
-} as const;
-
-export type AppSettingsDto = {
-  skipToolResponse?: boolean;
-  ttsEnabled?: boolean;
-  login?: boolean;
-  avatar: string;
-  language?: string;
-  llm?: string;
-  background: string;
-  prompt?: AppPromptDto;
-  skipWelcomeMessage?: boolean;
-  interactionStart?: InteractionStartTypes;
-  theme?: Record<string, unknown>;
-};
-
-export type TaskIntentDto = {
-  /**
-   * Intent name used as identifier
-   */
-  name: string;
-  /**
-   * Intent description used to match with user input
-   */
-  description?: string;
-};
-
-/**
- * Type of event to trigger
- */
-export type TaskEventType = 'started' | 'completed';
-
-export const TaskEventTypeEnum = {
-  STARTED: 'started',
-  COMPLETED: 'completed',
-} as const;
-
-export type TaskEventTriggerDto = {
-  /**
-   * Tool to trigger
-   */
-  name?: string;
-  /**
-   * Tool values passed to the tool handlers
-   */
-  values?: Record<string, unknown>;
-  /**
-   * Evalute the condition based on values. {key} is replaced with its value.
-   */
-  condition?: string;
-};
-
-export type TaskEventDto = {
-  type: TaskEventType;
-  /**
-   * Chat message to send to the user
-   */
-  message?: string;
-  /**
-   * Trigger a tool
-   */
-  trigger?: Array<TaskEventTriggerDto>;
-};
-
-/**
- * Data type
- */
-export type TaskSchemaDataType =
-  | 'text'
-  | 'boolean'
-  | 'date'
-  | 'select'
-  | 'eval'
-  | 'external';
-
-export const TaskSchemaDataTypeEnum = {
-  TEXT: 'text',
-  BOOLEAN: 'boolean',
-  DATE: 'date',
-  SELECT: 'select',
-  EVAL: 'eval',
-  EXTERNAL: 'external',
-} as const;
-
-export type OptionSelection = {
-  /**
-   * Selection value
-   */
-  value: string;
-  /**
-   * Selection label (value is used if not provided)
-   */
-  label?: string;
-};
-
-export type TaskFieldDto = {
-  /**
-   * Name of the field
-   */
-  name: string;
-  /**
-   * Label of the field
-   */
-  label?: string;
-  /**
-   * Priority order (lower first)
-   */
-  order?: number;
-  type: TaskSchemaDataType;
-  /**
-   * Indicate if the field is required
-   */
-  required?: boolean;
-  /**
-   * A prompt to validate and transform the input
-   */
-  validation?: string;
-  /**
-   * Provde an activation condition based on the stored record list. If omitted, the field is always proposed to the user.
-   */
-  condition?: string;
-  /**
-   * Provde a prompt for type=evaluate based on the available record fields. Placeholders such as {field-name} are replaced with the value of the field.
-   */
-  prompt?: string;
-  /**
-   * Provde an handler for type=external to delegate the field handling to an external service
-   */
-  handler?: string;
-  /**
-   * Allow to select multiple options
-   */
-  multiple?: boolean;
-  /**
-   * List of valid options
-   */
-  options?: Array<OptionSelection>;
-};
-
-export type DialogueToolsRepositoryOptionsDto = {
-  /**
-   * Trigger one of the tools in the list once, then remove the tools.
-   */
-  triggerOnce?: boolean;
-  /**
-   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
-   */
-  exclusive?: boolean;
-};
-
-export type TaskOptionsDto = {
-  /**
-   * Enable this task as tool, allowing users to invoke it directly
-   */
-  enableTool?: boolean;
-  /**
-   * Additional tool options configuration
-   */
-  toolOptions?: DialogueToolsRepositoryOptionsDto;
-  /**
-   * ID of the tool repository to add the tool to
-   */
-  repositoryId?: string;
-};
-
-export type DialogueTaskDto = {
-  /**
-   * Task ID
-   */
-  taskId: string;
-  /**
-   * Application ID references
-   */
-  appId: string;
-  /**
-   * Session ID references
-   */
-  sessionId?: string;
-  /**
-   * Task name
-   */
-  name: string;
-  /**
-   * Task description
-   */
-  description?: string;
-  /**
-   * A list of intents to evaluate when the user interacts with the agent
-   */
-  intents?: Array<TaskIntentDto>;
-  /**
-   * Map task events
-   */
-  events?: Array<TaskEventDto>;
-  /**
-   * Task fields
-   */
-  fields: Array<TaskFieldDto>;
-  /**
-   * Task options
-   */
-  options?: TaskOptionsDto;
-};
-
 export type PlatformAppDto = {
   appId: string;
   public?: boolean;
@@ -607,14 +419,7 @@ export type PlatformAppDto = {
   settings?: AppSettingsDto;
   createdAt?: string;
   updatedAt?: string;
-  /**
-   * Application tools offered by the application
-   */
   tools?: Array<AppToolsDTO>;
-  /**
-   * Structured tasks offered by the application
-   */
-  tasks?: Array<DialogueTaskDto>;
 };
 
 export type CreatePlatformAppDto = {
@@ -629,14 +434,7 @@ export type CreatePlatformAppDto = {
   repository: RepositoryConfigDto;
   clients: Array<AppClientDto>;
   settings?: AppSettingsDto;
-  /**
-   * Application tools offered by the application
-   */
   tools?: Array<AppToolsDTO>;
-  /**
-   * Structured tasks offered by the application
-   */
-  tasks?: Array<DialogueTaskDto>;
 };
 
 export type PlatformAppExportFilterDto = {
@@ -986,33 +784,15 @@ export type DialogueMessageDto = {
   chunkId?: string;
 };
 
-export type DialogueMemoryMessageDto = {
-  content: string;
-  role: Record<string, unknown>;
-  name: string;
-};
-
-export type DialogueTaskRecordDto = {
+export type DialogueToolsRepositoryOptionsDto = {
   /**
-   * Record ID
+   * Trigger one of the tools in the list once, then remove the tools.
    */
-  recordId: string;
+  triggerOnce?: boolean;
   /**
-   * Task ID
+   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
    */
-  taskId: string;
-  /**
-   * Application ID reference
-   */
-  appId: string;
-  /**
-   * Session ID reference
-   */
-  sessionId: string;
-  /**
-   * Stored values
-   */
-  values: Record<string, unknown>;
+  exclusive?: boolean;
 };
 
 export type DialogueToolsRepositoryDto = {
@@ -1044,7 +824,7 @@ export type DialogueToolsRepositoryDto = {
   /**
    * Tools list
    */
-  tools: Array<unknown[]>;
+  tools: Array<AppToolsDTO>;
 };
 
 export type SessionProperties = {
@@ -1361,13 +1141,7 @@ export type ImageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ImageContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1409,13 +1183,7 @@ export type VideoUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: VideoContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1451,13 +1219,7 @@ export type PdfUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: PdfContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1493,13 +1255,7 @@ export type WebpageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: WebpageContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1535,13 +1291,7 @@ export type ObjectUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ObjectContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1577,13 +1327,7 @@ export type TextUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: TextContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1626,13 +1370,7 @@ export type QuizUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: QuizContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1664,13 +1402,7 @@ export type ClearUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1702,13 +1434,7 @@ export type ClearScreenDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1753,13 +1479,7 @@ export type ButtonsUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ButtonsContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1791,13 +1511,7 @@ export type DialogueMessageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: DialogueMessageDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1834,13 +1548,7 @@ export type LinkUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: LinkContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1876,13 +1584,7 @@ export type HtmlUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: HtmlContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1919,13 +1621,7 @@ export type EmailUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: EmailContentDto;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
@@ -1969,13 +1665,7 @@ export type UIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
-  /**
-   * Provides metadata for the content
-   */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
-  /**
-   * Provides configuration options for the content
-   */
   options?: UIContentOptionsDto & Record<string, unknown>;
   /**
    * Unique sortable ID used to group and sort messages
