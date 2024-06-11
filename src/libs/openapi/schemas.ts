@@ -805,20 +805,6 @@ export const $TaskIntentDto = {
   },
 } as const;
 
-export const $TaskIntentDto = {
-  properties: {
-    name: {
-      type: 'string',
-      description: `Intent name used as identifier`,
-      isRequired: true,
-    },
-    description: {
-      type: 'string',
-      description: `Intent description used to match with user input`,
-    },
-  },
-} as const;
-
 export const $TaskEventType = {
   type: 'Enum',
 } as const;
@@ -952,6 +938,10 @@ export const $DialogueToolsRepositoryOptionsDto = {
 
 export const $TaskOptionsDto = {
   properties: {
+    triggerOnce: {
+      type: 'boolean',
+      description: `Trigger this task once, then remove it`,
+    },
     enableTool: {
       type: 'boolean',
       description: `Enable this task as tool, allowing users to invoke it directly`,

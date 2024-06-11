@@ -540,6 +540,10 @@ export type DialogueToolsRepositoryOptionsDto = {
 
 export type TaskOptionsDto = {
   /**
+   * Trigger this task once, then remove it
+   */
+  triggerOnce?: boolean;
+  /**
    * Enable this task as tool, allowing users to invoke it directly
    */
   enableTool?: boolean;

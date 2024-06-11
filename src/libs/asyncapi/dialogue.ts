@@ -5,6 +5,7 @@ import { Broker } from '../broker';
 import {
   SermasSessionDto,
   DialogueTaskChangedDto,
+  DialogueTaskProgressDto,
   DialogueTaskRecordChangedDto,
   DialogueTaskRecordHandlerDto,
   DialogueToolTriggeredEventDto,
@@ -98,6 +99,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueTaskChangedDto>(
       'app/:appId/dialogue/task/changed/:taskId',
+      fn,
+      params,
+    );
+  }
+
+  async taskProgress(
+    event: DialogueTaskProgressDto,
+    params?: { appId?: string; taskId?: string },
+  ) {
+    return this.broker.publish<DialogueTaskProgressDto>(
+      'app/:appId/dialogue/task/progress/:taskId',
+      event,
+      params,
+    );
+  }
+
+  async onTaskProgress(
+    fn: (event: DialogueTaskProgressDto) => void | Promise<void>,
+    params?: { appId?: string; taskId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueTaskProgressDto>(
+      'app/:appId/dialogue/task/progress/:taskId',
       fn,
       params,
     );
