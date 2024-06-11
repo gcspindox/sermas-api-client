@@ -427,6 +427,183 @@ export const $AppUserDto = {
   },
 } as const;
 
+export const $ToolsParameterSchemaTypes = {
+  type: 'Enum',
+} as const;
+
+export const $ToolsParameterSchema = {
+  properties: {
+    parameter: {
+      type: 'string',
+      description: `function parameter name`,
+      isRequired: true,
+    },
+    type: {
+      type: 'ToolsParameterSchemaTypes',
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `description for the parameter, useful to give an hint while matching from the user input`,
+      isRequired: true,
+    },
+    ignore: {
+      type: 'boolean',
+      description: `flag as required`,
+    },
+    value: {
+      type: 'any-of',
+      description: `provide a predefined value, useful to fill data otherwise missing from the context`,
+      contains: [
+        {
+          type: 'string',
+        },
+        {
+          type: 'number',
+        },
+        {
+          type: 'boolean',
+        },
+      ],
+    },
+  },
+} as const;
+
+export const $ToolsRequestSchemaAuthBasic = {
+  properties: {
+    username: {
+      type: 'string',
+    },
+    password: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $ToolsRequestSchemaAuthBearer = {
+  properties: {
+    clientType: {
+      type: 'string',
+      description: `Supported options are "client_credentials" or "password".`,
+    },
+    clientId: {
+      type: 'string',
+      description: `Required for client type "client_credentials"`,
+    },
+    clientSecret: {
+      type: 'string',
+      description: `Required for client type "client_credentials"`,
+    },
+    username: {
+      type: 'string',
+      description: `Required for client type "password"`,
+    },
+    password: {
+      type: 'string',
+      description: `Required for client type "password"`,
+    },
+    audience: {
+      type: 'string',
+    },
+    tokenUrl: {
+      type: 'string',
+      isRequired: true,
+    },
+    refreshUrl: {
+      type: 'string',
+    },
+  },
+} as const;
+
+export const $ToolsRequestSchema = {
+  properties: {
+    auth: {
+      type: 'string',
+      description: `Supported options are basic, bearer and module. Defaults to module if not specified.`,
+    },
+    basic: {
+      type: 'all-of',
+      description: `Used for "basic" auth type`,
+      contains: [
+        {
+          type: 'ToolsRequestSchemaAuthBasic',
+        },
+      ],
+    },
+    bearer: {
+      type: 'all-of',
+      description: `Used for "bearer" auth type`,
+      contains: [
+        {
+          type: 'ToolsRequestSchemaAuthBearer',
+        },
+      ],
+    },
+    moduleId: {
+      type: 'string',
+      description: `Reference to one of the modules (or clients) available in the app`,
+      isRequired: true,
+    },
+    url: {
+      type: 'string',
+      description: `Url to call with a JSON POST. Leave empty to skip API calling`,
+      isRequired: true,
+    },
+    headers: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+    },
+  },
+} as const;
+
+export const $AppToolsDTO = {
+  properties: {
+    name: {
+      type: 'string',
+      description: `Tool name used in the LLM, a descriptive name may help in identifying it correctly`,
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Tool description used in the LLM, this is key to correctly match the user intent`,
+      isRequired: true,
+    },
+    schema: {
+      type: 'array',
+      contains: {
+        type: 'ToolsParameterSchema',
+      },
+    },
+    request: {
+      type: 'all-of',
+      description: `Provide details to trigger an HTTP API call on tool match`,
+      contains: [
+        {
+          type: 'ToolsRequestSchema',
+        },
+      ],
+    },
+    emitter: {
+      type: 'string',
+      description: `Internal event emitted on match`,
+    },
+    returnDirect: {
+      type: 'boolean',
+    },
+    skipResponse: {
+      type: 'boolean',
+      description: `Ignore the LLM response when the tool matches`,
+    },
+    url: {
+      type: 'string',
+      description: `API url to call on tool match, defaults to unauthenticated POST if no \`request\` are provided.`,
+    },
+  },
+} as const;
+
 export const $ModuleResourceDto = {
   properties: {
     resource: {
@@ -614,179 +791,16 @@ export const $AppSettingsDto = {
   },
 } as const;
 
-export const $ToolsParameterSchemaTypes = {
-  type: 'Enum',
-} as const;
-
-export const $ToolsParameterSchema = {
-  properties: {
-    parameter: {
-      type: 'string',
-      description: `function parameter name`,
-      isRequired: true,
-    },
-    type: {
-      type: 'ToolsParameterSchemaTypes',
-      isRequired: true,
-    },
-    description: {
-      type: 'string',
-      description: `description for the parameter, useful to give an hint while matching from the user input`,
-      isRequired: true,
-    },
-    ignore: {
-      type: 'boolean',
-      description: `flag as required`,
-    },
-    value: {
-      type: 'any-of',
-      description: `provide a predefined value, useful to fill data otherwise missing from the context`,
-      contains: [
-        {
-          type: 'string',
-        },
-        {
-          type: 'number',
-        },
-        {
-          type: 'boolean',
-        },
-      ],
-    },
-  },
-} as const;
-
-export const $ToolsRequestSchemaAuthBasic = {
-  properties: {
-    username: {
-      type: 'string',
-    },
-    password: {
-      type: 'string',
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $ToolsRequestSchemaAuthBearer = {
-  properties: {
-    clientType: {
-      type: 'string',
-      description: `Supported options are "client_credentials" or "password".`,
-    },
-    clientId: {
-      type: 'string',
-      description: `Required for client type "client_credentials"`,
-    },
-    clientSecret: {
-      type: 'string',
-      description: `Required for client type "client_credentials"`,
-    },
-    username: {
-      type: 'string',
-      description: `Required for client type "password"`,
-    },
-    password: {
-      type: 'string',
-      description: `Required for client type "password"`,
-    },
-    audience: {
-      type: 'string',
-    },
-    tokenUrl: {
-      type: 'string',
-      isRequired: true,
-    },
-    refreshUrl: {
-      type: 'string',
-    },
-  },
-} as const;
-
-export const $ToolsRequestSchema = {
-  properties: {
-    auth: {
-      type: 'string',
-      description: `Supported options are basic, bearer and module. Defaults to module if not specified.`,
-    },
-    basic: {
-      type: 'all-of',
-      description: `Used for "basic" auth type`,
-      contains: [
-        {
-          type: 'ToolsRequestSchemaAuthBasic',
-        },
-      ],
-    },
-    bearer: {
-      type: 'all-of',
-      description: `Used for "bearer" auth type`,
-      contains: [
-        {
-          type: 'ToolsRequestSchemaAuthBearer',
-        },
-      ],
-    },
-    moduleId: {
-      type: 'string',
-      description: `Reference to one of the modules (or clients) available in the app`,
-      isRequired: true,
-    },
-    url: {
-      type: 'string',
-      description: `Url to call with a JSON POST. Leave empty to skip API calling`,
-      isRequired: true,
-    },
-    headers: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
-    },
-  },
-} as const;
-
-export const $AppToolsDTO = {
+export const $TaskIntentDto = {
   properties: {
     name: {
       type: 'string',
-      description: `Tool name used in the LLM, a descriptive name may help in identifying it correctly`,
+      description: `Intent name used as identifier`,
       isRequired: true,
     },
     description: {
       type: 'string',
-      description: `Tool description used in the LLM, this is key to correctly match the user intent`,
-      isRequired: true,
-    },
-    schema: {
-      type: 'array',
-      contains: {
-        type: 'ToolsParameterSchema',
-      },
-    },
-    request: {
-      type: 'all-of',
-      description: `Provide details to trigger an HTTP API call on tool match`,
-      contains: [
-        {
-          type: 'ToolsRequestSchema',
-        },
-      ],
-    },
-    emitter: {
-      type: 'string',
-      description: `Internal event emitted on match`,
-    },
-    returnDirect: {
-      type: 'boolean',
-    },
-    skipResponse: {
-      type: 'boolean',
-      description: `Ignore the LLM response when the tool matches`,
-    },
-    url: {
-      type: 'string',
-      description: `API url to call on tool match, defaults to unauthenticated POST if no \`request\` are provided.`,
+      description: `Intent description used to match with user input`,
     },
   },
 } as const;
@@ -812,6 +826,10 @@ export const $TaskEventTriggerDto = {
           },
         },
       ],
+    },
+    condition: {
+      type: 'string',
+      description: `Evalute the condition based on values. {key} is replaced with its value.`,
     },
   },
 } as const;
@@ -905,6 +923,41 @@ export const $TaskFieldDto = {
   },
 } as const;
 
+export const $DialogueToolsRepositoryOptionsDto = {
+  properties: {
+    triggerOnce: {
+      type: 'boolean',
+      description: `Trigger one of the tools in the list once, then remove the tools.`,
+    },
+    exclusive: {
+      type: 'boolean',
+      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
+    },
+  },
+} as const;
+
+export const $TaskOptionsDto = {
+  properties: {
+    enableTool: {
+      type: 'boolean',
+      description: `Enable this task as tool, allowing users to invoke it directly`,
+    },
+    toolOptions: {
+      type: 'all-of',
+      description: `Additional tool options configuration`,
+      contains: [
+        {
+          type: 'DialogueToolsRepositoryOptionsDto',
+        },
+      ],
+    },
+    repositoryId: {
+      type: 'string',
+      description: `ID of the tool repository to add the tool to`,
+    },
+  },
+} as const;
+
 export const $DialogueTaskDto = {
   properties: {
     taskId: {
@@ -917,6 +970,10 @@ export const $DialogueTaskDto = {
       description: `Application ID references`,
       isRequired: true,
     },
+    sessionId: {
+      type: 'string',
+      description: `Session ID references`,
+    },
     name: {
       type: 'string',
       description: `Task name`,
@@ -925,6 +982,12 @@ export const $DialogueTaskDto = {
     description: {
       type: 'string',
       description: `Task description`,
+    },
+    intents: {
+      type: 'array',
+      contains: {
+        type: 'TaskIntentDto',
+      },
     },
     events: {
       type: 'array',
@@ -938,6 +1001,15 @@ export const $DialogueTaskDto = {
         type: 'TaskFieldDto',
       },
       isRequired: true,
+    },
+    options: {
+      type: 'all-of',
+      description: `Task options`,
+      contains: [
+        {
+          type: 'TaskOptionsDto',
+        },
+      ],
     },
   },
 } as const;
@@ -1763,19 +1835,6 @@ export const $DialogueTaskRecordDto = {
   },
 } as const;
 
-export const $DialogueToolsRepositoryOptionsDto = {
-  properties: {
-    triggerOnce: {
-      type: 'boolean',
-      description: `Trigger one of the tools in the list once, then remove the tools.`,
-    },
-    exclusive: {
-      type: 'boolean',
-      description: `Alter the normal chat flow, assuming one of the available tools will provide an answer.`,
-    },
-  },
-} as const;
-
 export const $DialogueToolsRepositoryDto = {
   properties: {
     appId: {
@@ -1815,7 +1874,7 @@ export const $DialogueToolsRepositoryDto = {
     tools: {
       type: 'array',
       contains: {
-        type: 'AppToolsDTO',
+        type: 'unknown[]',
       },
       isRequired: true,
     },

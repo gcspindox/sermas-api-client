@@ -168,119 +168,6 @@ export type AppUserDto = {
   appId?: string;
 };
 
-export type ModuleResourceDto = {
-  /**
-   * Resource of the module operation
-   */
-  resource: string;
-  /**
-   * Scope of the module operation
-   */
-  scope: string;
-  /**
-   * Additional context, added to the request and event topic when triggered. Can contain variable substituted from the  payload, such as :appId
-   */
-  context?: Array<string>;
-  /**
-   * Name of the module operation
-   */
-  name?: string;
-  /**
-   * Description of the module operation
-   */
-  description?: string;
-  /**
-   * Unique identifier of the module
-   */
-  moduleId: string;
-  /**
-   * Operation to call from the module OpenAPI spec
-   */
-  operationId: string;
-  /**
-   * Indicate if an event should be emitted when this module resource is triggered. The format is app/:appId/<resource>/<scope>/[...context]
-   */
-  emitEvent?: boolean;
-};
-
-export type ModuleSettingsDto = {
-  /**
-   * Service URL used to load .well-known
-   */
-  url?: string;
-  /**
-   * Reference to a openapi specification to use to map requests to the modules
-   */
-  openapiSpec: string;
-  /**
-   * Reference to a asyncAPI specification to use to map requests to the modules
-   */
-  asyncapiSpec: string;
-  /**
-   * List of managed resources and scopes for this module
-   */
-  resources: Array<ModuleResourceDto>;
-};
-
-export type AppModuleConfigDto = {
-  moduleId: string;
-  /**
-   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
-   */
-  status?: string;
-  name?: string;
-  description?: string;
-  supports: Array<string>;
-  config: ModuleSettingsDto;
-  secret?: string;
-  appId?: string;
-};
-
-export type AppClientDto = {
-  appId?: string;
-  name: string;
-  /**
-   * The clientId, must be unique in the client list and in uuid format.
-   */
-  clientId?: string;
-  secret?: string;
-  /**
-   * A list of permissions for this client in the form [resource].[scope] e.g. detection.intent. User *.* for all permission
-   */
-  permissions: Array<string>;
-};
-
-export type AppPromptDto = {
-  text: string;
-};
-
-export type InteractionStartTypes =
-  | 'on-load'
-  | 'touch'
-  | 'speak'
-  | 'intent-detection';
-
-export const InteractionStartTypesEnum = {
-  ON_LOAD: 'on-load',
-  TOUCH: 'touch',
-  SPEAK: 'speak',
-  INTENT_DETECTION: 'intent-detection',
-} as const;
-
-export type AppSettingsDto = {
-  skipToolResponse?: boolean;
-  ttsEnabled?: boolean;
-  login?: boolean;
-  avatar: string;
-  language?: string;
-  llm?: string;
-  background: string;
-  prompt?: AppPromptDto;
-  skipWelcomeMessage?: boolean;
-  interactionStart?: InteractionStartTypes;
-  theme?: Record<string, unknown>;
-};
-
 /**
  * parameter type (one of string,number,boolean,object)
  */
@@ -404,6 +291,130 @@ export type AppToolsDTO = {
   url?: string;
 };
 
+export type ModuleResourceDto = {
+  /**
+   * Resource of the module operation
+   */
+  resource: string;
+  /**
+   * Scope of the module operation
+   */
+  scope: string;
+  /**
+   * Additional context, added to the request and event topic when triggered. Can contain variable substituted from the  payload, such as :appId
+   */
+  context?: Array<string>;
+  /**
+   * Name of the module operation
+   */
+  name?: string;
+  /**
+   * Description of the module operation
+   */
+  description?: string;
+  /**
+   * Unique identifier of the module
+   */
+  moduleId: string;
+  /**
+   * Operation to call from the module OpenAPI spec
+   */
+  operationId: string;
+  /**
+   * Indicate if an event should be emitted when this module resource is triggered. The format is app/:appId/<resource>/<scope>/[...context]
+   */
+  emitEvent?: boolean;
+};
+
+export type ModuleSettingsDto = {
+  /**
+   * Service URL used to load .well-known
+   */
+  url?: string;
+  /**
+   * Reference to a openapi specification to use to map requests to the modules
+   */
+  openapiSpec: string;
+  /**
+   * Reference to a asyncAPI specification to use to map requests to the modules
+   */
+  asyncapiSpec: string;
+  /**
+   * List of managed resources and scopes for this module
+   */
+  resources: Array<ModuleResourceDto>;
+};
+
+export type AppModuleConfigDto = {
+  moduleId: string;
+  /**
+   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
+   */
+  status?: string;
+  name?: string;
+  description?: string;
+  supports: Array<string>;
+  config: ModuleSettingsDto;
+  secret?: string;
+  appId?: string;
+};
+
+export type AppClientDto = {
+  appId?: string;
+  name: string;
+  /**
+   * The clientId, must be unique in the client list and in uuid format.
+   */
+  clientId?: string;
+  secret?: string;
+  /**
+   * A list of permissions for this client in the form [resource].[scope] e.g. detection.intent. User *.* for all permission
+   */
+  permissions: Array<string>;
+};
+
+export type AppPromptDto = {
+  text: string;
+};
+
+export type InteractionStartTypes =
+  | 'on-load'
+  | 'touch'
+  | 'speak'
+  | 'intent-detection';
+
+export const InteractionStartTypesEnum = {
+  ON_LOAD: 'on-load',
+  TOUCH: 'touch',
+  SPEAK: 'speak',
+  INTENT_DETECTION: 'intent-detection',
+} as const;
+
+export type AppSettingsDto = {
+  skipToolResponse?: boolean;
+  ttsEnabled?: boolean;
+  login?: boolean;
+  avatar: string;
+  language?: string;
+  llm?: string;
+  background: string;
+  prompt?: AppPromptDto;
+  skipWelcomeMessage?: boolean;
+  interactionStart?: InteractionStartTypes;
+  theme?: Record<string, unknown>;
+};
+
+export type TaskIntentDto = {
+  /**
+   * Intent name used as identifier
+   */
+  name: string;
+  /**
+   * Intent description used to match with user input
+   */
+  description?: string;
+};
+
 /**
  * Type of event to trigger
  */
@@ -423,6 +434,10 @@ export type TaskEventTriggerDto = {
    * Tool values passed to the tool handlers
    */
   values?: Record<string, unknown>;
+  /**
+   * Evalute the condition based on values. {key} is replaced with its value.
+   */
+  condition?: string;
 };
 
 export type TaskEventDto = {
@@ -512,6 +527,32 @@ export type TaskFieldDto = {
   options?: Array<OptionSelection>;
 };
 
+export type DialogueToolsRepositoryOptionsDto = {
+  /**
+   * Trigger one of the tools in the list once, then remove the tools.
+   */
+  triggerOnce?: boolean;
+  /**
+   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
+   */
+  exclusive?: boolean;
+};
+
+export type TaskOptionsDto = {
+  /**
+   * Enable this task as tool, allowing users to invoke it directly
+   */
+  enableTool?: boolean;
+  /**
+   * Additional tool options configuration
+   */
+  toolOptions?: DialogueToolsRepositoryOptionsDto;
+  /**
+   * ID of the tool repository to add the tool to
+   */
+  repositoryId?: string;
+};
+
 export type DialogueTaskDto = {
   /**
    * Task ID
@@ -522,6 +563,10 @@ export type DialogueTaskDto = {
    */
   appId: string;
   /**
+   * Session ID references
+   */
+  sessionId?: string;
+  /**
    * Task name
    */
   name: string;
@@ -530,6 +575,10 @@ export type DialogueTaskDto = {
    */
   description?: string;
   /**
+   * A list of intents to evaluate when the user interacts with the agent
+   */
+  intents?: Array<TaskIntentDto>;
+  /**
    * Map task events
    */
   events?: Array<TaskEventDto>;
@@ -537,6 +586,10 @@ export type DialogueTaskDto = {
    * Task fields
    */
   fields: Array<TaskFieldDto>;
+  /**
+   * Task options
+   */
+  options?: TaskOptionsDto;
 };
 
 export type PlatformAppDto = {
@@ -962,17 +1015,6 @@ export type DialogueTaskRecordDto = {
   values: Record<string, unknown>;
 };
 
-export type DialogueToolsRepositoryOptionsDto = {
-  /**
-   * Trigger one of the tools in the list once, then remove the tools.
-   */
-  triggerOnce?: boolean;
-  /**
-   * Alter the normal chat flow, assuming one of the available tools will provide an answer.
-   */
-  exclusive?: boolean;
-};
-
 export type DialogueToolsRepositoryDto = {
   appId: string;
   /**
@@ -1002,7 +1044,7 @@ export type DialogueToolsRepositoryDto = {
   /**
    * Tools list
    */
-  tools: Array<AppToolsDTO>;
+  tools: Array<unknown[]>;
 };
 
 export type SessionProperties = {
