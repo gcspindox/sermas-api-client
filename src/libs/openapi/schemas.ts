@@ -1829,12 +1829,25 @@ export const $DialogueTaskRecordDto = {
       description: `Session ID reference`,
       isRequired: true,
     },
+    status: {
+      type: 'TaskEventType',
+    },
     values: {
       type: 'dictionary',
       contains: {
         properties: {},
       },
       isRequired: true,
+    },
+    updated: {
+      type: 'string',
+      description: `Updated date`,
+      format: 'date-time',
+    },
+    created: {
+      type: 'string',
+      description: `Creation date`,
+      format: 'date-time',
     },
   },
 } as const;

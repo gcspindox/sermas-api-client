@@ -416,13 +416,15 @@ export type TaskIntentDto = {
 };
 
 /**
- * Type of event to trigger
+ * Status of the task
  */
-export type TaskEventType = 'started' | 'completed';
+export type TaskEventType = 'started' | 'completed' | 'ongoing' | 'aborted';
 
 export const TaskEventTypeEnum = {
   STARTED: 'started',
   COMPLETED: 'completed',
+  ONGOING: 'ongoing',
+  ABORTED: 'aborted',
 } as const;
 
 export type TaskEventTriggerDto = {
@@ -1013,10 +1015,19 @@ export type DialogueTaskRecordDto = {
    * Session ID reference
    */
   sessionId: string;
+  status?: TaskEventType;
   /**
    * Stored values
    */
   values: Record<string, unknown>;
+  /**
+   * Updated date
+   */
+  updated?: string;
+  /**
+   * Creation date
+   */
+  created?: string;
 };
 
 export type DialogueToolsRepositoryDto = {
