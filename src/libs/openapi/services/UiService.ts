@@ -1,5 +1,6 @@
 import type {
   Buffer,
+  QrCodeDto,
   QrCodePayloadDto,
   RepositoryAssetMetadataDto,
   RepositoryAssetTypes,
@@ -106,10 +107,12 @@ export class UiService {
 
   /**
    * Generate a QR code
-   * @returns any
+   * @returns QrCodeDto
    * @throws ApiError
    */
-  public generateQrCode(data: TDataGenerateQrCode): CancelablePromise<any> {
+  public generateQrCode(
+    data: TDataGenerateQrCode,
+  ): CancelablePromise<QrCodeDto> {
     const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',

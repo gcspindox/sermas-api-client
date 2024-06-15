@@ -942,6 +942,10 @@ export const $TaskOptionsDto = {
       type: 'boolean',
       description: `Trigger this task once, then remove it`,
     },
+    removeRecord: {
+      type: 'boolean',
+      description: `Remove record on completion`,
+    },
     enableTool: {
       type: 'boolean',
       description: `Enable this task as tool, allowing users to invoke it directly`,
@@ -3582,6 +3586,15 @@ export const $QrCodePayloadDto = {
       isRequired: true,
     },
     data: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $QrCodeDto = {
+  properties: {
+    imageDataUrl: {
       type: 'string',
       isRequired: true,
     },

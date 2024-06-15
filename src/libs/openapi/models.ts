@@ -546,6 +546,10 @@ export type TaskOptionsDto = {
    */
   triggerOnce?: boolean;
   /**
+   * Remove record on completion
+   */
+  removeRecord?: boolean;
+  /**
    * Enable this task as tool, allowing users to invoke it directly
    */
   enableTool?: boolean;
@@ -2005,6 +2009,10 @@ export type UIContentDto = {
 export type QrCodePayloadDto = {
   version: number;
   data: string;
+};
+
+export type QrCodeDto = {
+  imageDataUrl: string;
 };
 
 export type UIModelMapBlendShapesRequestDto = {
