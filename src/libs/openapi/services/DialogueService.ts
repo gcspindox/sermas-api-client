@@ -6,7 +6,7 @@ import type {
   DialogueTaskRecordDto,
   DialogueTextToSpeechDto,
   DialogueToolsRepositoryDto,
-  DialogueUrlDto,
+  RagWebsiteDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -24,7 +24,7 @@ export type TDataImportWebsite = {
   /**
    * URL
    */
-  requestBody: DialogueUrlDto;
+  requestBody: RagWebsiteDto;
 };
 export type TDataRemoveAll = {
   appId: string;

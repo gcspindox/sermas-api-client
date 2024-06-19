@@ -1022,6 +1022,10 @@ export const $DialogueTaskDto = {
   },
 } as const;
 
+export const $RagDocumentsDto = {
+  properties: {},
+} as const;
+
 export const $PlatformAppDto = {
   properties: {
     appId: {
@@ -1085,6 +1089,15 @@ export const $PlatformAppDto = {
         type: 'DialogueTaskDto',
       },
     },
+    rag: {
+      type: 'all-of',
+      description: `List of RAG documents or urls to import`,
+      contains: [
+        {
+          type: 'RagDocumentsDto',
+        },
+      ],
+    },
   },
 } as const;
 
@@ -1139,6 +1152,15 @@ export const $CreatePlatformAppDto = {
         type: 'DialogueTaskDto',
       },
     },
+    rag: {
+      type: 'all-of',
+      description: `List of RAG documents or urls to import`,
+      contains: [
+        {
+          type: 'RagDocumentsDto',
+        },
+      ],
+    },
   },
 } as const;
 
@@ -1156,35 +1178,75 @@ export const $PlatformAppExportFilterDto = {
   },
 } as const;
 
-export const $PlatformModuleConfigDto = {
+export const $DialogueDocumentMetadataDto = {
   properties: {
-    moduleId: {
+    uri: {
+      type: 'string',
+    },
+    source: {
+      type: 'string',
+    },
+  },
+} as const;
+
+export const $DialogueDocumentOptionsDto = {
+  properties: {
+    parser: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+    },
+  },
+} as const;
+
+export const $DialogueDocumentDto = {
+  properties: {
+    appId: {
       type: 'string',
       isRequired: true,
     },
-    status: {
+    documentId: {
       type: 'string',
-      description: `Status of the module. \`enabled\` by default. can be \`disabled\`. Set to \`failure\` if loading generates errors.`,
+      isRequired: true,
     },
-    name: {
+    content: {
       type: 'string',
+      isRequired: true,
     },
-    description: {
+    metadata: {
+      type: 'DialogueDocumentMetadataDto',
+      isRequired: true,
+    },
+    options: {
+      type: 'all-of',
+      description: `Configure the document import handling, such as parser`,
+      contains: [
+        {
+          type: 'DialogueDocumentOptionsDto',
+        },
+      ],
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $RagWebsiteDto = {
+  properties: {
+    appId: {
       type: 'string',
+      isRequired: true,
     },
-    supports: {
+    url: {
+      type: 'string',
+      isRequired: true,
+    },
+    filterPaths: {
       type: 'array',
       contains: {
         type: 'string',
       },
       isRequired: true,
-    },
-    config: {
-      type: 'ModuleSettingsDto',
-      isRequired: true,
-    },
-    secret: {
-      type: 'string',
     },
   },
 } as const;
@@ -1476,6 +1538,39 @@ export const $UpdateUserRequestDto = {
   },
 } as const;
 
+export const $PlatformModuleConfigDto = {
+  properties: {
+    moduleId: {
+      type: 'string',
+      isRequired: true,
+    },
+    status: {
+      type: 'string',
+      description: `Status of the module. \`enabled\` by default. can be \`disabled\`. Set to \`failure\` if loading generates errors.`,
+    },
+    name: {
+      type: 'string',
+    },
+    description: {
+      type: 'string',
+    },
+    supports: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+      isRequired: true,
+    },
+    config: {
+      type: 'ModuleSettingsDto',
+      isRequired: true,
+    },
+    secret: {
+      type: 'string',
+    },
+  },
+} as const;
+
 export const $ObjectDetectionType = {
   type: 'Enum',
 } as const;
@@ -1582,79 +1677,6 @@ export const $UserInteractionIntentionDto = {
     },
     sessionId: {
       type: 'string',
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $DialogueDocumentMetadataDto = {
-  properties: {
-    uri: {
-      type: 'string',
-    },
-    source: {
-      type: 'string',
-    },
-  },
-} as const;
-
-export const $DialogueDocumentOptionsDto = {
-  properties: {
-    parser: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
-    },
-  },
-} as const;
-
-export const $DialogueDocumentDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    documentId: {
-      type: 'string',
-      isRequired: true,
-    },
-    content: {
-      type: 'string',
-      isRequired: true,
-    },
-    metadata: {
-      type: 'DialogueDocumentMetadataDto',
-      isRequired: true,
-    },
-    options: {
-      type: 'all-of',
-      description: `Configure the document import handling, such as parser`,
-      contains: [
-        {
-          type: 'DialogueDocumentOptionsDto',
-        },
-      ],
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $DialogueUrlDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    url: {
-      type: 'string',
-      isRequired: true,
-    },
-    filterPaths: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
       isRequired: true,
     },
   },

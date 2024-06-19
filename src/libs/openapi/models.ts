@@ -602,6 +602,8 @@ export type DialogueTaskDto = {
   options?: TaskOptionsDto;
 };
 
+export type RagDocumentsDto = {};
+
 export type PlatformAppDto = {
   appId: string;
   public?: boolean;
@@ -625,6 +627,10 @@ export type PlatformAppDto = {
    * Structured tasks offered by the application
    */
   tasks?: Array<DialogueTaskDto>;
+  /**
+   * List of RAG documents or urls to import
+   */
+  rag?: RagDocumentsDto;
 };
 
 export type CreatePlatformAppDto = {
@@ -647,6 +653,10 @@ export type CreatePlatformAppDto = {
    * Structured tasks offered by the application
    */
   tasks?: Array<DialogueTaskDto>;
+  /**
+   * List of RAG documents or urls to import
+   */
+  rag?: RagDocumentsDto;
 };
 
 export type PlatformAppExportFilterDto = {
@@ -654,17 +664,33 @@ export type PlatformAppExportFilterDto = {
   appId?: Array<string>;
 };
 
-export type PlatformModuleConfigDto = {
-  moduleId: string;
+export type DialogueDocumentMetadataDto = {
+  uri?: string;
+  source?: string;
+};
+
+export type DialogueDocumentOptionsDto = {
   /**
-   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
+   * Define the document splitting strategy. "phrase" split by sentence, "single-line" use each line as document, "double-line" use double break-line as document
    */
-  status?: string;
-  name?: string;
-  description?: string;
-  supports: Array<string>;
-  config: ModuleSettingsDto;
-  secret?: string;
+  parser?: Record<string, unknown>;
+};
+
+export type DialogueDocumentDto = {
+  appId: string;
+  documentId: string;
+  content: string;
+  metadata: DialogueDocumentMetadataDto;
+  /**
+   * Configure the document import handling, such as parser
+   */
+  options: DialogueDocumentOptionsDto;
+};
+
+export type RagWebsiteDto = {
+  appId: string;
+  url: string;
+  filterPaths: Array<string>;
 };
 
 export type KeycloakJwtTokenResourceAccess = {};
@@ -776,6 +802,19 @@ export type UpdateUserRequestDto = {
   authorization?: Array<AuthorizationUser>;
 };
 
+export type PlatformModuleConfigDto = {
+  moduleId: string;
+  /**
+   * Status of the module. `enabled` by default. can be `disabled`. Set to `failure` if loading generates errors.
+   */
+  status?: string;
+  name?: string;
+  description?: string;
+  supports: Array<string>;
+  config: ModuleSettingsDto;
+  secret?: string;
+};
+
 export type ObjectDetectionType = 'CARRIED_OBJECT';
 
 export const ObjectDetectionTypeEnum = {
@@ -846,35 +885,6 @@ export const InteractionTypeEnum = {
   START: 'start',
   STOP: 'stop',
 } as const;
-
-export type DialogueDocumentMetadataDto = {
-  uri?: string;
-  source?: string;
-};
-
-export type DialogueDocumentOptionsDto = {
-  /**
-   * Define the document splitting strategy. "phrase" split by sentence, "single-line" use each line as document, "double-line" use double break-line as document
-   */
-  parser?: Record<string, unknown>;
-};
-
-export type DialogueDocumentDto = {
-  appId: string;
-  documentId: string;
-  content: string;
-  metadata: DialogueDocumentMetadataDto;
-  /**
-   * Configure the document import handling, such as parser
-   */
-  options: DialogueDocumentOptionsDto;
-};
-
-export type DialogueUrlDto = {
-  appId: string;
-  url: string;
-  filterPaths: Array<string>;
-};
 
 /**
  * Actor providing the text, can be user or agent
