@@ -1149,6 +1149,32 @@ export type SessionSupportResponseDto = {
   supportId: string;
 };
 
+export type SessionStorageRecordDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  storageId?: string;
+  sessionId?: string;
+  data: Record<string, unknown>;
+};
+
+export type SessionStorageSearchDto = {
+  appId: string;
+  userId?: Array<string>;
+  sessionId?: Array<string>;
+  storageId?: Array<string>;
+};
+
 export type AgentStatus =
   | 'unavailable'
   | 'error'
@@ -1190,6 +1216,7 @@ export type AgentHeartBeatEventDto = {
   sessionId?: string;
   moduleId: string;
   status: AgentStatus;
+  settings?: AppSettingsDto;
 };
 
 export type AgentEvaluatePromptOptionsDto = {
@@ -1282,32 +1309,6 @@ export type AgentEvaluatePromptResponseDto = {
   format: AgentEvaluatePromptFormat;
 };
 
-export type SessionStorageRecordDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  storageId?: string;
-  sessionId?: string;
-  data: Record<string, unknown>;
-};
-
-export type SessionStorageSearchDto = {
-  appId: string;
-  userId?: Array<string>;
-  sessionId?: Array<string>;
-  storageId?: Array<string>;
-};
-
 export type UIContentMetadataDto = {
   /**
    * Reference to a tool repository ID
@@ -1328,6 +1329,10 @@ export type UIContentOptionsDto = {
    * Stop the agent speech
    */
   stopSpeech?: boolean;
+  /**
+   * Define the language of the content, it will be translated based on the language selected by the user.
+   */
+  language?: string;
 };
 
 export type SupportedContentTypes =

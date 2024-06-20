@@ -41,8 +41,8 @@ import {
   DialogueTaskRecordDto,
   SessionDto,
   SessionProperties,
-  AgentStatus,
   SessionStorageRecordDto,
+  AgentStatus,
   UIAssetDto,
   UIContentDto,
   SupportedContentTypes,
@@ -394,6 +394,16 @@ export interface SessionSupportEventDto {
   code: string;
 }
 
+export interface SessionStorageEventDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  operation: string;
+  sessionId?: string;
+  record: SessionStorageRecordDto;
+}
+
 export interface AgentDto {
   appId: string;
   clientId?: string;
@@ -415,16 +425,6 @@ export interface AgentChangedDto {
   record: AgentDto;
 }
 
-export interface SessionStorageEventDto {
-  appId: string;
-  clientId?: string;
-  userId?: string;
-  ts?: string;
-  operation: string;
-  sessionId?: string;
-  record: SessionStorageRecordDto;
-}
-
 export interface UIAssetChangedDto {
   appId: string;
   clientId?: string;
@@ -444,6 +444,7 @@ export interface anonymous_schema_400 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
+  language?: string;
   additionalProperties?: Record<string, any>;
 }
 

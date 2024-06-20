@@ -2049,6 +2049,68 @@ export const $SessionSupportResponseDto = {
   },
 } as const;
 
+export const $SessionStorageRecordDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    storageId: {
+      type: 'string',
+    },
+    sessionId: {
+      type: 'string',
+    },
+    data: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $SessionStorageSearchDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    userId: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+    sessionId: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+    storageId: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+  },
+} as const;
+
 export const $AgentStatus = {
   type: 'Enum',
 } as const;
@@ -2083,6 +2145,9 @@ export const $AgentHeartBeatEventDto = {
     status: {
       type: 'AgentStatus',
       isRequired: true,
+    },
+    settings: {
+      type: 'AppSettingsDto',
     },
   },
 } as const;
@@ -2187,68 +2252,6 @@ export const $AgentEvaluatePromptResponseDto = {
   },
 } as const;
 
-export const $SessionStorageRecordDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    storageId: {
-      type: 'string',
-    },
-    sessionId: {
-      type: 'string',
-    },
-    data: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $SessionStorageSearchDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    userId: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-    sessionId: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-    storageId: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-  },
-} as const;
-
 export const $UIContentMetadataDto = {
   properties: {
     repositoryId: {
@@ -2271,6 +2274,10 @@ export const $UIContentOptionsDto = {
     stopSpeech: {
       type: 'boolean',
       description: `Stop the agent speech`,
+    },
+    language: {
+      type: 'string',
+      description: `Define the language of the content, it will be translated based on the language selected by the user.`,
     },
   },
 } as const;

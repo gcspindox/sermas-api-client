@@ -5,9 +5,9 @@ import { Broker } from '../broker';
 import {
   SessionChangedDto,
   SessionSupportEventDto,
+  SessionStorageEventDto,
   AgentDto,
   AgentChangedDto,
-  SessionStorageEventDto,
 } from './models';
 import { SessionDto } from '../openapi/models';
 
@@ -74,6 +74,28 @@ export class Session {
     );
   }
 
+  async storageUpdated(
+    event: SessionStorageEventDto,
+    params?: { appId?: string; storageId?: string },
+  ) {
+    return this.broker.publish<SessionStorageEventDto>(
+      'app/:appId/session/storage/:storageId',
+      event,
+      params,
+    );
+  }
+
+  async onStorageUpdated(
+    fn: (event: SessionStorageEventDto) => void | Promise<void>,
+    params?: { appId?: string; storageId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<SessionStorageEventDto>(
+      'app/:appId/session/storage/:storageId',
+      fn,
+      params,
+    );
+  }
+
   async agentInteraction(event: AgentDto, params?: { appId?: string }) {
     return this.broker.publish<AgentDto>(
       'app/:appId/session/interaction/agent',
@@ -110,28 +132,6 @@ export class Session {
   ): Promise<() => void> {
     return this.broker.subscribe<AgentChangedDto>(
       'app/:appId/session/agent/changed/:agentId',
-      fn,
-      params,
-    );
-  }
-
-  async storageUpdated(
-    event: SessionStorageEventDto,
-    params?: { appId?: string; storageId?: string },
-  ) {
-    return this.broker.publish<SessionStorageEventDto>(
-      'app/:appId/session/storage/:storageId',
-      event,
-      params,
-    );
-  }
-
-  async onStorageUpdated(
-    fn: (event: SessionStorageEventDto) => void | Promise<void>,
-    params?: { appId?: string; storageId?: string },
-  ): Promise<() => void> {
-    return this.broker.subscribe<SessionStorageEventDto>(
-      'app/:appId/session/storage/:storageId',
       fn,
       params,
     );

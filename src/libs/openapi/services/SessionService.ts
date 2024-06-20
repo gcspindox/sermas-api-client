@@ -29,12 +29,6 @@ export type TDataUpdateSession = {
 export type TDataSupport = {
   requestBody: SessionSupportRequestDto;
 };
-export type TDataAgentUpdate = {
-  requestBody: AgentHeartBeatEventDto;
-};
-export type TDataPrompt = {
-  requestBody: AgentEvaluatePromptDto;
-};
 export type TDataSetRecord = {
   requestBody: SessionStorageRecordDto;
 };
@@ -46,6 +40,12 @@ export type TDataGetRecord = {
 };
 export type TDataDeleteRecord = {
   storageId: string;
+};
+export type TDataAgentUpdate = {
+  requestBody: AgentHeartBeatEventDto;
+};
+export type TDataPrompt = {
+  requestBody: AgentEvaluatePromptDto;
 };
 
 export class SessionService {
@@ -150,38 +150,6 @@ export class SessionService {
   }
 
   /**
-   * Notifies of an agent update
-   * @returns any
-   * @throws ApiError
-   */
-  public agentUpdate(data: TDataAgentUpdate): CancelablePromise<any> {
-    const { requestBody } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/session/agent',
-      body: requestBody,
-      mediaType: 'application/json',
-    });
-  }
-
-  /**
-   * Evaluate a prompt within the session context
-   * @returns AgentEvaluatePromptResponseDto
-   * @throws ApiError
-   */
-  public prompt(
-    data: TDataPrompt,
-  ): CancelablePromise<AgentEvaluatePromptResponseDto> {
-    const { requestBody } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/session/agent/prompt',
-      body: requestBody,
-      mediaType: 'application/json',
-    });
-  }
-
-  /**
    * Store user data
    * @returns SessionStorageRecordDto Record stored
    * @throws ApiError
@@ -246,6 +214,38 @@ export class SessionService {
       path: {
         storageId,
       },
+    });
+  }
+
+  /**
+   * Notifies of an agent update
+   * @returns any
+   * @throws ApiError
+   */
+  public agentUpdate(data: TDataAgentUpdate): CancelablePromise<any> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/session/agent',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * Evaluate a prompt within the session context
+   * @returns AgentEvaluatePromptResponseDto
+   * @throws ApiError
+   */
+  public prompt(
+    data: TDataPrompt,
+  ): CancelablePromise<AgentEvaluatePromptResponseDto> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/session/agent/prompt',
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 }
