@@ -487,3 +487,16 @@ export interface InitialPoseDto {
   pose: PoseDto;
   covariance: string[];
 }
+
+export interface OperationalStateEventDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  state: OperationalStateDto;
+}
+
+export interface OperationalStateDto {
+  op: string;
+  state: string;
+}
