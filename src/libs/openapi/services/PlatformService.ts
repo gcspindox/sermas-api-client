@@ -67,7 +67,6 @@ export type TDataRemoveApp = {
   appId: string;
 };
 export type TDataImportApps = {
-  importWebsites: string;
   requestBody: Array<PlatformAppDto>;
   skipClients: string;
 };
@@ -426,13 +425,12 @@ export class PlatformService {
   public importApps(
     data: TDataImportApps,
   ): CancelablePromise<Array<PlatformAppDto>> {
-    const { importWebsites, requestBody, skipClients } = data;
+    const { requestBody, skipClients } = data;
     return this.httpRequest.request({
       method: 'POST',
       url: '/api/app/admin/import',
       query: {
         skipClients,
-        importWebsites,
       },
       body: requestBody,
       mediaType: 'application/json',
