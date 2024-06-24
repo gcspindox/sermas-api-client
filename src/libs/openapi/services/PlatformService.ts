@@ -5,6 +5,7 @@ import type {
   AppSettingsDto,
   AppToolsDTO,
   CreatePlatformAppDto,
+  DatasetRecordFilterDto,
   JwtTokenDto,
   PlatformAppDto,
   PlatformAppExportFilterDto,
@@ -14,7 +15,6 @@ import type {
   RepositoryAvatarDto,
   RepositoryConfigDto,
   RepositoryRobotModelDto,
-  ViewLogsRequestDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -116,9 +116,8 @@ export type TDataGetPlatformModule = {
 export type TDataRemovePlatformModule = {
   moduleId: string;
 };
-export type TDataDataLoggerControllerGetLogs = {
-  appId: string;
-  requestBody: ViewLogsRequestDto;
+export type TDataMonitoringDatasetControllerGetLogs = {
+  requestBody: DatasetRecordFilterDto;
 };
 
 export class PlatformService {
@@ -663,16 +662,13 @@ export class PlatformService {
    * @returns any
    * @throws ApiError
    */
-  public dataLoggerControllerGetLogs(
-    data: TDataDataLoggerControllerGetLogs,
+  public monitoringDatasetControllerGetLogs(
+    data: TDataMonitoringDatasetControllerGetLogs,
   ): CancelablePromise<any> {
-    const { appId, requestBody } = data;
+    const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',
-      url: '/api/datalogger/get/{appId}',
-      path: {
-        appId,
-      },
+      url: '/api/monitoring/search',
       body: requestBody,
       mediaType: 'application/json',
     });

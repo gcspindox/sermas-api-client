@@ -1149,6 +1149,32 @@ export type SessionSupportResponseDto = {
   supportId: string;
 };
 
+export type SessionStorageRecordDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  storageId?: string;
+  sessionId?: string;
+  data: Record<string, unknown>;
+};
+
+export type SessionStorageSearchDto = {
+  appId: string;
+  userId?: Array<string>;
+  sessionId?: Array<string>;
+  storageId?: Array<string>;
+};
+
 export type AgentStatus =
   | 'unavailable'
   | 'error'
@@ -1188,8 +1214,10 @@ export type AgentHeartBeatEventDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
+  agentId?: string;
   moduleId: string;
   status: AgentStatus;
+  settings?: AppSettingsDto;
 };
 
 export type AgentEvaluatePromptOptionsDto = {
@@ -1282,32 +1310,6 @@ export type AgentEvaluatePromptResponseDto = {
   format: AgentEvaluatePromptFormat;
 };
 
-export type SessionStorageRecordDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  storageId?: string;
-  sessionId?: string;
-  data: Record<string, unknown>;
-};
-
-export type SessionStorageSearchDto = {
-  appId: string;
-  userId?: Array<string>;
-  sessionId?: Array<string>;
-  storageId?: Array<string>;
-};
-
 export type UIContentMetadataDto = {
   /**
    * Reference to a tool repository ID
@@ -1328,6 +1330,10 @@ export type UIContentOptionsDto = {
    * Stop the agent speech
    */
   stopSpeech?: boolean;
+  /**
+   * Define the language of the content, it will be translated based on the language selected by the user.
+   */
+  language?: string;
 };
 
 export type SupportedContentTypes =
@@ -2047,17 +2053,49 @@ export type UIAssetDto = {
 
 export type Buffer = {};
 
-export type ViewLogsRequestDto = {
-  sessionId: string;
-  type?: 'speech' | 'characterization' | 'speechToText';
-  ts?: string;
-};
+export type LogType =
+  | 'characterization'
+  | 'stt'
+  | 'tts'
+  | 'interaction'
+  | 'session'
+  | 'document'
+  | 'chat'
+  | 'task'
+  | 'performance';
 
-export const TypeEnum = {
-  SPEECH: 'speech',
+export const LogTypeEnum = {
   CHARACTERIZATION: 'characterization',
-  SPEECH_TO_TEXT: 'speechToText',
+  STT: 'stt',
+  TTS: 'tts',
+  INTERACTION: 'interaction',
+  SESSION: 'session',
+  DOCUMENT: 'document',
+  CHAT: 'chat',
+  TASK: 'task',
+  PERFORMANCE: 'performance',
 } as const;
+
+export type DatasetRecordFilterDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  /**
+   * Track the interaction session, if available
+   */
+  sessionId?: string;
+  type?: LogType;
+};
 
 export type XRMarkerListRequestDto = {
   appId: string;
