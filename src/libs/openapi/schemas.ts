@@ -1919,6 +1919,7 @@ export const $DialogueToolsRepositoryDto = {
       contains: {
         type: 'unknown[]',
       },
+      isRequired: true,
     },
   },
 } as const;
@@ -3701,43 +3702,6 @@ export const $LogType = {
   type: 'Enum',
 } as const;
 
-export const $DatasetRecordDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    sessionId: {
-      type: 'string',
-      isRequired: true,
-    },
-    type: {
-      type: 'LogType',
-    },
-    label: {
-      type: 'string',
-      isRequired: true,
-    },
-    ts: {
-      type: 'string',
-      isRequired: true,
-      format: 'date-time',
-    },
-    data: {
-      type: 'all-of',
-      contains: [
-        {
-          type: 'dictionary',
-          contains: {
-            properties: {},
-          },
-        },
-      ],
-      isRequired: true,
-    },
-  },
-} as const;
-
 export const $DatasetRecordFilterDto = {
   properties: {
     appId: {
@@ -3761,36 +3725,8 @@ export const $DatasetRecordFilterDto = {
       type: 'string',
       description: `Track the interaction session, if available`,
     },
-    types: {
-      type: 'array',
-      contains: {
-        type: 'LogType',
-      },
-    },
-  },
-} as const;
-
-export const $MonitoringRecordDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    sessionId: {
-      type: 'string',
-      isRequired: true,
-    },
     type: {
       type: 'LogType',
-    },
-    label: {
-      type: 'string',
-      isRequired: true,
-    },
-    ts: {
-      type: 'string',
-      isRequired: true,
-      format: 'date-time',
     },
   },
 } as const;

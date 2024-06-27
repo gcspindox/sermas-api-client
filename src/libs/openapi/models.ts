@@ -1073,7 +1073,7 @@ export type DialogueToolsRepositoryDto = {
   /**
    * Tools list
    */
-  tools?: Array<unknown[]>;
+  tools: Array<unknown[]>;
 };
 
 export type SessionProperties = {
@@ -2062,8 +2062,7 @@ export type LogType =
   | 'document'
   | 'chat'
   | 'task'
-  | 'performance'
-  | 'kpi';
+  | 'performance';
 
 export const LogTypeEnum = {
   CHARACTERIZATION: 'characterization',
@@ -2075,17 +2074,7 @@ export const LogTypeEnum = {
   CHAT: 'chat',
   TASK: 'task',
   PERFORMANCE: 'performance',
-  KPI: 'kpi',
 } as const;
-
-export type DatasetRecordDto = {
-  appId: string;
-  sessionId: string;
-  type?: LogType;
-  label: string;
-  ts: string;
-  data: Record<string, unknown>;
-};
 
 export type DatasetRecordFilterDto = {
   appId: string;
@@ -2105,15 +2094,7 @@ export type DatasetRecordFilterDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
-  types?: Array<LogType>;
-};
-
-export type MonitoringRecordDto = {
-  appId: string;
-  sessionId: string;
   type?: LogType;
-  label: string;
-  ts: string;
 };
 
 export type XRMarkerListRequestDto = {

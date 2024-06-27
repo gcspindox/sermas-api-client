@@ -5,10 +5,8 @@ import type {
   AppSettingsDto,
   AppToolsDTO,
   CreatePlatformAppDto,
-  DatasetRecordDto,
   DatasetRecordFilterDto,
   JwtTokenDto,
-  MonitoringRecordDto,
   PlatformAppDto,
   PlatformAppExportFilterDto,
   PlatformModuleConfigDto,
@@ -118,10 +116,7 @@ export type TDataGetPlatformModule = {
 export type TDataRemovePlatformModule = {
   moduleId: string;
 };
-export type TDataMonitoringAdd = {
-  requestBody: DatasetRecordDto;
-};
-export type TDataMonitoringSearch = {
+export type TDataMonitoringDatasetControllerGetLogs = {
   requestBody: DatasetRecordFilterDto;
 };
 
@@ -667,27 +662,13 @@ export class PlatformService {
    * @returns any
    * @throws ApiError
    */
-  public monitoringAdd(data: TDataMonitoringAdd): CancelablePromise<any> {
+  public monitoringDatasetControllerGetLogs(
+    data: TDataMonitoringDatasetControllerGetLogs,
+  ): CancelablePromise<any> {
     const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',
-      url: '/api/platform/monitoring',
-      body: requestBody,
-      mediaType: 'application/json',
-    });
-  }
-
-  /**
-   * @returns MonitoringRecordDto
-   * @throws ApiError
-   */
-  public monitoringSearch(
-    data: TDataMonitoringSearch,
-  ): CancelablePromise<Array<MonitoringRecordDto>> {
-    const { requestBody } = data;
-    return this.httpRequest.request({
-      method: 'POST',
-      url: '/api/platform/monitoring/search',
+      url: '/api/monitoring/search',
       body: requestBody,
       mediaType: 'application/json',
     });
