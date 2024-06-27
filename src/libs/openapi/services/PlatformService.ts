@@ -5,7 +5,10 @@ import type {
   AppSettingsDto,
   AppToolsDTO,
   CreatePlatformAppDto,
+  DatasetRecordDto,
+  DatasetRecordFilterDto,
   JwtTokenDto,
+  MonitoringRecordDto,
   PlatformAppDto,
   PlatformAppExportFilterDto,
   PlatformModuleConfigDto,
@@ -14,7 +17,6 @@ import type {
   RepositoryAvatarDto,
   RepositoryConfigDto,
   RepositoryRobotModelDto,
-  ViewLogsRequestDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -67,7 +69,6 @@ export type TDataRemoveApp = {
   appId: string;
 };
 export type TDataImportApps = {
-  importWebsites: string;
   requestBody: Array<PlatformAppDto>;
   skipClients: string;
 };
@@ -117,9 +118,11 @@ export type TDataGetPlatformModule = {
 export type TDataRemovePlatformModule = {
   moduleId: string;
 };
-export type TDataDataLoggerControllerGetLogs = {
-  appId: string;
-  requestBody: ViewLogsRequestDto;
+export type TDataMonitoringAdd = {
+  requestBody: DatasetRecordDto;
+};
+export type TDataMonitoringSearch = {
+  requestBody: DatasetRecordFilterDto;
 };
 
 export class PlatformService {
@@ -426,13 +429,12 @@ export class PlatformService {
   public importApps(
     data: TDataImportApps,
   ): CancelablePromise<Array<PlatformAppDto>> {
-    const { importWebsites, requestBody, skipClients } = data;
+    const { requestBody, skipClients } = data;
     return this.httpRequest.request({
       method: 'POST',
       url: '/api/app/admin/import',
       query: {
         skipClients,
-        importWebsites,
       },
       body: requestBody,
       mediaType: 'application/json',
@@ -665,16 +667,27 @@ export class PlatformService {
    * @returns any
    * @throws ApiError
    */
-  public dataLoggerControllerGetLogs(
-    data: TDataDataLoggerControllerGetLogs,
-  ): CancelablePromise<any> {
-    const { appId, requestBody } = data;
+  public monitoringAdd(data: TDataMonitoringAdd): CancelablePromise<any> {
+    const { requestBody } = data;
     return this.httpRequest.request({
       method: 'POST',
-      url: '/api/datalogger/get/{appId}',
-      path: {
-        appId,
-      },
+      url: '/api/platform/monitoring',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * @returns MonitoringRecordDto
+   * @throws ApiError
+   */
+  public monitoringSearch(
+    data: TDataMonitoringSearch,
+  ): CancelablePromise<Array<MonitoringRecordDto>> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/platform/monitoring/search',
       body: requestBody,
       mediaType: 'application/json',
     });

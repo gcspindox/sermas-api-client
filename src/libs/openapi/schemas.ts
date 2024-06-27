@@ -1919,7 +1919,6 @@ export const $DialogueToolsRepositoryDto = {
       contains: {
         type: 'unknown[]',
       },
-      isRequired: true,
     },
   },
 } as const;
@@ -2137,6 +2136,9 @@ export const $AgentHeartBeatEventDto = {
     sessionId: {
       type: 'string',
       description: `Track the interaction session, if available`,
+    },
+    agentId: {
+      type: 'string',
     },
     moduleId: {
       type: 'string',
@@ -3695,17 +3697,99 @@ export const $Buffer = {
   properties: {},
 } as const;
 
-export const $ViewLogsRequestDto = {
+export const $LogType = {
+  type: 'Enum',
+} as const;
+
+export const $DatasetRecordDto = {
   properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
     sessionId: {
       type: 'string',
       isRequired: true,
     },
     type: {
-      type: 'Enum',
+      type: 'LogType',
+    },
+    label: {
+      type: 'string',
+      isRequired: true,
     },
     ts: {
       type: 'string',
+      isRequired: true,
+      format: 'date-time',
+    },
+    data: {
+      type: 'all-of',
+      contains: [
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $DatasetRecordFilterDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Track the interaction session, if available`,
+    },
+    types: {
+      type: 'array',
+      contains: {
+        type: 'LogType',
+      },
+    },
+  },
+} as const;
+
+export const $MonitoringRecordDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    sessionId: {
+      type: 'string',
+      isRequired: true,
+    },
+    type: {
+      type: 'LogType',
+    },
+    label: {
+      type: 'string',
+      isRequired: true,
+    },
+    ts: {
+      type: 'string',
+      isRequired: true,
       format: 'date-time',
     },
   },

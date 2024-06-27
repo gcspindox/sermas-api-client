@@ -8,6 +8,7 @@ import {
   PlatformAppClientChangedDto,
   PlatformAppModuleConfigEventDto,
 } from './models';
+import { MonitoringRecordDto } from '../openapi/models';
 
 export class Platform {
   constructor(private readonly broker: Broker) {}
@@ -89,6 +90,25 @@ export class Platform {
   ): Promise<() => void> {
     return this.broker.subscribe<PlatformAppModuleConfigEventDto>(
       'app/:appId/platform/module',
+      fn,
+      params,
+    );
+  }
+
+  async record(event: MonitoringRecordDto, params?: { appId?: string }) {
+    return this.broker.publish<MonitoringRecordDto>(
+      'app/:appId/platform/monitoring',
+      event,
+      params,
+    );
+  }
+
+  async onRecord(
+    fn: (event: MonitoringRecordDto) => void | Promise<void>,
+    params?: { appId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<MonitoringRecordDto>(
+      'app/:appId/platform/monitoring',
       fn,
       params,
     );

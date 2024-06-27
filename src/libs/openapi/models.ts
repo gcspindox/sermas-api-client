@@ -1073,7 +1073,7 @@ export type DialogueToolsRepositoryDto = {
   /**
    * Tools list
    */
-  tools: Array<unknown[]>;
+  tools?: Array<unknown[]>;
 };
 
 export type SessionProperties = {
@@ -1214,6 +1214,7 @@ export type AgentHeartBeatEventDto = {
    * Track the interaction session, if available
    */
   sessionId?: string;
+  agentId?: string;
   moduleId: string;
   status: AgentStatus;
   settings?: AppSettingsDto;
@@ -2052,17 +2053,68 @@ export type UIAssetDto = {
 
 export type Buffer = {};
 
-export type ViewLogsRequestDto = {
+export type LogType =
+  | 'characterization'
+  | 'stt'
+  | 'tts'
+  | 'interaction'
+  | 'session'
+  | 'document'
+  | 'chat'
+  | 'task'
+  | 'performance'
+  | 'kpi';
+
+export const LogTypeEnum = {
+  CHARACTERIZATION: 'characterization',
+  STT: 'stt',
+  TTS: 'tts',
+  INTERACTION: 'interaction',
+  SESSION: 'session',
+  DOCUMENT: 'document',
+  CHAT: 'chat',
+  TASK: 'task',
+  PERFORMANCE: 'performance',
+  KPI: 'kpi',
+} as const;
+
+export type DatasetRecordDto = {
+  appId: string;
   sessionId: string;
-  type?: 'speech' | 'characterization' | 'speechToText';
-  ts?: string;
+  type?: LogType;
+  label: string;
+  ts: string;
+  data: Record<string, unknown>;
 };
 
-export const TypeEnum = {
-  SPEECH: 'speech',
-  CHARACTERIZATION: 'characterization',
-  SPEECH_TO_TEXT: 'speechToText',
-} as const;
+export type DatasetRecordFilterDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  /**
+   * Track the interaction session, if available
+   */
+  sessionId?: string;
+  types?: Array<LogType>;
+};
+
+export type MonitoringRecordDto = {
+  appId: string;
+  sessionId: string;
+  type?: LogType;
+  label: string;
+  ts: string;
+};
 
 export type XRMarkerListRequestDto = {
   appId: string;

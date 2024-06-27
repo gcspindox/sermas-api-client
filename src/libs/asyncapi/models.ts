@@ -47,6 +47,8 @@ import {
   UIContentDto,
   SupportedContentTypes,
   UIInteractionDTO,
+  MonitoringRecordDto,
+  LogType,
   XRMarkerDto,
   ActuationEventDto,
   MovementEventDto,
@@ -365,7 +367,7 @@ export interface DialogueToolsRepositoryRecordDto {
   sessionId?: string;
   repositoryId?: string;
   options?: anonymous_schema_322;
-  tools: any[][];
+  tools?: any[][];
 }
 
 export interface anonymous_schema_322 {
@@ -423,6 +425,7 @@ export interface AgentChangedDto {
   sessionId?: string;
   moduleId: string;
   record: AgentDto;
+  settings?: AppSettingsDto;
 }
 
 export interface UIAssetChangedDto {
@@ -487,4 +490,17 @@ export interface InitialPoseEventDto {
 export interface InitialPoseDto {
   pose: PoseDto;
   covariance: string[];
+}
+
+export interface OperationalStateEventDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  state: OperationalStateDto;
+}
+
+export interface OperationalStateDto {
+  op: string;
+  state: string;
 }

@@ -2,7 +2,7 @@
 
 import { Broker } from '../broker';
 
-import { InitialPoseEventDto } from './models';
+import { InitialPoseEventDto, OperationalStateEventDto } from './models';
 import {
   ActuationEventDto,
   MovementEventDto,
@@ -83,6 +83,25 @@ export class Robotics {
   ): Promise<() => void> {
     return this.broker.subscribe<InitialPoseEventDto>(
       'app/:appId/robotics/initialpose',
+      fn,
+      params,
+    );
+  }
+
+  async opState(event: OperationalStateEventDto, params?: { appId?: string }) {
+    return this.broker.publish<OperationalStateEventDto>(
+      'app/:appId/robotics/opstate',
+      event,
+      params,
+    );
+  }
+
+  async onOpState(
+    fn: (event: OperationalStateEventDto) => void | Promise<void>,
+    params?: { appId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<OperationalStateEventDto>(
+      'app/:appId/robotics/opstate',
       fn,
       params,
     );
