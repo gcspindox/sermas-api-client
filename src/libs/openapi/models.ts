@@ -1350,7 +1350,8 @@ export type SupportedContentTypes =
   | 'navigation'
   | 'buttons'
   | 'quiz'
-  | 'clear-screen';
+  | 'clear-screen'
+  | 'qrcode-scanner';
 
 export const SupportedContentTypesEnum = {
   VIDEO: 'video',
@@ -1367,6 +1368,7 @@ export const SupportedContentTypesEnum = {
   BUTTONS: 'buttons',
   QUIZ: 'quiz',
   CLEAR_SCREEN: 'clear-screen',
+  QRCODE_SCANNER: 'qrcode-scanner',
 } as const;
 
 export type ImageContentDto = {
