@@ -21,7 +21,7 @@ const loadOpenApiModels = async () => {
   // );
 
   const openapiModelsPath = path.resolve(__dirname, './libs/openapi/models.ts');
-  console.warn('openapiModelsPath', openapiModelsPath);
+  // console.warn('openapiModelsPath', openapiModelsPath);
 
   const raw = (await fs.readFile(openapiModelsPath)).toString();
   const matches = raw.matchAll(/export type ([a-z0-9]+) /gim);

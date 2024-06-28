@@ -6,33 +6,33 @@ export const setDefaultLogger = (logger: LoggerService) => {
   defaultLogger = logger;
 };
 
-const createDefaultLogger = (name = 'logger') : LoggerService => (new class {
-  
-  format(message: any) {
-    return `[${name}] ${message}`
-  }
-  debug(message: any, ...optionalParams: any[]) {
-    console.debug(this.format(message));
-  }
-  error(message: any, ...optionalParams: any[]) {
-    console.error(this.format(message));
-  }
-  fatal(message: any, ...optionalParams: any[]) {
-    console.error(this.format(message));
-  }
-  log(message: any, ...optionalParams: any[]) {
-    console.info(this.format(message));
-  }
-  setLogLevels(levels: LogLevel[]) {
-    //
-  }
-  verbose(message: any, ...optionalParams: any[]) {
-    console.debug(this.format(message));
-  }
-  warn(message: any, ...optionalParams: any[]) {
-    console.warn(this.format(message));
-  }
-})
+const createDefaultLogger = (name = 'logger'): LoggerService =>
+  new (class {
+    format(message: any) {
+      return `[${name}] ${message}`;
+    }
+    debug(message: any, ...optionalParams: any[]) {
+      console.debug(this.format(message));
+    }
+    error(message: any, ...optionalParams: any[]) {
+      console.error(this.format(message));
+    }
+    fatal(message: any, ...optionalParams: any[]) {
+      console.error(this.format(message));
+    }
+    log(message: any, ...optionalParams: any[]) {
+      console.info(this.format(message));
+    }
+    setLogLevels(levels: LogLevel[]) {
+      //
+    }
+    verbose(message: any, ...optionalParams: any[]) {
+      console.debug(this.format(message));
+    }
+    warn(message: any, ...optionalParams: any[]) {
+      console.warn(this.format(message));
+    }
+  })();
 
 export class Logger implements LoggerService {
   private readonly logger;
