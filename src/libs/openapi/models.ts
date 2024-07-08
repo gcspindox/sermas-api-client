@@ -1806,6 +1806,7 @@ export type ButtonsUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  buttonTTS?: boolean;
 };
 
 export type DialogueMessageUIContentDto = {
