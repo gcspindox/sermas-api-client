@@ -3169,9 +3169,6 @@ export const $ButtonsUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
-    buttonTTS: {
-      type: 'boolean',
-    },
   },
 } as const;
 
