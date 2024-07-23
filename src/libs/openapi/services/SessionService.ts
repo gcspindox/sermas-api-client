@@ -3,6 +3,7 @@ import type {
   AgentEvaluatePromptResponseDto,
   AgentHeartBeatEventDto,
   SessionDto,
+  SessionSearchFilter,
   SessionStorageRecordDto,
   SessionStorageSearchDto,
   SessionSupportRequestDto,
@@ -13,6 +14,10 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export type TDataGetUserSession = {
   appId: string;
+};
+export type TDataSearch = {
+  appId: string;
+  requestBody: SessionSearchFilter;
 };
 export type TDataReadSession = {
   sessionId: string;
@@ -64,6 +69,24 @@ export class SessionService {
       path: {
         appId,
       },
+    });
+  }
+
+  /**
+   * List recent sessions
+   * @returns SessionDto
+   * @throws ApiError
+   */
+  public search(data: TDataSearch): CancelablePromise<Array<SessionDto>> {
+    const { appId, requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/session/search/{appId}',
+      path: {
+        appId,
+      },
+      body: requestBody,
+      mediaType: 'application/json',
     });
   }
 

@@ -449,6 +449,10 @@ export type TaskEventDto = {
    */
   message?: string;
   /**
+   * Condition to trigger the event
+   */
+  condition?: string;
+  /**
    * Trigger a tool
    */
   trigger?: Array<TaskEventTriggerDto>;
@@ -483,6 +487,10 @@ export type OptionSelection = {
    * Selection label (value is used if not provided)
    */
   label?: string;
+  /**
+   * Description for an option
+   */
+  description?: string;
 };
 
 export type TaskFieldDto = {
@@ -1010,6 +1018,7 @@ export type DialogueMemoryMessageDto = {
   content: string;
   role: Record<string, unknown>;
   name: string;
+  ts: string;
 };
 
 export type DialogueTaskRecordDto = {
@@ -1074,6 +1083,25 @@ export type DialogueToolsRepositoryDto = {
    * Tools list
    */
   tools?: Array<unknown[]>;
+};
+
+export type SessionSearchFilter = {
+  /**
+   * filter query
+   */
+  query?: Record<string, unknown>;
+  /**
+   * results limit
+   */
+  limit?: number;
+  /**
+   * results to skip from beginning
+   */
+  skip?: number;
+  /**
+   * result sorting
+   */
+  sort?: Record<string, unknown>;
 };
 
 export type SessionProperties = {
@@ -1399,6 +1427,10 @@ export type ImageUIContentDto = {
   contentType: SupportedContentTypes;
   content: ImageContentDto;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1447,6 +1479,10 @@ export type VideoUIContentDto = {
   contentType: SupportedContentTypes;
   content: VideoContentDto;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1488,6 +1524,10 @@ export type PdfUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: PdfContentDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -1531,6 +1571,10 @@ export type WebpageUIContentDto = {
   contentType: SupportedContentTypes;
   content: WebpageContentDto;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1573,6 +1617,10 @@ export type ObjectUIContentDto = {
   contentType: SupportedContentTypes;
   content: ObjectContentDto;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1614,6 +1662,10 @@ export type TextUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: TextContentDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -1664,6 +1716,10 @@ export type QuizUIContentDto = {
   contentType: SupportedContentTypes;
   content: QuizContentDto;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1701,6 +1757,10 @@ export type ClearUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -1740,6 +1800,10 @@ export type ClearScreenDto = {
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1758,9 +1822,19 @@ export type ClearScreenDto = {
 };
 
 export type ButtonDto = {
+  /**
+   * Button value
+   */
   value: string;
   id?: string;
+  /**
+   * Button label
+   */
   label?: string;
+  /**
+   * Provide a description for the button
+   */
+  description?: string;
   classes?: Array<string>;
   options?: UIContentOptionsDto;
 };
@@ -1790,6 +1864,10 @@ export type ButtonsUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: ButtonsContentDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -1828,6 +1906,10 @@ export type DialogueMessageUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: DialogueMessageDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -1872,6 +1954,10 @@ export type LinkUIContentDto = {
   contentType: SupportedContentTypes;
   content: LinkContentDto;
   /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
    * Provides metadata for the content
    */
   metadata?: UIContentMetadataDto & Record<string, unknown>;
@@ -1913,6 +1999,10 @@ export type HtmlUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: HtmlContentDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -1956,6 +2046,10 @@ export type EmailUIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: EmailContentDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -2006,6 +2100,10 @@ export type UIContentDto = {
   sessionId?: string;
   contentType: SupportedContentTypes;
   content: Record<string, unknown>;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
   /**
    * Provides metadata for the content
    */
@@ -2065,7 +2163,8 @@ export type LogType =
   | 'chat'
   | 'task'
   | 'performance'
-  | 'kpi';
+  | 'kpi'
+  | 'error';
 
 export const LogTypeEnum = {
   CHARACTERIZATION: 'characterization',
@@ -2078,6 +2177,7 @@ export const LogTypeEnum = {
   TASK: 'task',
   PERFORMANCE: 'performance',
   KPI: 'kpi',
+  ERROR: 'error',
 } as const;
 
 export type DatasetRecordDto = {

@@ -844,6 +844,10 @@ export const $TaskEventDto = {
       type: 'string',
       description: `Chat message to send to the user`,
     },
+    condition: {
+      type: 'string',
+      description: `Condition to trigger the event`,
+    },
     trigger: {
       type: 'array',
       contains: {
@@ -867,6 +871,10 @@ export const $OptionSelection = {
     label: {
       type: 'string',
       description: `Selection label (value is used if not provided)`,
+    },
+    description: {
+      type: 'string',
+      description: `Description for an option`,
     },
   },
 } as const;
@@ -1830,6 +1838,11 @@ export const $DialogueMemoryMessageDto = {
       type: 'string',
       isRequired: true,
     },
+    ts: {
+      type: 'string',
+      isRequired: true,
+      format: 'date-time',
+    },
   },
 } as const;
 
@@ -1918,6 +1931,37 @@ export const $DialogueToolsRepositoryDto = {
       type: 'array',
       contains: {
         type: 'unknown[]',
+      },
+    },
+  },
+} as const;
+
+export const $SessionSearchFilter = {
+  properties: {
+    query: {
+      type: 'all-of',
+      description: `filter query`,
+      contains: [
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+    limit: {
+      type: 'number',
+      description: `results limit`,
+    },
+    skip: {
+      type: 'number',
+      description: `results to skip from beginning`,
+    },
+    sort: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
       },
     },
   },
@@ -2338,6 +2382,10 @@ export const $ImageUIContentDto = {
       type: 'ImageContentDto',
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -2440,6 +2488,10 @@ export const $VideoUIContentDto = {
       type: 'VideoContentDto',
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -2520,6 +2572,10 @@ export const $PdfUIContentDto = {
     content: {
       type: 'PdfContentDto',
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -2602,6 +2658,10 @@ export const $WebpageUIContentDto = {
       type: 'WebpageContentDto',
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -2683,6 +2743,10 @@ export const $ObjectUIContentDto = {
       type: 'ObjectContentDto',
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -2763,6 +2827,10 @@ export const $TextUIContentDto = {
     content: {
       type: 'TextContentDto',
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -2869,6 +2937,10 @@ export const $QuizUIContentDto = {
       type: 'QuizContentDto',
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -2943,6 +3015,10 @@ export const $ClearUIContentDto = {
         properties: {},
       },
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -3019,6 +3095,10 @@ export const $ClearScreenDto = {
       },
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -3064,6 +3144,7 @@ export const $ButtonDto = {
   properties: {
     value: {
       type: 'string',
+      description: `Button value`,
       isRequired: true,
     },
     id: {
@@ -3071,6 +3152,11 @@ export const $ButtonDto = {
     },
     label: {
       type: 'string',
+      description: `Button label`,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the button`,
     },
     classes: {
       type: 'array',
@@ -3130,6 +3216,10 @@ export const $ButtonsUIContentDto = {
     content: {
       type: 'ButtonsContentDto',
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -3202,6 +3292,10 @@ export const $DialogueMessageUIContentDto = {
     content: {
       type: 'DialogueMessageDto',
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -3288,6 +3382,10 @@ export const $LinkUIContentDto = {
       type: 'LinkContentDto',
       isRequired: true,
     },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
     metadata: {
       type: 'all-of',
       description: `Provides metadata for the content`,
@@ -3368,6 +3466,10 @@ export const $HtmlUIContentDto = {
     content: {
       type: 'HtmlContentDto',
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -3453,6 +3555,10 @@ export const $EmailUIContentDto = {
     content: {
       type: 'EmailContentDto',
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
@@ -3568,6 +3674,10 @@ export const $UIContentDto = {
         properties: {},
       },
       isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
     },
     metadata: {
       type: 'all-of',
