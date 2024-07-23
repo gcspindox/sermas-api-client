@@ -735,6 +735,10 @@ export const $AppClientDto = {
   },
 } as const;
 
+export const $LLMSettingsDto = {
+  properties: {},
+} as const;
+
 export const $AppPromptDto = {
   properties: {
     text: {
@@ -767,15 +771,7 @@ export const $AppSettingsDto = {
       type: 'string',
     },
     llm: {
-      type: 'all-of',
-      contains: [
-        {
-          type: 'dictionary',
-          contains: {
-            properties: {},
-          },
-        },
-      ],
+      type: 'LLMSettingsDto',
     },
     background: {
       type: 'string',
@@ -1745,10 +1741,13 @@ export const $DialogueTextToSpeechDto = {
       description: `User emotion, if available`,
     },
     llm: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      description: `LLM engine to use`,
+      contains: [
+        {
+          type: 'LLMSettingsDto',
+        },
+      ],
     },
     avatar: {
       type: 'string',
@@ -1813,10 +1812,13 @@ export const $DialogueMessageDto = {
       description: `User emotion, if available`,
     },
     llm: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      description: `LLM engine to use`,
+      contains: [
+        {
+          type: 'LLMSettingsDto',
+        },
+      ],
     },
     avatar: {
       type: 'string',

@@ -6,6 +6,7 @@ import type {
   DialogueTaskRecordDto,
   DialogueTextToSpeechDto,
   DialogueToolsRepositoryDto,
+  LLMSettingsDto,
   RagWebsiteDto,
 } from '../models';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -76,7 +77,7 @@ export type TDataText = {
     /**
      * LLM engine to use
      */
-    llm?: Record<string, unknown>;
+    llm?: LLMSettingsDto;
     /**
      * The avatar id used for interaction
      */
