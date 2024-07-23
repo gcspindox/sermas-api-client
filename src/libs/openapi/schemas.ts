@@ -767,10 +767,15 @@ export const $AppSettingsDto = {
       type: 'string',
     },
     llm: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'all-of',
+      contains: [
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
     background: {
       type: 'string',
