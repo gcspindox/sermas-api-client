@@ -767,7 +767,10 @@ export const $AppSettingsDto = {
       type: 'string',
     },
     llm: {
-      type: 'string',
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
     },
     background: {
       type: 'string',
@@ -1737,8 +1740,10 @@ export const $DialogueTextToSpeechDto = {
       description: `User emotion, if available`,
     },
     llm: {
-      type: 'string',
-      description: `LLM engine to use`,
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
     },
     avatar: {
       type: 'string',
@@ -1803,8 +1808,10 @@ export const $DialogueMessageDto = {
       description: `User emotion, if available`,
     },
     llm: {
-      type: 'string',
-      description: `LLM engine to use`,
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
     },
     avatar: {
       type: 'string',

@@ -396,7 +396,7 @@ export type AppSettingsDto = {
   login?: boolean;
   avatar: string;
   language?: string;
-  llm?: string;
+  llm?: Record<string, unknown>;
   background: string;
   prompt?: AppPromptDto;
   skipWelcomeMessage?: boolean;
@@ -942,7 +942,7 @@ export type DialogueTextToSpeechDto = {
   /**
    * LLM engine to use
    */
-  llm?: string;
+  llm?: Record<string, unknown>;
   /**
    * The avatar id used for interaction
    */
@@ -999,7 +999,7 @@ export type DialogueMessageDto = {
   /**
    * LLM engine to use
    */
-  llm?: string;
+  llm?: Record<string, unknown>;
   /**
    * The avatar id used for interaction
    */

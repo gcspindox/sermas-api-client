@@ -76,7 +76,7 @@ export type TDataText = {
     /**
      * LLM engine to use
      */
-    llm?: string;
+    llm?: Record<string, unknown>;
     /**
      * The avatar id used for interaction
      */
