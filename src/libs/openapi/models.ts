@@ -571,6 +571,18 @@ export type TaskOptionsDto = {
    * ID of the tool repository to add the tool to
    */
   repositoryId?: string;
+  /**
+   * Show this tool to the user, such as in the welcome message
+   */
+  list?: boolean;
+  /**
+   * Allow this task to be completed only once per session
+   */
+  oncePerSession?: boolean;
+  /**
+   * Cancel the task if the user answer does not match one of the task options
+   */
+  matchOrRemove?: boolean;
 };
 
 export type DialogueTaskDto = {
@@ -1016,11 +1028,35 @@ export type DialogueMessageDto = {
   chunkId?: string;
 };
 
+/**
+ * role of the message provider
+ */
+export type LLMRole = 'system' | 'user' | 'assistant';
+
+export const LLMRoleEnum = {
+  SYSTEM: 'system',
+  USER: 'user',
+  ASSISTANT: 'assistant',
+} as const;
+
+/**
+ * type of message, default to "message"
+ */
+export type MemoryMessageType = 'message' | 'task' | 'tool';
+
+export const MemoryMessageTypeEnum = {
+  MESSAGE: 'message',
+  TASK: 'task',
+  TOOL: 'tool',
+} as const;
+
 export type DialogueMemoryMessageDto = {
   content: string;
-  role: Record<string, unknown>;
-  name: string;
+  role: LLMRole;
+  type?: MemoryMessageType;
+  name?: string;
   ts: string;
+  metadata?: Record<string, unknown>;
 };
 
 export type DialogueTaskRecordDto = {

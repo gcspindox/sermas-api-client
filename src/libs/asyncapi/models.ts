@@ -108,6 +108,9 @@ export interface anonymous_schema_150 {
   enableTool?: boolean;
   toolOptions?: anonymous_schema_154;
   repositoryId?: string;
+  list?: boolean;
+  oncePerSession?: boolean;
+  matchOrRemove?: boolean;
 }
 
 export interface anonymous_schema_154 {
@@ -180,7 +183,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_213 = 'start' | 'stop';
+export type anonymous_schema_216 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -277,11 +280,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_282;
-  record: anonymous_schema_283;
+  task: anonymous_schema_285;
+  record: anonymous_schema_286;
 }
 
-export interface anonymous_schema_282 {
+export interface anonymous_schema_285 {
   taskId: string;
   appId: string;
   sessionId?: string;
@@ -293,7 +296,7 @@ export interface anonymous_schema_282 {
   options?: anonymous_schema_150;
 }
 
-export interface anonymous_schema_283 {
+export interface anonymous_schema_286 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -322,10 +325,10 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_304;
+  field: anonymous_schema_307;
 }
 
-export interface anonymous_schema_304 {
+export interface anonymous_schema_307 {
   name: string;
   label?: string;
   order?: number;
@@ -366,11 +369,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_323;
+  options?: anonymous_schema_326;
   tools?: any[][];
 }
 
-export interface anonymous_schema_323 {
+export interface anonymous_schema_326 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -438,12 +441,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_399 {
+export interface anonymous_schema_402 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_402 {
+export interface anonymous_schema_405 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

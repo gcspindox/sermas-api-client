@@ -975,6 +975,18 @@ export const $TaskOptionsDto = {
       type: 'string',
       description: `ID of the tool repository to add the tool to`,
     },
+    list: {
+      type: 'boolean',
+      description: `Show this tool to the user, such as in the welcome message`,
+    },
+    oncePerSession: {
+      type: 'boolean',
+      description: `Allow this task to be completed only once per session`,
+    },
+    matchOrRemove: {
+      type: 'boolean',
+      description: `Cancel the task if the user answer does not match one of the task options`,
+    },
   },
 } as const;
 
@@ -1835,6 +1847,14 @@ export const $DialogueMessageDto = {
   },
 } as const;
 
+export const $LLMRole = {
+  type: 'Enum',
+} as const;
+
+export const $MemoryMessageType = {
+  type: 'Enum',
+} as const;
+
 export const $DialogueMemoryMessageDto = {
   properties: {
     content: {
@@ -1842,20 +1862,30 @@ export const $DialogueMemoryMessageDto = {
       isRequired: true,
     },
     role: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'LLMRole',
       isRequired: true,
+    },
+    type: {
+      type: 'MemoryMessageType',
     },
     name: {
       type: 'string',
-      isRequired: true,
     },
     ts: {
       type: 'string',
       isRequired: true,
       format: 'date-time',
+    },
+    metadata: {
+      type: 'all-of',
+      contains: [
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
     },
   },
 } as const;
