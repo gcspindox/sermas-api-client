@@ -378,6 +378,15 @@ export interface anonymous_schema_326 {
   exclusive?: boolean;
 }
 
+export interface DialogueToolNotMatchingEventDto {
+  appId: string;
+  sessionId: string;
+  tools: AppToolsDTO[];
+  repositories: string[];
+  taskId?: string;
+  currentField?: TaskFieldDto;
+}
+
 export interface SessionChangedDto {
   appId: string;
   clientId?: string;
@@ -441,12 +450,12 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_402 {
+export interface anonymous_schema_408 {
   repositoryId?: string;
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_405 {
+export interface anonymous_schema_411 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

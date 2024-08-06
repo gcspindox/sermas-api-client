@@ -10,6 +10,7 @@ import {
   DialogueTaskRecordHandlerDto,
   DialogueToolTriggeredEventDto,
   DialogueToolsRepositoryChanged,
+  DialogueToolNotMatchingEventDto,
 } from './models';
 import { DialogueMessageDto, Buffer } from '../openapi/models';
 
@@ -209,6 +210,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueToolsRepositoryChanged>(
       'app/:appId/dialogue/tool/changed/:repositoryId',
+      fn,
+      params,
+    );
+  }
+
+  async toolNotMatching(
+    event: DialogueToolNotMatchingEventDto,
+    params?: { appId?: string },
+  ) {
+    return this.broker.publish<DialogueToolNotMatchingEventDto>(
+      'app/:appId/dialogue/tool/not-matching',
+      event,
+      params,
+    );
+  }
+
+  async onToolNotMatching(
+    fn: (event: DialogueToolNotMatchingEventDto) => void | Promise<void>,
+    params?: { appId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueToolNotMatchingEventDto>(
+      'app/:appId/dialogue/tool/not-matching',
       fn,
       params,
     );
