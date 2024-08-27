@@ -80,6 +80,11 @@ export type AvatarCameraConfig = {
   rotation: Point3D;
 };
 
+export type AvatarTTSOptions = {
+  provider?: string;
+  model?: string;
+};
+
 export type RepositoryAvatarDto = {
   id: string;
   type: RepositoryAssetTypes;
@@ -91,6 +96,7 @@ export type RepositoryAvatarDto = {
   camera?: AvatarCameraConfig;
   cameraMobile?: AvatarCameraConfig;
   prompt?: string;
+  tts?: AvatarTTSOptions;
 };
 
 export type RepositoryBackgroundMetadataDto = {

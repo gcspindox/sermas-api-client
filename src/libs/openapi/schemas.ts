@@ -144,6 +144,17 @@ export const $AvatarCameraConfig = {
   },
 } as const;
 
+export const $AvatarTTSOptions = {
+  properties: {
+    provider: {
+      type: 'string',
+    },
+    model: {
+      type: 'string',
+    },
+  },
+} as const;
+
 export const $RepositoryAvatarDto = {
   properties: {
     id: {
@@ -180,6 +191,9 @@ export const $RepositoryAvatarDto = {
     },
     prompt: {
       type: 'string',
+    },
+    tts: {
+      type: 'AvatarTTSOptions',
     },
   },
 } as const;
