@@ -90,6 +90,10 @@ export type TDataText = {
      * Unique sortable ID used to sort chunks from the same messageId
      */
     chunkId?: string;
+    /**
+     * Toggle TTS rendering for this message
+     */
+    ttsEnabled?: boolean;
     file?: Blob | File;
   };
   sampleRate: number;

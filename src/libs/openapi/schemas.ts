@@ -1025,6 +1025,11 @@ export const $DialogueTaskDto = {
       description: `Task name`,
       isRequired: true,
     },
+    label: {
+      type: 'string',
+      description: `Task label`,
+      isRequired: true,
+    },
     description: {
       type: 'string',
       description: `Task description`,
@@ -1787,6 +1792,10 @@ export const $DialogueTextToSpeechDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    ttsEnabled: {
+      type: 'boolean',
+      description: `Toggle TTS rendering for this message`,
+    },
     ssml: {
       type: 'string',
       description: `SSML markup to render as speech.`,
@@ -1857,6 +1866,10 @@ export const $DialogueMessageDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    ttsEnabled: {
+      type: 'boolean',
+      description: `Toggle TTS rendering for this message`,
     },
   },
 } as const;

@@ -609,6 +609,10 @@ export type DialogueTaskDto = {
    */
   name: string;
   /**
+   * Task label
+   */
+  label: string;
+  /**
    * Task description
    */
   description?: string;
@@ -976,6 +980,10 @@ export type DialogueTextToSpeechDto = {
    */
   chunkId?: string;
   /**
+   * Toggle TTS rendering for this message
+   */
+  ttsEnabled?: boolean;
+  /**
    * SSML markup to render as speech.
    */
   ssml?: string;
@@ -1032,6 +1040,10 @@ export type DialogueMessageDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Toggle TTS rendering for this message
+   */
+  ttsEnabled?: boolean;
 };
 
 /**
