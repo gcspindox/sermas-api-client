@@ -415,11 +415,11 @@ export type AppSettingsDto = {
    */
   login?: boolean;
   /**
-   * Avatar ID
-   */
-  chatModeEnabled: boolean;
-  /**
    * Toggle the free chat mode, enabled by default
+   */
+  chatModeEnabled?: boolean;
+  /**
+   * Avatar ID
    */
   avatar: string;
   /**
