@@ -780,9 +780,14 @@ export const $AppSettingsDto = {
       type: 'boolean',
       description: `App requires login`,
     },
+    chatModeEnabled: {
+      type: 'boolean',
+      description: `Avatar ID`,
+      isRequired: true,
+    },
     avatar: {
       type: 'string',
-      description: `Avatar ID`,
+      description: `Toggle the free chat mode, enabled by default`,
       isRequired: true,
     },
     language: {

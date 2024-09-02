@@ -417,6 +417,10 @@ export type AppSettingsDto = {
   /**
    * Avatar ID
    */
+  chatModeEnabled: boolean;
+  /**
+   * Toggle the free chat mode, enabled by default
+   */
   avatar: string;
   /**
    * Default interaction language such as en-GB
