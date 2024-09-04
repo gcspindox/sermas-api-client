@@ -1180,7 +1180,7 @@ export type DialogueToolsRepositoryDto = {
 
 export type SessionSearchFilter = {
   /**
-   * filter query
+   * Query filter
    */
   query?: Record<string, unknown>;
   /**
@@ -1371,13 +1371,19 @@ export type AgentEvaluatePromptOptionsDto = {
 /**
  * LLM provider
  */
-export type LLMProvider = 'ollama' | 'openai' | 'groq' | 'antrophic';
+export type LLMProvider =
+  | 'ollama'
+  | 'openai'
+  | 'groq'
+  | 'antrophic'
+  | 'mistral';
 
 export const LLMProviderEnum = {
   OLLAMA: 'ollama',
   OPENAI: 'openai',
   GROQ: 'groq',
   ANTROPHIC: 'antrophic',
+  MISTRAL: 'mistral',
 } as const;
 
 export type AgentEvaluatePromptDto = {

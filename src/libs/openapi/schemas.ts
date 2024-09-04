@@ -2034,7 +2034,7 @@ export const $SessionSearchFilter = {
   properties: {
     query: {
       type: 'all-of',
-      description: `filter query`,
+      description: `Query filter`,
       contains: [
         {
           type: 'dictionary',

@@ -5,8 +5,7 @@ import { Logger, setDefaultLogger } from './libs/logger';
 import { LoggerService } from './libs/logger.dto';
 import { LoginResponseDto, SermasApi, type AuthJwtUser } from './libs/openapi';
 
-export { type LoggerService };
-export { Logger };
+export { Logger, type LoggerService };
 
 export type * from './libs/asyncapi/models';
 export type * from './libs/openapi/models';
