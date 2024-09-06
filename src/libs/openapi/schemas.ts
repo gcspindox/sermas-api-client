@@ -1244,6 +1244,17 @@ export const $PlatformAppExportFilterDto = {
   },
 } as const;
 
+export const $DialogueDocumentOptionsDto = {
+  properties: {
+    parser: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+    },
+  },
+} as const;
+
 export const $DialogueDocumentMetadataDto = {
   properties: {
     uri: {
@@ -1252,16 +1263,17 @@ export const $DialogueDocumentMetadataDto = {
     source: {
       type: 'string',
     },
-  },
-} as const;
-
-export const $DialogueDocumentOptionsDto = {
-  properties: {
-    parser: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+    filename: {
+      type: 'string',
+    },
+    options: {
+      type: 'all-of',
+      description: `Configure the document import handling, such as parser`,
+      contains: [
+        {
+          type: 'DialogueDocumentOptionsDto',
+        },
+      ],
     },
   },
 } as const;
@@ -1282,17 +1294,6 @@ export const $DialogueDocumentDto = {
     },
     metadata: {
       type: 'DialogueDocumentMetadataDto',
-      isRequired: true,
-    },
-    options: {
-      type: 'all-of',
-      description: `Configure the document import handling, such as parser`,
-      contains: [
-        {
-          type: 'DialogueDocumentOptionsDto',
-        },
-      ],
-      isRequired: true,
     },
   },
 } as const;

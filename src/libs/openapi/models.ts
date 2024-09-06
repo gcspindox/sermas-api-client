@@ -733,11 +733,6 @@ export type PlatformAppExportFilterDto = {
   appId?: Array<string>;
 };
 
-export type DialogueDocumentMetadataDto = {
-  uri?: string;
-  source?: string;
-};
-
 export type DialogueDocumentOptionsDto = {
   /**
    * Define the document splitting strategy. "phrase" split by sentence, "single-line" use each line as document, "double-line" use double break-line as document
@@ -745,15 +740,21 @@ export type DialogueDocumentOptionsDto = {
   parser?: Record<string, unknown>;
 };
 
+export type DialogueDocumentMetadataDto = {
+  uri?: string;
+  source?: string;
+  filename?: string;
+  /**
+   * Configure the document import handling, such as parser
+   */
+  options?: DialogueDocumentOptionsDto;
+};
+
 export type DialogueDocumentDto = {
   appId: string;
   documentId: string;
   content: string;
-  metadata: DialogueDocumentMetadataDto;
-  /**
-   * Configure the document import handling, such as parser
-   */
-  options: DialogueDocumentOptionsDto;
+  metadata?: DialogueDocumentMetadataDto;
 };
 
 export type RagWebsiteDto = {
