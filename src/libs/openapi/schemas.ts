@@ -931,6 +931,10 @@ export const $TaskFieldDto = {
       type: 'string',
       description: `Label of the field`,
     },
+    hint: {
+      type: 'string',
+      description: `Provide context to be injected in the LLM prompt to improve handling user interactions`,
+    },
     order: {
       type: 'number',
       description: `Priority order (lower first)`,
@@ -1038,6 +1042,10 @@ export const $DialogueTaskDto = {
       type: 'string',
       description: `Application ID references`,
       isRequired: true,
+    },
+    hint: {
+      type: 'string',
+      description: `Provide context to be injected in the LLM prompt to improve handling user interactions`,
     },
     sessionId: {
       type: 'string',
@@ -4213,6 +4221,18 @@ export const $SermasBaseDto = {
   },
 } as const;
 
+export const $ActuationDto = {
+  properties: {
+    payload: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
 export const $ActuationEventDto = {
   properties: {
     appId: {
@@ -4235,7 +4255,7 @@ export const $ActuationEventDto = {
     actuations: {
       type: 'array',
       contains: {
-        type: 'string',
+        type: 'ActuationDto',
       },
       isRequired: true,
     },

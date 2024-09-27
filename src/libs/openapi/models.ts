@@ -548,6 +548,10 @@ export type TaskFieldDto = {
    */
   label?: string;
   /**
+   * Provide context to be injected in the LLM prompt to improve handling user interactions
+   */
+  hint?: string;
+  /**
    * Priority order (lower first)
    */
   order?: number;
@@ -637,6 +641,10 @@ export type DialogueTaskDto = {
    * Application ID references
    */
   appId: string;
+  /**
+   * Provide context to be injected in the LLM prompt to improve handling user interactions
+   */
+  hint?: string;
   /**
    * Session ID references
    */
@@ -2434,6 +2442,10 @@ export type SermasBaseDto = {
   ts?: string;
 };
 
+export type ActuationDto = {
+  payload: Record<string, unknown>;
+};
+
 export type ActuationEventDto = {
   appId: string;
   /**
@@ -2448,7 +2460,7 @@ export type ActuationEventDto = {
    * Reference date
    */
   ts?: string;
-  actuations: Array<string>;
+  actuations: Array<ActuationDto>;
 };
 
 export type LinearVelocityDto = {};
