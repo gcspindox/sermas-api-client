@@ -2407,6 +2407,12 @@ export const $UIContentMetadataDto = {
       type: 'string',
       description: `Reference to a tool repository ID`,
     },
+    chunks: {
+      type: 'array',
+      contains: {
+        type: 'unknown[]',
+      },
+    },
   },
 } as const;
 

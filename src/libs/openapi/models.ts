@@ -1383,6 +1383,7 @@ export type AgentEvaluatePromptOptionsDto = {
 export type LLMProvider =
   | 'ollama'
   | 'openai'
+  | 'gemini'
   | 'groq'
   | 'antrophic'
   | 'mistral';
@@ -1390,6 +1391,7 @@ export type LLMProvider =
 export const LLMProviderEnum = {
   OLLAMA: 'ollama',
   OPENAI: 'openai',
+  GEMINI: 'gemini',
   GROQ: 'groq',
   ANTROPHIC: 'antrophic',
   MISTRAL: 'mistral',
@@ -1451,6 +1453,7 @@ export type UIContentMetadataDto = {
    * Reference to a tool repository ID
    */
   repositoryId?: string;
+  chunks?: Array<unknown[]>;
 };
 
 export type UIContentOptionsDto = {

@@ -460,10 +460,11 @@ export interface UIAssetChangedDto {
 
 export interface anonymous_schema_417 {
   repositoryId?: string;
+  chunks?: any[][];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_420 {
+export interface anonymous_schema_422 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
