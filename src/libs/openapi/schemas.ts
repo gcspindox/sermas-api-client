@@ -2410,7 +2410,10 @@ export const $UIContentMetadataDto = {
     chunks: {
       type: 'array',
       contains: {
-        type: 'unknown[]',
+        type: 'dictionary',
+        contains: {
+          properties: {},
+        },
       },
     },
   },

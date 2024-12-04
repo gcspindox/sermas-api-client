@@ -1453,7 +1453,7 @@ export type UIContentMetadataDto = {
    * Reference to a tool repository ID
    */
   repositoryId?: string;
-  chunks?: Array<unknown[]>;
+  chunks?: Array<Record<string, unknown>>;
 };
 
 export type UIContentOptionsDto = {
