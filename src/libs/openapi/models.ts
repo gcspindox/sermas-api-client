@@ -1490,7 +1490,8 @@ export type SupportedContentTypes =
   | 'buttons'
   | 'quiz'
   | 'clear-screen'
-  | 'qrcode-scanner';
+  | 'qrcode-scanner'
+  | 'background-audio';
 
 export const SupportedContentTypesEnum = {
   VIDEO: 'video',
@@ -1508,6 +1509,7 @@ export const SupportedContentTypesEnum = {
   QUIZ: 'quiz',
   CLEAR_SCREEN: 'clear-screen',
   QRCODE_SCANNER: 'qrcode-scanner',
+  BACKGROUND_AUDIO: 'background-audio',
 } as const;
 
 export type ImageContentDto = {
@@ -1515,6 +1517,7 @@ export type ImageContentDto = {
   width?: number;
   height?: number;
   alt: string;
+  isBackground?: boolean;
 };
 
 export type ImageUIContentDto = {
@@ -1703,8 +1706,21 @@ export type WebpageUIContentDto = {
   chunkId?: string;
 };
 
+export type Supported3DTypes = 'glb' | 'obj' | 'fbx';
+
+export const Supported3DTypesEnum = {
+  GLB: 'glb',
+  OBJ: 'obj',
+  FBX: 'fbx',
+} as const;
+
 export type ObjectContentDto = {
   url: string;
+  type: Supported3DTypes;
+};
+
+export type ObjectContentDtoWrapper = {
+  list: Array<ObjectContentDto>;
 };
 
 export type ObjectUIContentDto = {
@@ -1726,7 +1742,7 @@ export type ObjectUIContentDto = {
    */
   sessionId?: string;
   contentType: SupportedContentTypes;
-  content: ObjectContentDto;
+  content: ObjectContentDtoWrapper;
   /**
    * Provide a description for the content
    */
@@ -2180,6 +2196,61 @@ export type EmailUIContentDto = {
   chunkId?: string;
 };
 
+export type SupportedAudioTypes = 'mp3' | 'wav' | 'ogg';
+
+export const SupportedAudioTypesEnum = {
+  MP3: 'mp3',
+  WAV: 'wav',
+  OGG: 'ogg',
+} as const;
+
+export type BackgroundAudioDto = {
+  src: string;
+  type: SupportedAudioTypes;
+};
+
+export type BackgroundUIAudioDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  /**
+   * Track the interaction session, if available
+   */
+  sessionId?: string;
+  contentType: SupportedContentTypes;
+  content: BackgroundAudioDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
+   * Provides metadata for the content
+   */
+  metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
+  options?: UIContentOptionsDto & Record<string, unknown>;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
+  messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
+};
+
 export type UiInteractionButtonDto = {
   context: Record<string, unknown>;
   element: string;
@@ -2328,6 +2399,15 @@ export type MonitoringRecordDto = {
   type?: LogType;
   label: string;
   ts: string;
+};
+
+export type AdvancedDatasetRecordFilterDto = {
+  appId?: string;
+  sessionId?: string;
+  type?: LogType;
+  label?: string;
+  sinceTs?: string;
+  untilTs?: string;
 };
 
 export type XRMarkerListRequestDto = {

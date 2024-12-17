@@ -2460,6 +2460,9 @@ export const $ImageContentDto = {
       type: 'string',
       isRequired: true,
     },
+    isBackground: {
+      type: 'boolean',
+    },
   },
 } as const;
 
@@ -2815,10 +2818,30 @@ export const $WebpageUIContentDto = {
   },
 } as const;
 
+export const $Supported3DTypes = {
+  type: 'Enum',
+} as const;
+
 export const $ObjectContentDto = {
   properties: {
     url: {
       type: 'string',
+      isRequired: true,
+    },
+    type: {
+      type: 'Supported3DTypes',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $ObjectContentDtoWrapper = {
+  properties: {
+    list: {
+      type: 'array',
+      contains: {
+        type: 'ObjectContentDto',
+      },
       isRequired: true,
     },
   },
@@ -2852,7 +2875,7 @@ export const $ObjectUIContentDto = {
       isRequired: true,
     },
     content: {
-      type: 'ObjectContentDto',
+      type: 'ObjectContentDtoWrapper',
       isRequired: true,
     },
     description: {
@@ -3717,6 +3740,99 @@ export const $EmailUIContentDto = {
   },
 } as const;
 
+export const $SupportedAudioTypes = {
+  type: 'Enum',
+} as const;
+
+export const $BackgroundAudioDto = {
+  properties: {
+    src: {
+      type: 'string',
+      isRequired: true,
+    },
+    type: {
+      type: 'SupportedAudioTypes',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $BackgroundUIAudioDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Track the interaction session, if available`,
+    },
+    contentType: {
+      type: 'SupportedContentTypes',
+      isRequired: true,
+    },
+    content: {
+      type: 'BackgroundAudioDto',
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
+    metadata: {
+      type: 'all-of',
+      description: `Provides metadata for the content`,
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+    options: {
+      type: 'all-of',
+      description: `Provides configuration options for the content`,
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+    messageId: {
+      type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+  },
+} as const;
+
 export const $UiInteractionButtonDto = {
   properties: {
     context: {
@@ -4016,6 +4132,31 @@ export const $MonitoringRecordDto = {
     ts: {
       type: 'string',
       isRequired: true,
+      format: 'date-time',
+    },
+  },
+} as const;
+
+export const $AdvancedDatasetRecordFilterDto = {
+  properties: {
+    appId: {
+      type: 'string',
+    },
+    sessionId: {
+      type: 'string',
+    },
+    type: {
+      type: 'LogType',
+    },
+    label: {
+      type: 'string',
+    },
+    sinceTs: {
+      type: 'string',
+      format: 'date-time',
+    },
+    untilTs: {
+      type: 'string',
       format: 'date-time',
     },
   },

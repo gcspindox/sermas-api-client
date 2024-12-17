@@ -1,5 +1,6 @@
 import type {
   AccessTokenRequestDto,
+  AdvancedDatasetRecordFilterDto,
   AppClientDto,
   AppModuleConfigDto,
   AppSettingsDto,
@@ -123,6 +124,9 @@ export type TDataMonitoringAdd = {
 };
 export type TDataMonitoringSearch = {
   requestBody: DatasetRecordFilterDto;
+};
+export type TDataMonitoringAdvancedSearch = {
+  requestBody: AdvancedDatasetRecordFilterDto;
 };
 
 export class PlatformService {
@@ -688,6 +692,22 @@ export class PlatformService {
     return this.httpRequest.request({
       method: 'POST',
       url: '/api/platform/monitoring/search',
+      body: requestBody,
+      mediaType: 'application/json',
+    });
+  }
+
+  /**
+   * @returns MonitoringRecordDto
+   * @throws ApiError
+   */
+  public monitoringAdvancedSearch(
+    data: TDataMonitoringAdvancedSearch,
+  ): CancelablePromise<Array<MonitoringRecordDto>> {
+    const { requestBody } = data;
+    return this.httpRequest.request({
+      method: 'POST',
+      url: '/api/platform/monitoring/advanced-search',
       body: requestBody,
       mediaType: 'application/json',
     });
