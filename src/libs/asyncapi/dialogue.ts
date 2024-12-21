@@ -4,6 +4,7 @@ import { Broker } from '../broker';
 
 import {
   SermasSessionDto,
+  DialogueSpeechToTextDto,
   DialogueTaskChangedDto,
   DialogueTaskProgressDto,
   DialogueTaskRecordChangedDto,
@@ -78,6 +79,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<SermasSessionDto>(
       'app/:appId/dialogue/stop/:sessionId',
+      fn,
+      params,
+    );
+  }
+
+  async userSpeech(
+    event: DialogueSpeechToTextDto,
+    params?: { appId?: string; sessionId?: string; chunkId?: string },
+  ) {
+    return this.broker.publish<DialogueSpeechToTextDto>(
+      'app/:appId/dialogue/user-speech/:sessionId/:chunkId',
+      event,
+      params,
+    );
+  }
+
+  async onUserSpeech(
+    fn: (event: DialogueSpeechToTextDto) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string; chunkId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueSpeechToTextDto>(
+      'app/:appId/dialogue/user-speech/:sessionId/:chunkId',
       fn,
       params,
     );

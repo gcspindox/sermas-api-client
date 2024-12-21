@@ -273,6 +273,24 @@ export interface SermasSessionDto {
   sessionId?: string;
 }
 
+export interface DialogueSpeechToTextDto {
+  appId: string;
+  clientId?: string;
+  userId?: string;
+  ts?: string;
+  sessionId?: string;
+  actor?: DialogueActor;
+  text: string;
+  gender?: string;
+  language?: string;
+  emotion?: string;
+  llm?: Record<string, any>;
+  avatar?: string;
+  messageId?: string;
+  chunkId?: string;
+  ttsEnabled?: boolean;
+}
+
 export interface DialogueTaskChangedDto {
   appId: string;
   clientId?: string;
@@ -285,11 +303,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_294;
-  record: anonymous_schema_295;
+  task: anonymous_schema_308;
+  record: anonymous_schema_309;
 }
 
-export interface anonymous_schema_294 {
+export interface anonymous_schema_308 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -303,7 +321,7 @@ export interface anonymous_schema_294 {
   options?: anonymous_schema_158;
 }
 
-export interface anonymous_schema_295 {
+export interface anonymous_schema_309 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -332,10 +350,10 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_316;
+  field: anonymous_schema_330;
 }
 
-export interface anonymous_schema_316 {
+export interface anonymous_schema_330 {
   name: string;
   label?: string;
   hint?: string;
@@ -377,11 +395,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_335;
+  options?: anonymous_schema_349;
   tools?: any[][];
 }
 
-export interface anonymous_schema_335 {
+export interface anonymous_schema_349 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -458,13 +476,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_417 {
+export interface anonymous_schema_431 {
   repositoryId?: string;
   chunks?: Record<string, any>[];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_422 {
+export interface anonymous_schema_436 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
