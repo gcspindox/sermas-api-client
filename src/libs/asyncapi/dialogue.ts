@@ -84,50 +84,6 @@ export class Dialogue {
     );
   }
 
-  async agentPauseSpeech(
-    event: SermasSessionDto,
-    params?: { appId?: string; sessionId?: string },
-  ) {
-    return this.broker.publish<SermasSessionDto>(
-      'app/:appId/dialogue/pause/:sessionId',
-      event,
-      params,
-    );
-  }
-
-  async onAgentPauseSpeech(
-    fn: (event: SermasSessionDto) => void | Promise<void>,
-    params?: { appId?: string; sessionId?: string },
-  ): Promise<() => void> {
-    return this.broker.subscribe<SermasSessionDto>(
-      'app/:appId/dialogue/pause/:sessionId',
-      fn,
-      params,
-    );
-  }
-
-  async agentContinueSpeech(
-    event: SermasSessionDto,
-    params?: { appId?: string; sessionId?: string },
-  ) {
-    return this.broker.publish<SermasSessionDto>(
-      'app/:appId/dialogue/continue/:sessionId',
-      event,
-      params,
-    );
-  }
-
-  async onAgentContinueSpeech(
-    fn: (event: SermasSessionDto) => void | Promise<void>,
-    params?: { appId?: string; sessionId?: string },
-  ): Promise<() => void> {
-    return this.broker.subscribe<SermasSessionDto>(
-      'app/:appId/dialogue/continue/:sessionId',
-      fn,
-      params,
-    );
-  }
-
   async userSpeech(
     event: DialogueSpeechToTextDto,
     params?: { appId?: string; sessionId?: string; chunkId?: string },

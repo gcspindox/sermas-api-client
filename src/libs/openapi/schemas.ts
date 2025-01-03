@@ -2551,6 +2551,10 @@ export const $VideoContentDto = {
       },
       isRequired: true,
     },
+    type: {
+      type: 'string',
+      isRequired: true,
+    },
     description: {
       type: 'string',
     },

@@ -1564,6 +1564,7 @@ export type ImageUIContentDto = {
 
 export type VideoContentDto = {
   sources: Array<string>;
+  type: string;
   description?: string;
   subtitle?: string;
   thumb?: string;
