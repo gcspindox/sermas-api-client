@@ -42,10 +42,15 @@ export class Dialogue {
 
   async agentSpeech(
     event: Buffer,
-    params?: { appId?: string; sessionId?: string; chunkId?: string },
+    params?: {
+      appId?: string;
+      sessionId?: string;
+      messageId?: string;
+      chunkId?: string;
+    },
   ) {
     return this.broker.publish<Buffer>(
-      'app/:appId/dialogue/speech/:sessionId/:chunkId',
+      'app/:appId/dialogue/speech/:sessionId/:messageId/:chunkId',
       event,
       params,
     );
@@ -53,10 +58,15 @@ export class Dialogue {
 
   async onAgentSpeech(
     fn: (event: Buffer) => void | Promise<void>,
-    params?: { appId?: string; sessionId?: string; chunkId?: string },
+    params?: {
+      appId?: string;
+      sessionId?: string;
+      messageId?: string;
+      chunkId?: string;
+    },
   ): Promise<() => void> {
     return this.broker.subscribe<Buffer>(
-      'app/:appId/dialogue/speech/:sessionId/:chunkId',
+      'app/:appId/dialogue/speech/:sessionId/:messageId/:chunkId',
       fn,
       params,
     );
@@ -79,6 +89,50 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<SermasSessionDto>(
       'app/:appId/dialogue/stop/:sessionId',
+      fn,
+      params,
+    );
+  }
+
+  async agentPauseSpeech(
+    event: SermasSessionDto,
+    params?: { appId?: string; sessionId?: string },
+  ) {
+    return this.broker.publish<SermasSessionDto>(
+      'app/:appId/dialogue/pause/:sessionId',
+      event,
+      params,
+    );
+  }
+
+  async onAgentPauseSpeech(
+    fn: (event: SermasSessionDto) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<SermasSessionDto>(
+      'app/:appId/dialogue/pause/:sessionId',
+      fn,
+      params,
+    );
+  }
+
+  async agentContinueSpeech(
+    event: SermasSessionDto,
+    params?: { appId?: string; sessionId?: string },
+  ) {
+    return this.broker.publish<SermasSessionDto>(
+      'app/:appId/dialogue/continue/:sessionId',
+      event,
+      params,
+    );
+  }
+
+  async onAgentContinueSpeech(
+    fn: (event: SermasSessionDto) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<SermasSessionDto>(
+      'app/:appId/dialogue/continue/:sessionId',
       fn,
       params,
     );
