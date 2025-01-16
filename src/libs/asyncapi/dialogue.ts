@@ -42,10 +42,15 @@ export class Dialogue {
 
   async agentSpeech(
     event: Buffer,
-    params?: { appId?: string; sessionId?: string; chunkId?: string },
+    params?: {
+      appId?: string;
+      sessionId?: string;
+      messageId?: string;
+      chunkId?: string;
+    },
   ) {
     return this.broker.publish<Buffer>(
-      'app/:appId/dialogue/speech/:sessionId/:chunkId',
+      'app/:appId/dialogue/speech/:sessionId/:messageId/:chunkId',
       event,
       params,
     );
@@ -53,10 +58,15 @@ export class Dialogue {
 
   async onAgentSpeech(
     fn: (event: Buffer) => void | Promise<void>,
-    params?: { appId?: string; sessionId?: string; chunkId?: string },
+    params?: {
+      appId?: string;
+      sessionId?: string;
+      messageId?: string;
+      chunkId?: string;
+    },
   ): Promise<() => void> {
     return this.broker.subscribe<Buffer>(
-      'app/:appId/dialogue/speech/:sessionId/:chunkId',
+      'app/:appId/dialogue/speech/:sessionId/:messageId/:chunkId',
       fn,
       params,
     );
