@@ -829,6 +829,10 @@ export const $AppSettingsDto = {
         properties: {},
       },
     },
+    githubRepository: {
+      type: 'string',
+      description: `Repository`,
+    },
   },
 } as const;
 

@@ -447,6 +447,10 @@ export type AppSettingsDto = {
    * Kiosk colors theme
    */
   theme?: Record<string, unknown>;
+  /**
+   * Repository
+   */
+  githubRepository?: string;
 };
 
 export type TaskIntentDto = {
