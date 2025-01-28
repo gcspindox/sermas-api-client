@@ -94,6 +94,10 @@ export type TDataText = {
      * Toggle TTS rendering for this message
      */
     ttsEnabled?: boolean;
+    /**
+     * Specify if it is a welcome message
+     */
+    isWelcome?: boolean;
     file?: Blob | File;
   };
   sampleRate: number;

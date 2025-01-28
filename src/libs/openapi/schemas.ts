@@ -1832,6 +1832,10 @@ export const $DialogueTextToSpeechDto = {
       type: 'boolean',
       description: `Toggle TTS rendering for this message`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
     ssml: {
       type: 'string',
       description: `SSML markup to render as speech.`,
@@ -1906,6 +1910,10 @@ export const $DialogueMessageDto = {
     ttsEnabled: {
       type: 'boolean',
       description: `Toggle TTS rendering for this message`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -2543,6 +2551,10 @@ export const $ImageUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -2653,6 +2665,10 @@ export const $VideoUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -2738,6 +2754,10 @@ export const $PdfUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -2822,6 +2842,10 @@ export const $WebpageUIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -2928,6 +2952,10 @@ export const $ObjectUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -3012,6 +3040,10 @@ export const $TextUIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -3126,6 +3158,10 @@ export const $QuizUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -3205,6 +3241,10 @@ export const $ClearUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -3283,6 +3323,10 @@ export const $ClearScreenDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -3406,6 +3450,10 @@ export const $ButtonsUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -3481,6 +3529,10 @@ export const $DialogueMessageUIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -3571,6 +3623,10 @@ export const $LinkUIContentDto = {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
     },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
+    },
   },
 } as const;
 
@@ -3655,6 +3711,10 @@ export const $HtmlUIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -3744,6 +3804,10 @@ export const $EmailUIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -3837,6 +3901,10 @@ export const $BackgroundUIAudioDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;
@@ -3956,6 +4024,10 @@ export const $UIContentDto = {
     chunkId: {
       type: 'string',
       description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;

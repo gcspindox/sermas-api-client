@@ -289,6 +289,7 @@ export interface DialogueSpeechToTextDto {
   messageId?: string;
   chunkId?: string;
   ttsEnabled?: boolean;
+  isWelcome?: boolean;
 }
 
 export interface DialogueTaskChangedDto {
@@ -303,11 +304,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_309;
-  record: anonymous_schema_310;
+  task: anonymous_schema_311;
+  record: anonymous_schema_312;
 }
 
-export interface anonymous_schema_309 {
+export interface anonymous_schema_311 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -321,7 +322,7 @@ export interface anonymous_schema_309 {
   options?: anonymous_schema_159;
 }
 
-export interface anonymous_schema_310 {
+export interface anonymous_schema_312 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -350,10 +351,10 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_331;
+  field: anonymous_schema_333;
 }
 
-export interface anonymous_schema_331 {
+export interface anonymous_schema_333 {
   name: string;
   label?: string;
   hint?: string;
@@ -395,11 +396,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_350;
+  options?: anonymous_schema_352;
   tools?: any[][];
 }
 
-export interface anonymous_schema_350 {
+export interface anonymous_schema_352 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -476,13 +477,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_432 {
+export interface anonymous_schema_434 {
   repositoryId?: string;
   chunks?: Record<string, any>[];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_437 {
+export interface anonymous_schema_439 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

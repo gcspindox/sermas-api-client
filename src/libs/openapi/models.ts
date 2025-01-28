@@ -1034,6 +1034,10 @@ export type DialogueTextToSpeechDto = {
    */
   ttsEnabled?: boolean;
   /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
+  /**
    * SSML markup to render as speech.
    */
   ssml?: string;
@@ -1094,6 +1098,10 @@ export type DialogueMessageDto = {
    * Toggle TTS rendering for this message
    */
   ttsEnabled?: boolean;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 /**
@@ -1390,7 +1398,8 @@ export type LLMProvider =
   | 'gemini'
   | 'groq'
   | 'antrophic'
-  | 'mistral';
+  | 'mistral'
+  | 'azure_openai';
 
 export const LLMProviderEnum = {
   OLLAMA: 'ollama',
@@ -1399,6 +1408,7 @@ export const LLMProviderEnum = {
   GROQ: 'groq',
   ANTROPHIC: 'antrophic',
   MISTRAL: 'mistral',
+  AZURE_OPENAI: 'azure_openai',
 } as const;
 
 export type AgentEvaluatePromptDto = {
@@ -1564,6 +1574,10 @@ export type ImageUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type VideoContentDto = {
@@ -1617,6 +1631,10 @@ export type VideoUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type PdfContentDto = {
@@ -1663,6 +1681,10 @@ export type PdfUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type WebpageContentDto = {
@@ -1709,6 +1731,10 @@ export type WebpageUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type Supported3DTypes = 'glb' | 'obj' | 'fbx';
@@ -1768,6 +1794,10 @@ export type ObjectUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type TextContentDto = {
@@ -1814,6 +1844,10 @@ export type TextUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type QuizAnswerDto = {
@@ -1868,6 +1902,10 @@ export type QuizUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type ClearUIContentDto = {
@@ -1910,6 +1948,10 @@ export type ClearUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type ClearScreenDto = {
@@ -1952,6 +1994,10 @@ export type ClearScreenDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type ButtonDto = {
@@ -2017,6 +2063,10 @@ export type ButtonsUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type DialogueMessageUIContentDto = {
@@ -2059,6 +2109,10 @@ export type DialogueMessageUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type LinkContentDto = {
@@ -2106,6 +2160,10 @@ export type LinkUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type HtmlContentDto = {
@@ -2152,6 +2210,10 @@ export type HtmlUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type EmailContentDto = {
@@ -2199,6 +2261,10 @@ export type EmailUIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type SupportedAudioTypes = 'mp3' | 'wav' | 'ogg';
@@ -2254,6 +2320,10 @@ export type BackgroundUIAudioDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type UiInteractionButtonDto = {
@@ -2308,6 +2378,10 @@ export type UIContentDto = {
    * Unique sortable ID used to sort chunks from the same messageId
    */
   chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type QrCodePayloadDto = {
