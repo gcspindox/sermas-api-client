@@ -2426,7 +2426,8 @@ export type LogType =
   | 'task'
   | 'performance'
   | 'kpi'
-  | 'error';
+  | 'error'
+  | 'llm';
 
 export const LogTypeEnum = {
   CHARACTERIZATION: 'characterization',
@@ -2440,6 +2441,7 @@ export const LogTypeEnum = {
   PERFORMANCE: 'performance',
   KPI: 'kpi',
   ERROR: 'error',
+  LLM: 'llm',
 } as const;
 
 export type DatasetRecordDto = {
