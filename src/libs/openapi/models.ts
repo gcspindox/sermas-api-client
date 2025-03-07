@@ -1855,6 +1855,7 @@ export type QuizAnswerDto = {
   answer: string;
   reason: string;
   correct: boolean;
+  answerImage?: ImageContentDto;
 };
 
 export type QuizContentDto = {

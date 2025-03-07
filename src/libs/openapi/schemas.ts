@@ -3066,6 +3066,9 @@ export const $QuizAnswerDto = {
       type: 'boolean',
       isRequired: true,
     },
+    answerImage: {
+      type: 'ImageContentDto',
+    },
   },
 } as const;
 
