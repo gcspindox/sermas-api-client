@@ -27,6 +27,10 @@ export type RefreshTokenRequestDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -812,6 +816,10 @@ export type LoginRequestDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -839,6 +847,10 @@ export type RegistrationRequestDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -870,6 +882,10 @@ export type UpdateUserRequestDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -910,6 +926,10 @@ export type ObjectDetectionRequest = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -929,6 +949,10 @@ export type SentimentAnalysisRequest = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -945,6 +969,10 @@ export type UserInteractionIntentionDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -984,6 +1012,10 @@ export type DialogueTextToSpeechDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -1049,6 +1081,10 @@ export type DialogueMessageDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -1174,6 +1210,10 @@ export type DialogueToolsRepositoryDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1232,6 +1272,10 @@ export type SessionDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1262,6 +1306,10 @@ export type SessionSupportRequestDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1281,6 +1329,10 @@ export type SessionSupportResponseDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1297,6 +1349,10 @@ export type SessionStorageRecordDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -1344,6 +1400,10 @@ export type AgentHeartBeatEventDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -1418,6 +1478,10 @@ export type AgentEvaluatePromptDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1458,7 +1522,7 @@ export type AgentEvaluatePromptResponseDto = {
   /**
    * Result of the call
    */
-  result: Record<string, unknown>;
+  result: string;
   format: AgentEvaluatePromptFormat;
 };
 
@@ -1541,6 +1605,10 @@ export type ImageUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1598,6 +1666,10 @@ export type VideoUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1648,6 +1720,10 @@ export type PdfUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1697,6 +1773,10 @@ export type WebpageUIContentDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -1761,6 +1841,10 @@ export type ObjectUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1810,6 +1894,10 @@ export type TextUIContentDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -1870,6 +1958,10 @@ export type QuizUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1916,6 +2008,10 @@ export type ClearUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -1961,6 +2057,10 @@ export type ClearScreenDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2031,6 +2131,10 @@ export type ButtonsUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -2076,6 +2180,10 @@ export type DialogueMessageUIContentDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2128,6 +2236,10 @@ export type LinkUIContentDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -2177,6 +2289,10 @@ export type HtmlUIContentDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2228,6 +2344,10 @@ export type EmailUIContentDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2288,6 +2408,10 @@ export type BackgroundUIAudioDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -2345,6 +2469,10 @@ export type UIContentDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2461,6 +2589,10 @@ export type DatasetRecordFilterDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -2512,6 +2644,10 @@ export type XRMarkerDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -2539,6 +2675,10 @@ export type XROcclusionResponseDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2581,6 +2721,10 @@ export type MovementEventDto = {
    */
   clientId?: string;
   /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
    * Reference to the user interacting with the system
    */
   userId?: string;
@@ -2597,6 +2741,10 @@ export type SermasBaseDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2617,6 +2765,10 @@ export type ActuationEventDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */
@@ -2646,6 +2798,10 @@ export type StatusEventDto = {
    * Reference to the authenticated client the request originated from
    */
   clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
   /**
    * Reference to the user interacting with the system
    */

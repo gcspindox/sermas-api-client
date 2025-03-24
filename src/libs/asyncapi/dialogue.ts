@@ -3,8 +3,9 @@
 import { Broker } from '../broker';
 
 import {
-  SermasSessionDto,
+  DialogueAvatarSpeechControlDto,
   DialogueSpeechToTextDto,
+  DialogueSessionRequestDto,
   DialogueTaskChangedDto,
   DialogueTaskProgressDto,
   DialogueTaskRecordChangedDto,
@@ -73,10 +74,10 @@ export class Dialogue {
   }
 
   async agentStopSpeech(
-    event: SermasSessionDto,
+    event: DialogueAvatarSpeechControlDto,
     params?: { appId?: string; sessionId?: string },
   ) {
-    return this.broker.publish<SermasSessionDto>(
+    return this.broker.publish<DialogueAvatarSpeechControlDto>(
       'app/:appId/dialogue/stop/:sessionId',
       event,
       params,
@@ -84,10 +85,10 @@ export class Dialogue {
   }
 
   async onAgentStopSpeech(
-    fn: (event: SermasSessionDto) => void | Promise<void>,
+    fn: (event: DialogueAvatarSpeechControlDto) => void | Promise<void>,
     params?: { appId?: string; sessionId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<SermasSessionDto>(
+    return this.broker.subscribe<DialogueAvatarSpeechControlDto>(
       'app/:appId/dialogue/stop/:sessionId',
       fn,
       params,
@@ -95,10 +96,10 @@ export class Dialogue {
   }
 
   async agentPauseSpeech(
-    event: SermasSessionDto,
+    event: DialogueAvatarSpeechControlDto,
     params?: { appId?: string; sessionId?: string },
   ) {
-    return this.broker.publish<SermasSessionDto>(
+    return this.broker.publish<DialogueAvatarSpeechControlDto>(
       'app/:appId/dialogue/pause/:sessionId',
       event,
       params,
@@ -106,10 +107,10 @@ export class Dialogue {
   }
 
   async onAgentPauseSpeech(
-    fn: (event: SermasSessionDto) => void | Promise<void>,
+    fn: (event: DialogueAvatarSpeechControlDto) => void | Promise<void>,
     params?: { appId?: string; sessionId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<SermasSessionDto>(
+    return this.broker.subscribe<DialogueAvatarSpeechControlDto>(
       'app/:appId/dialogue/pause/:sessionId',
       fn,
       params,
@@ -117,10 +118,10 @@ export class Dialogue {
   }
 
   async agentContinueSpeech(
-    event: SermasSessionDto,
+    event: DialogueAvatarSpeechControlDto,
     params?: { appId?: string; sessionId?: string },
   ) {
-    return this.broker.publish<SermasSessionDto>(
+    return this.broker.publish<DialogueAvatarSpeechControlDto>(
       'app/:appId/dialogue/continue/:sessionId',
       event,
       params,
@@ -128,10 +129,10 @@ export class Dialogue {
   }
 
   async onAgentContinueSpeech(
-    fn: (event: SermasSessionDto) => void | Promise<void>,
+    fn: (event: DialogueAvatarSpeechControlDto) => void | Promise<void>,
     params?: { appId?: string; sessionId?: string },
   ): Promise<() => void> {
-    return this.broker.subscribe<SermasSessionDto>(
+    return this.broker.subscribe<DialogueAvatarSpeechControlDto>(
       'app/:appId/dialogue/continue/:sessionId',
       fn,
       params,
@@ -155,6 +156,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueSpeechToTextDto>(
       'app/:appId/dialogue/user-speech/:sessionId/:chunkId',
+      fn,
+      params,
+    );
+  }
+
+  async request(
+    event: DialogueSessionRequestDto,
+    params?: { appId?: string; sessionId?: string },
+  ) {
+    return this.broker.publish<DialogueSessionRequestDto>(
+      'app/:appId/dialogue/request/:sessionId',
+      event,
+      params,
+    );
+  }
+
+  async onRequest(
+    fn: (event: DialogueSessionRequestDto) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueSessionRequestDto>(
+      'app/:appId/dialogue/request/:sessionId',
       fn,
       params,
     );

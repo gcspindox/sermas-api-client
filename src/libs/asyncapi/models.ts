@@ -64,6 +64,7 @@ import {
 export interface PlatformTokenDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
 }
@@ -71,6 +72,7 @@ export interface PlatformTokenDto {
 export interface PlatformAppChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -78,25 +80,25 @@ export interface PlatformAppChangedDto {
   record: PlatformAppDto;
 }
 
-export interface anonymous_schema_86 {
+export interface anonymous_schema_88 {
   text: string;
 }
 
-export interface anonymous_schema_104 {
+export interface anonymous_schema_106 {
   auth?: string;
-  basic?: anonymous_schema_106;
-  bearer?: anonymous_schema_109;
+  basic?: anonymous_schema_108;
+  bearer?: anonymous_schema_111;
   moduleId: string;
   url: string;
   headers?: Record<string, any>;
 }
 
-export interface anonymous_schema_106 {
+export interface anonymous_schema_108 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_109 {
+export interface anonymous_schema_111 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -107,18 +109,18 @@ export interface anonymous_schema_109 {
   refreshUrl?: string;
 }
 
-export interface anonymous_schema_159 {
+export interface anonymous_schema_161 {
   triggerOnce?: boolean;
   removeRecord?: boolean;
   enableTool?: boolean;
-  toolOptions?: anonymous_schema_163;
+  toolOptions?: anonymous_schema_165;
   repositoryId?: string;
   list?: boolean;
   oncePerSession?: boolean;
   matchOrRemove?: boolean;
 }
 
-export interface anonymous_schema_163 {
+export interface anonymous_schema_165 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -126,6 +128,7 @@ export interface anonymous_schema_163 {
 export interface PlatformAppClientChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -136,6 +139,7 @@ export interface PlatformAppClientChangedDto {
 export interface PlatformAppModuleConfigEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -146,6 +150,7 @@ export interface PlatformAppModuleConfigEventDto {
 export interface UpdateUserEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   enabled: boolean;
@@ -160,6 +165,7 @@ export interface ModuleConfigEventDto {
 export interface UserDetectionEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   cameraId: string;
@@ -188,11 +194,12 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_225 = 'start' | 'stop';
+export type anonymous_schema_232 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   source: string;
@@ -219,6 +226,7 @@ export interface UserAgeValue {
 export interface AudioClassificationEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   source: string;
@@ -234,6 +242,7 @@ export interface AudioClassificationValue {
 export interface ObjectDetectionEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   detections: ObjectDetectionDto[];
@@ -248,6 +257,7 @@ export interface ObjectDetectionDto {
 export interface QRCodeEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   version: string;
@@ -258,6 +268,7 @@ export interface QRCodeEventDto {
 export interface NoiseEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   noiseType: string;
@@ -265,17 +276,20 @@ export interface NoiseEventDto {
   speakerId: string[];
 }
 
-export interface SermasSessionDto {
+export interface DialogueAvatarSpeechControlDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
+  chunkId?: string;
 }
 
 export interface DialogueSpeechToTextDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
@@ -292,9 +306,26 @@ export interface DialogueSpeechToTextDto {
   isWelcome?: boolean;
 }
 
+export interface DialogueSessionRequestDto {
+  appId: string;
+  clientId?: string;
+  requestId?: string;
+  userId?: string;
+  ts?: string;
+  sessionId?: string;
+  status: DialogueSessionRequestStatus;
+}
+
+export type DialogueSessionRequestStatus =
+  | 'started'
+  | 'processing'
+  | 'ended'
+  | 'cancelled';
+
 export interface DialogueTaskChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -304,11 +335,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_311;
-  record: anonymous_schema_312;
+  task: anonymous_schema_334;
+  record: anonymous_schema_335;
 }
 
-export interface anonymous_schema_311 {
+export interface anonymous_schema_334 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -319,10 +350,10 @@ export interface anonymous_schema_311 {
   intents?: TaskIntentDto[];
   events?: TaskEventDto[];
   fields: TaskFieldDto[];
-  options?: anonymous_schema_159;
+  options?: anonymous_schema_161;
 }
 
-export interface anonymous_schema_312 {
+export interface anonymous_schema_335 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -336,6 +367,7 @@ export interface anonymous_schema_312 {
 export interface DialogueTaskRecordChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -346,15 +378,16 @@ export interface DialogueTaskRecordChangedDto {
 export interface DialogueTaskRecordHandlerDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_333;
+  field: anonymous_schema_358;
 }
 
-export interface anonymous_schema_333 {
+export interface anonymous_schema_358 {
   name: string;
   label?: string;
   hint?: string;
@@ -372,6 +405,7 @@ export interface anonymous_schema_333 {
 export interface DialogueToolTriggeredEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
@@ -382,6 +416,7 @@ export interface DialogueToolTriggeredEventDto {
 export interface DialogueToolsRepositoryChanged {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -392,15 +427,16 @@ export interface DialogueToolsRepositoryChanged {
 export interface DialogueToolsRepositoryRecordDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_352;
+  options?: anonymous_schema_380;
   tools?: any[][];
 }
 
-export interface anonymous_schema_352 {
+export interface anonymous_schema_380 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -417,6 +453,7 @@ export interface DialogueToolNotMatchingEventDto {
 export interface SessionChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -427,6 +464,7 @@ export interface SessionChangedDto {
 export interface SessionSupportEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   supportId: string;
@@ -438,6 +476,7 @@ export interface SessionSupportEventDto {
 export interface SessionStorageEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -448,6 +487,7 @@ export interface SessionStorageEventDto {
 export interface AgentDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   agentId: string;
@@ -458,6 +498,7 @@ export interface AgentDto {
 export interface AgentChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -470,6 +511,7 @@ export interface AgentChangedDto {
 export interface UIAssetChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -477,13 +519,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_434 {
+export interface anonymous_schema_471 {
   repositoryId?: string;
   chunks?: Record<string, any>[];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_439 {
+export interface anonymous_schema_476 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
@@ -494,6 +536,7 @@ export interface anonymous_schema_439 {
 export interface UIInteractionEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   sessionId?: string;
@@ -504,6 +547,7 @@ export interface UIInteractionEventDto {
 export interface XRMarkerChangedDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   operation: string;
@@ -514,6 +558,7 @@ export interface XRMarkerChangedDto {
 export interface XROcclusionDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   occlusion: boolean;
@@ -522,6 +567,7 @@ export interface XROcclusionDto {
 export interface InitialPoseEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   initialPose: InitialPoseDto;
@@ -535,6 +581,7 @@ export interface InitialPoseDto {
 export interface OperationalStateEventDto {
   appId: string;
   clientId?: string;
+  requestId?: string;
   userId?: string;
   ts?: string;
   state: OperationalStateDto;
