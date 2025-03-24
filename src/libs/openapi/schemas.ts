@@ -79,6 +79,10 @@ export const $RefreshTokenRequestDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -1455,6 +1459,10 @@ export const $LoginRequestDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -1517,6 +1525,10 @@ export const $RegistrationRequestDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -1589,6 +1601,10 @@ export const $UpdateUserRequestDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -1664,6 +1680,10 @@ export const $ObjectDetectionRequest = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -1702,6 +1722,10 @@ export const $SentimentAnalysisRequest = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -1727,6 +1751,10 @@ export const $UserInteractionIntentionDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -1774,6 +1802,10 @@ export const $DialogueTextToSpeechDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -1852,6 +1884,10 @@ export const $DialogueMessageDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -2016,6 +2052,10 @@ export const $DialogueToolsRepositoryDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2101,6 +2141,10 @@ export const $SessionDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2157,6 +2201,10 @@ export const $SessionSupportRequestDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2191,6 +2239,10 @@ export const $SessionSupportResponseDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2216,6 +2268,10 @@ export const $SessionStorageRecordDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -2282,6 +2338,10 @@ export const $AgentHeartBeatEventDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -2356,6 +2416,10 @@ export const $AgentEvaluatePromptDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2400,10 +2464,8 @@ export const $AgentEvaluatePromptFormat = {
 export const $AgentEvaluatePromptResponseDto = {
   properties: {
     result: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
+      type: 'string',
+      description: `Result of the call`,
       isRequired: true,
     },
     format: {
@@ -2487,6 +2549,10 @@ export const $ImageUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -2602,6 +2668,10 @@ export const $VideoUIContentDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2691,6 +2761,10 @@ export const $PdfUIContentDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2779,6 +2853,10 @@ export const $WebpageUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -2889,6 +2967,10 @@ export const $ObjectUIContentDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -2977,6 +3059,10 @@ export const $TextUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3098,6 +3184,10 @@ export const $QuizUIContentDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -3177,6 +3267,10 @@ export const $ClearUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3260,6 +3354,10 @@ export const $ClearScreenDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3390,6 +3488,10 @@ export const $ButtonsUIContentDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -3469,6 +3571,10 @@ export const $DialogueMessageUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3563,6 +3669,10 @@ export const $LinkUIContentDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -3651,6 +3761,10 @@ export const $HtmlUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3744,6 +3858,10 @@ export const $EmailUIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3841,6 +3959,10 @@ export const $BackgroundUIAudioDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -3961,6 +4083,10 @@ export const $UIContentDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -4173,6 +4299,10 @@ export const $DatasetRecordFilterDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -4282,6 +4412,10 @@ export const $XRMarkerDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -4318,6 +4452,10 @@ export const $XROcclusionResponseDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -4416,6 +4554,10 @@ export const $MovementEventDto = {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
     },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
     userId: {
       type: 'string',
       description: `Reference to the user interacting with the system`,
@@ -4441,6 +4583,10 @@ export const $SermasBaseDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -4475,6 +4621,10 @@ export const $ActuationEventDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',
@@ -4534,6 +4684,10 @@ export const $StatusEventDto = {
     clientId: {
       type: 'string',
       description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
     },
     userId: {
       type: 'string',

@@ -46,6 +46,10 @@ export type TDataText = {
      */
     clientId?: string;
     /**
+     * Request identifier for monitoring purposes
+     */
+    requestId?: string;
+    /**
      * Reference to the user interacting with the system
      */
     userId?: string;
@@ -110,6 +114,7 @@ export type TDataChatMessage = {
 };
 export type TDataStopAgentSpeech = {
   appId: string;
+  chunkId: string;
   sessionId: string;
 };
 export type TDataGetChatHistory = {
@@ -273,13 +278,14 @@ export class DialogueService {
    * @throws ApiError
    */
   public stopAgentSpeech(data: TDataStopAgentSpeech): CancelablePromise<any> {
-    const { appId, sessionId } = data;
+    const { appId, chunkId, sessionId } = data;
     return this.httpRequest.request({
       method: 'POST',
-      url: '/api/dialogue/speech/stop/{appId}/{sessionId}',
+      url: '/api/dialogue/speech/stop/{appId}/{sessionId}/{chunkId}',
       path: {
         appId,
         sessionId,
+        chunkId,
       },
     });
   }
