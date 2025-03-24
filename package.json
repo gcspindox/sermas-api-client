@@ -1,6 +1,6 @@
 {
   "name": "@sermas/api-client",
-  "version": "1.0.0-alpha.163",
+  "version": "1.0.0-alpha.164",
   "description": "Sermas API client",
   "type": "module",
   "main": "./index.cjs",
