@@ -837,6 +837,10 @@ export const $AppSettingsDto = {
       type: 'string',
       description: `Repository`,
     },
+    impressum: {
+      type: 'string',
+      description: `Markdown formatted content with information about the app shown in navbar of the kiosk`,
+    },
   },
 } as const;
 
@@ -4050,6 +4054,130 @@ export const $UiInteractionButtonDto = {
     value: {
       type: 'string',
       isRequired: true,
+    },
+  },
+} as const;
+
+export const $NavigationItemDto = {
+  properties: {
+    label: {
+      type: 'string',
+      isRequired: true,
+    },
+    id: {
+      type: 'string',
+      isRequired: true,
+    },
+    url: {
+      type: 'string',
+    },
+    group: {
+      type: 'string',
+    },
+    selected: {
+      type: 'boolean',
+    },
+    items: {
+      type: 'array',
+      contains: {
+        type: 'NavigationItemDto',
+      },
+    },
+  },
+} as const;
+
+export const $NavigationContentDto = {
+  properties: {
+    items: {
+      type: 'array',
+      contains: {
+        type: 'NavigationItemDto',
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $NavigationUIContentDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Track the interaction session, if available`,
+    },
+    contentType: {
+      type: 'SupportedContentTypes',
+      isRequired: true,
+    },
+    content: {
+      type: 'NavigationContentDto',
+      isRequired: true,
+    },
+    description: {
+      type: 'string',
+      description: `Provide a description for the content`,
+    },
+    metadata: {
+      type: 'all-of',
+      description: `Provides metadata for the content`,
+      contains: [
+        {
+          type: 'UIContentMetadataDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+    options: {
+      type: 'all-of',
+      description: `Provides configuration options for the content`,
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+    messageId: {
+      type: 'string',
+      description: `Unique sortable ID used to group and sort messages`,
+    },
+    chunkId: {
+      type: 'string',
+      description: `Unique sortable ID used to sort chunks from the same messageId`,
+    },
+    isWelcome: {
+      type: 'boolean',
+      description: `Specify if it is a welcome message`,
     },
   },
 } as const;

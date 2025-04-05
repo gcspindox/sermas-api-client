@@ -455,6 +455,10 @@ export type AppSettingsDto = {
    * Repository
    */
   githubRepository?: string;
+  /**
+   * Markdown formatted content with information about the app shown in navbar of the kiosk
+   */
+  impressum?: string;
 };
 
 export type TaskIntentDto = {
@@ -2455,6 +2459,69 @@ export type UiInteractionButtonDto = {
   context: Record<string, unknown>;
   element: string;
   value: string;
+};
+
+export type NavigationItemDto = {
+  label: string;
+  id: string;
+  url?: string;
+  group?: string;
+  selected?: boolean;
+  items?: Array<NavigationItemDto>;
+};
+
+export type NavigationContentDto = {
+  items: Array<NavigationItemDto>;
+};
+
+export type NavigationUIContentDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  /**
+   * Track the interaction session, if available
+   */
+  sessionId?: string;
+  contentType: SupportedContentTypes;
+  content: NavigationContentDto;
+  /**
+   * Provide a description for the content
+   */
+  description?: string;
+  /**
+   * Provides metadata for the content
+   */
+  metadata?: UIContentMetadataDto & Record<string, unknown>;
+  /**
+   * Provides configuration options for the content
+   */
+  options?: UIContentOptionsDto & Record<string, unknown>;
+  /**
+   * Unique sortable ID used to group and sort messages
+   */
+  messageId?: string;
+  /**
+   * Unique sortable ID used to sort chunks from the same messageId
+   */
+  chunkId?: string;
+  /**
+   * Specify if it is a welcome message
+   */
+  isWelcome?: boolean;
 };
 
 export type UIInteractionDTO = {
