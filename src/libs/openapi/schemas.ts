@@ -4058,7 +4058,7 @@ export const $UiInteractionButtonDto = {
   },
 } as const;
 
-export const $NavigationItemDto = {
+export const $NavigationMenuItemDto = {
   properties: {
     label: {
       type: 'string',
@@ -4080,25 +4080,25 @@ export const $NavigationItemDto = {
     items: {
       type: 'array',
       contains: {
-        type: 'NavigationItemDto',
+        type: 'NavigationMenuItemDto',
       },
     },
   },
 } as const;
 
-export const $NavigationContentDto = {
+export const $NavigationMenuContentDto = {
   properties: {
     items: {
       type: 'array',
       contains: {
-        type: 'NavigationItemDto',
+        type: 'NavigationMenuItemDto',
       },
       isRequired: true,
     },
   },
 } as const;
 
-export const $NavigationUIContentDto = {
+export const $NavigationMenuUIContentDto = {
   properties: {
     appId: {
       type: 'string',
@@ -4130,7 +4130,7 @@ export const $NavigationUIContentDto = {
       isRequired: true,
     },
     content: {
-      type: 'NavigationContentDto',
+      type: 'NavigationMenuContentDto',
       isRequired: true,
     },
     description: {

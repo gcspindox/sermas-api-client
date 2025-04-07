@@ -1569,6 +1569,7 @@ export type SupportedContentTypes =
   | 'link'
   | 'dialogue-message'
   | 'navigation'
+  | 'navigation-menu'
   | 'buttons'
   | 'quiz'
   | 'clear-screen'
@@ -1587,6 +1588,7 @@ export const SupportedContentTypesEnum = {
   LINK: 'link',
   DIALOGUE_MESSAGE: 'dialogue-message',
   NAVIGATION: 'navigation',
+  NAVIGATION_MENU: 'navigation-menu',
   BUTTONS: 'buttons',
   QUIZ: 'quiz',
   CLEAR_SCREEN: 'clear-screen',
@@ -2461,20 +2463,20 @@ export type UiInteractionButtonDto = {
   value: string;
 };
 
-export type NavigationItemDto = {
+export type NavigationMenuItemDto = {
   label: string;
   id: string;
   url?: string;
   group?: string;
   selected?: boolean;
-  items?: Array<NavigationItemDto>;
+  items?: Array<NavigationMenuItemDto>;
 };
 
-export type NavigationContentDto = {
-  items: Array<NavigationItemDto>;
+export type NavigationMenuContentDto = {
+  items: Array<NavigationMenuItemDto>;
 };
 
-export type NavigationUIContentDto = {
+export type NavigationMenuUIContentDto = {
   appId: string;
   /**
    * Reference to the authenticated client the request originated from
@@ -2497,7 +2499,7 @@ export type NavigationUIContentDto = {
    */
   sessionId?: string;
   contentType: SupportedContentTypes;
-  content: NavigationContentDto;
+  content: NavigationMenuContentDto;
   /**
    * Provide a description for the content
    */
