@@ -910,6 +910,27 @@ export const $TaskEventDto = {
   },
 } as const;
 
+export const $UIContentOptionsDto = {
+  properties: {
+    clearScreen: {
+      type: 'boolean',
+      description: `Clear the UI screen`,
+    },
+    ttsEnabled: {
+      type: 'boolean',
+      description: `Enable agent reading the content (text to speech)`,
+    },
+    stopSpeech: {
+      type: 'boolean',
+      description: `Stop the agent speech`,
+    },
+    language: {
+      type: 'string',
+      description: `Define the language of the content, it will be translated based on the language selected by the user.`,
+    },
+  },
+} as const;
+
 export const $TaskSchemaDataType = {
   type: 'Enum',
 } as const;
@@ -928,6 +949,10 @@ export const $OptionSelection = {
     description: {
       type: 'string',
       description: `Description for an option`,
+    },
+    options: {
+      type: 'string',
+      description: `Addtional settings for this field`,
     },
   },
 } as const;
@@ -950,6 +975,19 @@ export const $TaskFieldDto = {
     order: {
       type: 'number',
       description: `Priority order (lower first)`,
+    },
+    uiOptions: {
+      type: 'all-of',
+      description: `UI content options`,
+      contains: [
+        {
+          type: 'UIContentOptionsDto',
+        },
+      ],
+    },
+    skipResponse: {
+      type: 'boolean',
+      description: `Skip chat response`,
     },
     type: {
       type: 'TaskSchemaDataType',
@@ -1844,13 +1882,10 @@ export const $DialogueTextToSpeechDto = {
       description: `User emotion, if available`,
     },
     llm: {
-      type: 'all-of',
-      description: `LLM engine to use`,
-      contains: [
-        {
-          type: 'LLMSettingsDto',
-        },
-      ],
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
     },
     avatar: {
       type: 'string',
@@ -1927,13 +1962,10 @@ export const $DialogueMessageDto = {
       description: `User emotion, if available`,
     },
     llm: {
-      type: 'all-of',
-      description: `LLM engine to use`,
-      contains: [
-        {
-          type: 'LLMSettingsDto',
-        },
-      ],
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
     },
     avatar: {
       type: 'string',
@@ -2493,27 +2525,6 @@ export const $UIContentMetadataDto = {
           properties: {},
         },
       },
-    },
-  },
-} as const;
-
-export const $UIContentOptionsDto = {
-  properties: {
-    clearScreen: {
-      type: 'boolean',
-      description: `Clear the UI screen`,
-    },
-    ttsEnabled: {
-      type: 'boolean',
-      description: `Enable agent reading the content (text to speech)`,
-    },
-    stopSpeech: {
-      type: 'boolean',
-      description: `Stop the agent speech`,
-    },
-    language: {
-      type: 'string',
-      description: `Define the language of the content, it will be translated based on the language selected by the user.`,
     },
   },
 } as const;

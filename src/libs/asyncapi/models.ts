@@ -109,18 +109,25 @@ export interface anonymous_schema_112 {
   refreshUrl?: string;
 }
 
-export interface anonymous_schema_162 {
+export interface anonymous_schema_152 {
+  clearScreen?: boolean;
+  ttsEnabled?: boolean;
+  stopSpeech?: boolean;
+  language?: string;
+}
+
+export interface anonymous_schema_169 {
   triggerOnce?: boolean;
   removeRecord?: boolean;
   enableTool?: boolean;
-  toolOptions?: anonymous_schema_166;
+  toolOptions?: anonymous_schema_173;
   repositoryId?: string;
   list?: boolean;
   oncePerSession?: boolean;
   matchOrRemove?: boolean;
 }
 
-export interface anonymous_schema_166 {
+export interface anonymous_schema_173 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -194,7 +201,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_233 = 'start' | 'stop';
+export type anonymous_schema_240 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -335,11 +342,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_335;
-  record: anonymous_schema_336;
+  task: anonymous_schema_342;
+  record: anonymous_schema_343;
 }
 
-export interface anonymous_schema_335 {
+export interface anonymous_schema_342 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -350,10 +357,10 @@ export interface anonymous_schema_335 {
   intents?: TaskIntentDto[];
   events?: TaskEventDto[];
   fields: TaskFieldDto[];
-  options?: anonymous_schema_162;
+  options?: anonymous_schema_169;
 }
 
-export interface anonymous_schema_336 {
+export interface anonymous_schema_343 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -384,14 +391,16 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_359;
+  field: anonymous_schema_366;
 }
 
-export interface anonymous_schema_359 {
+export interface anonymous_schema_366 {
   name: string;
   label?: string;
   hint?: string;
   order?: number;
+  uiOptions?: anonymous_schema_152;
+  skipResponse?: boolean;
   type: TaskSchemaDataType;
   required?: boolean;
   validation?: string;
@@ -432,11 +441,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_381;
+  options?: anonymous_schema_388;
   tools?: any[][];
 }
 
-export interface anonymous_schema_381 {
+export interface anonymous_schema_388 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -519,13 +528,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_472 {
+export interface anonymous_schema_479 {
   repositoryId?: string;
   chunks?: Record<string, any>[];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_477 {
+export interface anonymous_schema_484 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

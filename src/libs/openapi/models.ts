@@ -515,6 +515,25 @@ export type TaskEventDto = {
   trigger?: Array<TaskEventTriggerDto>;
 };
 
+export type UIContentOptionsDto = {
+  /**
+   * Clear the UI screen
+   */
+  clearScreen?: boolean;
+  /**
+   * Enable agent reading the content (text to speech)
+   */
+  ttsEnabled?: boolean;
+  /**
+   * Stop the agent speech
+   */
+  stopSpeech?: boolean;
+  /**
+   * Define the language of the content, it will be translated based on the language selected by the user.
+   */
+  language?: string;
+};
+
 /**
  * Data type
  */
@@ -548,6 +567,10 @@ export type OptionSelection = {
    * Description for an option
    */
   description?: string;
+  /**
+   * Addtional settings for this field
+   */
+  options?: string;
 };
 
 export type TaskFieldDto = {
@@ -567,6 +590,14 @@ export type TaskFieldDto = {
    * Priority order (lower first)
    */
   order?: number;
+  /**
+   * UI content options
+   */
+  uiOptions?: UIContentOptionsDto;
+  /**
+   * Skip chat response
+   */
+  skipResponse?: boolean;
   type: TaskSchemaDataType;
   /**
    * Indicate if the field is required
@@ -1052,7 +1083,7 @@ export type DialogueTextToSpeechDto = {
   /**
    * LLM engine to use
    */
-  llm?: LLMSettingsDto;
+  llm?: Record<string, unknown>;
   /**
    * The avatar id used for interaction
    */
@@ -1121,7 +1152,7 @@ export type DialogueMessageDto = {
   /**
    * LLM engine to use
    */
-  llm?: LLMSettingsDto;
+  llm?: Record<string, unknown>;
   /**
    * The avatar id used for interaction
    */
@@ -1536,25 +1567,6 @@ export type UIContentMetadataDto = {
    */
   repositoryId?: string;
   chunks?: Array<Record<string, unknown>>;
-};
-
-export type UIContentOptionsDto = {
-  /**
-   * Clear the UI screen
-   */
-  clearScreen?: boolean;
-  /**
-   * Enable agent reading the content (text to speech)
-   */
-  ttsEnabled?: boolean;
-  /**
-   * Stop the agent speech
-   */
-  stopSpeech?: boolean;
-  /**
-   * Define the language of the content, it will be translated based on the language selected by the user.
-   */
-  language?: string;
 };
 
 export type SupportedContentTypes =
