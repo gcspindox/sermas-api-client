@@ -84,21 +84,21 @@ export interface anonymous_schema_88 {
   text: string;
 }
 
-export interface anonymous_schema_107 {
+export interface anonymous_schema_108 {
   auth?: string;
-  basic?: anonymous_schema_109;
-  bearer?: anonymous_schema_112;
+  basic?: anonymous_schema_110;
+  bearer?: anonymous_schema_113;
   moduleId: string;
   url: string;
   headers?: Record<string, any>;
 }
 
-export interface anonymous_schema_109 {
+export interface anonymous_schema_110 {
   username?: string;
   password: string;
 }
 
-export interface anonymous_schema_112 {
+export interface anonymous_schema_113 {
   clientType?: string;
   clientId?: string;
   clientSecret?: string;
@@ -109,25 +109,25 @@ export interface anonymous_schema_112 {
   refreshUrl?: string;
 }
 
-export interface anonymous_schema_152 {
+export interface anonymous_schema_153 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
   language?: string;
 }
 
-export interface anonymous_schema_169 {
+export interface anonymous_schema_170 {
   triggerOnce?: boolean;
   removeRecord?: boolean;
   enableTool?: boolean;
-  toolOptions?: anonymous_schema_173;
+  toolOptions?: anonymous_schema_174;
   repositoryId?: string;
   list?: boolean;
   oncePerSession?: boolean;
   matchOrRemove?: boolean;
 }
 
-export interface anonymous_schema_173 {
+export interface anonymous_schema_174 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -201,7 +201,7 @@ export interface StringInferenceValue {
   value: string;
 }
 
-export type anonymous_schema_240 = 'start' | 'stop';
+export type anonymous_schema_241 = 'start' | 'stop';
 
 export interface UserCharacterizationEventDto {
   appId: string;
@@ -342,11 +342,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_342;
-  record: anonymous_schema_343;
+  task: anonymous_schema_343;
+  record: anonymous_schema_344;
 }
 
-export interface anonymous_schema_342 {
+export interface anonymous_schema_343 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -357,10 +357,10 @@ export interface anonymous_schema_342 {
   intents?: TaskIntentDto[];
   events?: TaskEventDto[];
   fields: TaskFieldDto[];
-  options?: anonymous_schema_169;
+  options?: anonymous_schema_170;
 }
 
-export interface anonymous_schema_343 {
+export interface anonymous_schema_344 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -391,15 +391,15 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_366;
+  field: anonymous_schema_367;
 }
 
-export interface anonymous_schema_366 {
+export interface anonymous_schema_367 {
   name: string;
   label?: string;
   hint?: string;
   order?: number;
-  uiOptions?: anonymous_schema_152;
+  uiOptions?: anonymous_schema_153;
   skipResponse?: boolean;
   type: TaskSchemaDataType;
   required?: boolean;
@@ -441,11 +441,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_388;
+  options?: anonymous_schema_389;
   tools?: any[][];
 }
 
-export interface anonymous_schema_388 {
+export interface anonymous_schema_389 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -528,13 +528,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_479 {
+export interface anonymous_schema_480 {
   repositoryId?: string;
   chunks?: Record<string, any>[];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_484 {
+export interface anonymous_schema_485 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;

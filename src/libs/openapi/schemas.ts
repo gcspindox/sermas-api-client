@@ -841,6 +841,10 @@ export const $AppSettingsDto = {
       type: 'string',
       description: `Markdown formatted content with information about the app shown in navbar of the kiosk`,
     },
+    resetPrivacyEverySession: {
+      type: 'boolean',
+      description: `If true, ask for privacy consent at the beginning of every session`,
+    },
   },
 } as const;
 

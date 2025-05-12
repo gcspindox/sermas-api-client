@@ -459,6 +459,10 @@ export type AppSettingsDto = {
    * Markdown formatted content with information about the app shown in navbar of the kiosk
    */
   impressum?: string;
+  /**
+   * If true, ask for privacy consent at the beginning of every session
+   */
+  resetPrivacyEverySession?: boolean;
 };
 
 export type TaskIntentDto = {
@@ -2637,7 +2641,8 @@ export type LogType =
   | 'performance'
   | 'kpi'
   | 'error'
-  | 'llm';
+  | 'llm'
+  | 'log';
 
 export const LogTypeEnum = {
   CHARACTERIZATION: 'characterization',
@@ -2652,6 +2657,7 @@ export const LogTypeEnum = {
   KPI: 'kpi',
   ERROR: 'error',
   LLM: 'llm',
+  LOG: 'log',
 } as const;
 
 export type DatasetRecordDto = {
