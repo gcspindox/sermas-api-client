@@ -3,6 +3,7 @@
 import { Broker } from '../broker';
 
 import {
+  DialogueProgressEventDto,
   DialogueAvatarSpeechControlDto,
   DialogueSpeechToTextDto,
   DialogueSessionRequestDto,
@@ -18,6 +19,28 @@ import { DialogueMessageDto, Buffer } from '../openapi/models';
 
 export class Dialogue {
   constructor(private readonly broker: Broker) {}
+
+  async dialogueProgress(
+    event: DialogueProgressEventDto,
+    params?: { appId?: string; sessionId?: string },
+  ) {
+    return this.broker.publish<DialogueProgressEventDto>(
+      'app/:appId/dialogue/progress/:sessionId',
+      event,
+      params,
+    );
+  }
+
+  async onDialogueProgress(
+    fn: (event: DialogueProgressEventDto) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<DialogueProgressEventDto>(
+      'app/:appId/dialogue/progress/:sessionId',
+      fn,
+      params,
+    );
+  }
 
   async dialogueMessages(
     event: DialogueMessageDto,
@@ -156,6 +179,28 @@ export class Dialogue {
   ): Promise<() => void> {
     return this.broker.subscribe<DialogueSpeechToTextDto>(
       'app/:appId/dialogue/user-speech/:sessionId/:chunkId',
+      fn,
+      params,
+    );
+  }
+
+  async userSpeechStream(
+    event: Buffer,
+    params?: { appId?: string; sessionId?: string; chunkId?: string },
+  ) {
+    return this.broker.publish<Buffer>(
+      'app/:appId/dialogue/user-speech/stream/:sessionId/:chunkId',
+      event,
+      params,
+    );
+  }
+
+  async onUserSpeechStream(
+    fn: (event: Buffer) => void | Promise<void>,
+    params?: { appId?: string; sessionId?: string; chunkId?: string },
+  ): Promise<() => void> {
+    return this.broker.subscribe<Buffer>(
+      'app/:appId/dialogue/user-speech/stream/:sessionId/:chunkId',
       fn,
       params,
     );

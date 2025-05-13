@@ -283,6 +283,11 @@ export interface NoiseEventDto {
   speakerId: string[];
 }
 
+export interface DialogueProgressEventDto {
+  event: Record<string, any>;
+  status?: string;
+}
+
 export interface DialogueAvatarSpeechControlDto {
   appId: string;
   clientId?: string;
@@ -342,11 +347,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_343;
-  record: anonymous_schema_344;
+  task: anonymous_schema_345;
+  record: anonymous_schema_346;
 }
 
-export interface anonymous_schema_343 {
+export interface anonymous_schema_345 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -360,7 +365,7 @@ export interface anonymous_schema_343 {
   options?: anonymous_schema_170;
 }
 
-export interface anonymous_schema_344 {
+export interface anonymous_schema_346 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -391,10 +396,10 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_367;
+  field: anonymous_schema_369;
 }
 
-export interface anonymous_schema_367 {
+export interface anonymous_schema_369 {
   name: string;
   label?: string;
   hint?: string;
@@ -441,11 +446,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_389;
+  options?: anonymous_schema_391;
   tools?: any[][];
 }
 
-export interface anonymous_schema_389 {
+export interface anonymous_schema_391 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -528,13 +533,13 @@ export interface UIAssetChangedDto {
   record: UIAssetDto;
 }
 
-export interface anonymous_schema_480 {
+export interface anonymous_schema_482 {
   repositoryId?: string;
   chunks?: Record<string, any>[];
   additionalProperties?: Record<string, any>;
 }
 
-export interface anonymous_schema_485 {
+export interface anonymous_schema_487 {
   clearScreen?: boolean;
   ttsEnabled?: boolean;
   stopSpeech?: boolean;
