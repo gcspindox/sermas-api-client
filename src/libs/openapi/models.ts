@@ -1278,293 +1278,6 @@ export type DialogueToolsRepositoryDto = {
   tools?: Array<unknown[]>;
 };
 
-export type SessionSearchFilter = {
-  /**
-   * Query filter
-   */
-  query?: Record<string, unknown>;
-  /**
-   * results limit
-   */
-  limit?: number;
-  /**
-   * results to skip from beginning
-   */
-  skip?: number;
-  /**
-   * result sorting
-   */
-  sort?: Record<string, unknown>;
-};
-
-export type SessionProperties = {
-  /**
-   * Reference to the current tool repository
-   */
-  repositoryId?: string;
-};
-
-export type SessionDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Request identifier for monitoring purposes
-   */
-  requestId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  sessionId?: string;
-  /**
-   * Agent instance associated to the session
-   */
-  agentId?: string;
-  /**
-   * Collect inferred identifiers of user interacting with the agent during a session.
-   */
-  user?: Array<string>;
-  modifiedAt: string;
-  createdAt: string;
-  closedAt: string;
-  settings?: AppSettingsDto;
-  properties?: SessionProperties;
-};
-
-export type SessionSupportRequestDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Request identifier for monitoring purposes
-   */
-  requestId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  sessionId: string;
-  code: string;
-  message: string;
-};
-
-export type SessionSupportResponseDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Request identifier for monitoring purposes
-   */
-  requestId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  supportId: string;
-};
-
-export type SessionStorageRecordDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Request identifier for monitoring purposes
-   */
-  requestId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  storageId?: string;
-  sessionId?: string;
-  data: Record<string, unknown>;
-};
-
-export type SessionStorageSearchDto = {
-  appId: string;
-  userId?: Array<string>;
-  sessionId?: Array<string>;
-  storageId?: Array<string>;
-};
-
-export type AgentStatus =
-  | 'unavailable'
-  | 'error'
-  | 'not_ready'
-  | 'ready'
-  | 'loading'
-  | 'interacting'
-  | 'waiting'
-  | 'processing';
-
-export const AgentStatusEnum = {
-  UNAVAILABLE: 'unavailable',
-  ERROR: 'error',
-  NOT_READY: 'not_ready',
-  READY: 'ready',
-  LOADING: 'loading',
-  INTERACTING: 'interacting',
-  WAITING: 'waiting',
-  PROCESSING: 'processing',
-} as const;
-
-export type AgentHeartBeatEventDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Request identifier for monitoring purposes
-   */
-  requestId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  /**
-   * Track the interaction session, if available
-   */
-  sessionId?: string;
-  agentId?: string;
-  moduleId: string;
-  status: AgentStatus;
-  settings?: AppSettingsDto;
-};
-
-export type AgentEvaluatePromptOptionsDto = {
-  /**
-   * Include chat history
-   */
-  history?: boolean;
-  /**
-   * Include contents from documents
-   */
-  documents?: boolean;
-  /**
-   * Include application prompt
-   */
-  app?: boolean;
-  /**
-   * Use specified avatar characterization prompt
-   */
-  avatar?: string;
-  /**
-   * Provide response as JSON
-   */
-  json?: boolean;
-  /**
-   * Response language
-   */
-  language?: string;
-};
-
-/**
- * LLM provider
- */
-export type LLMProvider =
-  | 'ollama'
-  | 'openai'
-  | 'gemini'
-  | 'groq'
-  | 'antrophic'
-  | 'mistral'
-  | 'azure_openai';
-
-export const LLMProviderEnum = {
-  OLLAMA: 'ollama',
-  OPENAI: 'openai',
-  GEMINI: 'gemini',
-  GROQ: 'groq',
-  ANTROPHIC: 'antrophic',
-  MISTRAL: 'mistral',
-  AZURE_OPENAI: 'azure_openai',
-} as const;
-
-export type AgentEvaluatePromptDto = {
-  appId: string;
-  /**
-   * Reference to the authenticated client the request originated from
-   */
-  clientId?: string;
-  /**
-   * Request identifier for monitoring purposes
-   */
-  requestId?: string;
-  /**
-   * Reference to the user interacting with the system
-   */
-  userId?: string;
-  /**
-   * Reference date
-   */
-  ts?: string;
-  /**
-   * Id of the session
-   */
-  sessionId?: string;
-  /**
-   * Prompt to evaluate
-   */
-  prompt: string;
-  /**
-   * Prompt options
-   */
-  options?: AgentEvaluatePromptOptionsDto;
-  provider?: LLMProvider;
-  /**
-   * LLM provider model name
-   */
-  model?: string;
-};
-
-/**
- * Response format (text,string)
- */
-export type AgentEvaluatePromptFormat = 'text' | 'string';
-
-export const AgentEvaluatePromptFormatEnum = {
-  TEXT: 'text',
-  STRING: 'string',
-} as const;
-
-export type AgentEvaluatePromptResponseDto = {
-  /**
-   * Result of the call
-   */
-  result: string;
-  format: AgentEvaluatePromptFormat;
-};
-
 export type UIContentMetadataDto = {
   /**
    * Reference to a tool repository ID
@@ -2628,6 +2341,293 @@ export type UIAssetDto = {
 };
 
 export type Buffer = {};
+
+export type SessionSearchFilter = {
+  /**
+   * Query filter
+   */
+  query?: Record<string, unknown>;
+  /**
+   * results limit
+   */
+  limit?: number;
+  /**
+   * results to skip from beginning
+   */
+  skip?: number;
+  /**
+   * result sorting
+   */
+  sort?: Record<string, unknown>;
+};
+
+export type SessionProperties = {
+  /**
+   * Reference to the current tool repository
+   */
+  repositoryId?: string;
+};
+
+export type SessionDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  sessionId?: string;
+  /**
+   * Agent instance associated to the session
+   */
+  agentId?: string;
+  /**
+   * Collect inferred identifiers of user interacting with the agent during a session.
+   */
+  user?: Array<string>;
+  modifiedAt: string;
+  createdAt: string;
+  closedAt: string;
+  settings?: AppSettingsDto;
+  properties?: SessionProperties;
+};
+
+export type SessionSupportRequestDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  sessionId: string;
+  code: string;
+  message: string;
+};
+
+export type SessionSupportResponseDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  supportId: string;
+};
+
+export type SessionStorageRecordDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  storageId?: string;
+  sessionId?: string;
+  data: Record<string, unknown>;
+};
+
+export type SessionStorageSearchDto = {
+  appId: string;
+  userId?: Array<string>;
+  sessionId?: Array<string>;
+  storageId?: Array<string>;
+};
+
+export type AgentStatus =
+  | 'unavailable'
+  | 'error'
+  | 'not_ready'
+  | 'ready'
+  | 'loading'
+  | 'interacting'
+  | 'waiting'
+  | 'processing';
+
+export const AgentStatusEnum = {
+  UNAVAILABLE: 'unavailable',
+  ERROR: 'error',
+  NOT_READY: 'not_ready',
+  READY: 'ready',
+  LOADING: 'loading',
+  INTERACTING: 'interacting',
+  WAITING: 'waiting',
+  PROCESSING: 'processing',
+} as const;
+
+export type AgentHeartBeatEventDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  /**
+   * Track the interaction session, if available
+   */
+  sessionId?: string;
+  agentId?: string;
+  moduleId: string;
+  status: AgentStatus;
+  settings?: AppSettingsDto;
+};
+
+export type AgentEvaluatePromptOptionsDto = {
+  /**
+   * Include chat history
+   */
+  history?: boolean;
+  /**
+   * Include contents from documents
+   */
+  documents?: boolean;
+  /**
+   * Include application prompt
+   */
+  app?: boolean;
+  /**
+   * Use specified avatar characterization prompt
+   */
+  avatar?: string;
+  /**
+   * Provide response as JSON
+   */
+  json?: boolean;
+  /**
+   * Response language
+   */
+  language?: string;
+};
+
+/**
+ * LLM provider
+ */
+export type LLMProvider =
+  | 'ollama'
+  | 'openai'
+  | 'gemini'
+  | 'groq'
+  | 'antrophic'
+  | 'mistral'
+  | 'azure_openai';
+
+export const LLMProviderEnum = {
+  OLLAMA: 'ollama',
+  OPENAI: 'openai',
+  GEMINI: 'gemini',
+  GROQ: 'groq',
+  ANTROPHIC: 'antrophic',
+  MISTRAL: 'mistral',
+  AZURE_OPENAI: 'azure_openai',
+} as const;
+
+export type AgentEvaluatePromptDto = {
+  appId: string;
+  /**
+   * Reference to the authenticated client the request originated from
+   */
+  clientId?: string;
+  /**
+   * Request identifier for monitoring purposes
+   */
+  requestId?: string;
+  /**
+   * Reference to the user interacting with the system
+   */
+  userId?: string;
+  /**
+   * Reference date
+   */
+  ts?: string;
+  /**
+   * Id of the session
+   */
+  sessionId?: string;
+  /**
+   * Prompt to evaluate
+   */
+  prompt: string;
+  /**
+   * Prompt options
+   */
+  options?: AgentEvaluatePromptOptionsDto;
+  provider?: LLMProvider;
+  /**
+   * LLM provider model name
+   */
+  model?: string;
+};
+
+/**
+ * Response format (text,string)
+ */
+export type AgentEvaluatePromptFormat = 'text' | 'string';
+
+export const AgentEvaluatePromptFormatEnum = {
+  TEXT: 'text',
+  STRING: 'string',
+} as const;
+
+export type AgentEvaluatePromptResponseDto = {
+  /**
+   * Result of the call
+   */
+  result: string;
+  format: AgentEvaluatePromptFormat;
+};
 
 export type LogType =
   | 'characterization'

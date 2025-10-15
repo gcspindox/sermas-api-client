@@ -39,14 +39,14 @@ import {
   DialogueActor,
   Buffer,
   DialogueTaskRecordDto,
-  SessionDto,
-  SessionProperties,
-  SessionStorageRecordDto,
-  AgentStatus,
   UIAssetDto,
   UIContentDto,
   SupportedContentTypes,
   UIInteractionDTO,
+  SessionDto,
+  SessionProperties,
+  SessionStorageRecordDto,
+  AgentStatus,
   MonitoringRecordDto,
   LogType,
   XRMarkerDto,
@@ -284,6 +284,12 @@ export interface NoiseEventDto {
 }
 
 export interface DialogueProgressEventDto {
+  appId: string;
+  clientId?: string;
+  requestId?: string;
+  userId?: string;
+  ts?: string;
+  sessionId?: string;
   event: Record<string, any>;
   status?: string;
 }
@@ -347,11 +353,11 @@ export interface DialogueTaskChangedDto {
 
 export interface DialogueTaskProgressDto {
   type: TaskEventType;
-  task: anonymous_schema_345;
-  record: anonymous_schema_346;
+  task: anonymous_schema_351;
+  record: anonymous_schema_352;
 }
 
-export interface anonymous_schema_345 {
+export interface anonymous_schema_351 {
   taskId: string;
   appId: string;
   hint?: string;
@@ -365,7 +371,7 @@ export interface anonymous_schema_345 {
   options?: anonymous_schema_170;
 }
 
-export interface anonymous_schema_346 {
+export interface anonymous_schema_352 {
   recordId: string;
   taskId: string;
   appId: string;
@@ -396,10 +402,10 @@ export interface DialogueTaskRecordHandlerDto {
   sessionId?: string;
   taskId: string;
   recordId: string;
-  field: anonymous_schema_369;
+  field: anonymous_schema_375;
 }
 
-export interface anonymous_schema_369 {
+export interface anonymous_schema_375 {
   name: string;
   label?: string;
   hint?: string;
@@ -446,11 +452,11 @@ export interface DialogueToolsRepositoryRecordDto {
   ts?: string;
   sessionId?: string;
   repositoryId?: string;
-  options?: anonymous_schema_391;
+  options?: anonymous_schema_397;
   tools?: any[][];
 }
 
-export interface anonymous_schema_391 {
+export interface anonymous_schema_397 {
   triggerOnce?: boolean;
   exclusive?: boolean;
 }
@@ -462,6 +468,42 @@ export interface DialogueToolNotMatchingEventDto {
   repositories: string[];
   taskId?: string;
   currentField?: TaskFieldDto;
+}
+
+export interface UIAssetChangedDto {
+  appId: string;
+  clientId?: string;
+  requestId?: string;
+  userId?: string;
+  ts?: string;
+  operation: string;
+  sessionId?: string;
+  record: UIAssetDto;
+}
+
+export interface anonymous_schema_428 {
+  repositoryId?: string;
+  chunks?: Record<string, any>[];
+  additionalProperties?: Record<string, any>;
+}
+
+export interface anonymous_schema_433 {
+  clearScreen?: boolean;
+  ttsEnabled?: boolean;
+  stopSpeech?: boolean;
+  language?: string;
+  additionalProperties?: Record<string, any>;
+}
+
+export interface UIInteractionEventDto {
+  appId: string;
+  clientId?: string;
+  requestId?: string;
+  userId?: string;
+  ts?: string;
+  sessionId?: string;
+  moduleId: string;
+  interaction: UIInteractionDTO;
 }
 
 export interface SessionChangedDto {
@@ -520,42 +562,6 @@ export interface AgentChangedDto {
   moduleId: string;
   record: AgentDto;
   settings?: AppSettingsDto;
-}
-
-export interface UIAssetChangedDto {
-  appId: string;
-  clientId?: string;
-  requestId?: string;
-  userId?: string;
-  ts?: string;
-  operation: string;
-  sessionId?: string;
-  record: UIAssetDto;
-}
-
-export interface anonymous_schema_482 {
-  repositoryId?: string;
-  chunks?: Record<string, any>[];
-  additionalProperties?: Record<string, any>;
-}
-
-export interface anonymous_schema_487 {
-  clearScreen?: boolean;
-  ttsEnabled?: boolean;
-  stopSpeech?: boolean;
-  language?: string;
-  additionalProperties?: Record<string, any>;
-}
-
-export interface UIInteractionEventDto {
-  appId: string;
-  clientId?: string;
-  requestId?: string;
-  userId?: string;
-  ts?: string;
-  sessionId?: string;
-  moduleId: string;
-  interaction: UIInteractionDTO;
 }
 
 export interface XRMarkerChangedDto {

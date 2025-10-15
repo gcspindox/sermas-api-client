@@ -2131,390 +2131,6 @@ export const $DialogueToolsRepositoryDto = {
   },
 } as const;
 
-export const $SessionSearchFilter = {
-  properties: {
-    query: {
-      type: 'all-of',
-      description: `Query filter`,
-      contains: [
-        {
-          type: 'dictionary',
-          contains: {
-            properties: {},
-          },
-        },
-      ],
-    },
-    limit: {
-      type: 'number',
-      description: `results limit`,
-    },
-    skip: {
-      type: 'number',
-      description: `results to skip from beginning`,
-    },
-    sort: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
-    },
-  },
-} as const;
-
-export const $SessionProperties = {
-  properties: {
-    repositoryId: {
-      type: 'string',
-      description: `Reference to the current tool repository`,
-    },
-  },
-} as const;
-
-export const $SessionDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    requestId: {
-      type: 'string',
-      description: `Request identifier for monitoring purposes`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    sessionId: {
-      type: 'string',
-    },
-    agentId: {
-      type: 'string',
-      description: `Agent instance associated to the session`,
-    },
-    user: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-    modifiedAt: {
-      type: 'string',
-      isRequired: true,
-      format: 'date-time',
-    },
-    createdAt: {
-      type: 'string',
-      isRequired: true,
-      format: 'date-time',
-    },
-    closedAt: {
-      type: 'string',
-      isRequired: true,
-      format: 'date-time',
-    },
-    settings: {
-      type: 'AppSettingsDto',
-    },
-    properties: {
-      type: 'SessionProperties',
-    },
-  },
-} as const;
-
-export const $SessionSupportRequestDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    requestId: {
-      type: 'string',
-      description: `Request identifier for monitoring purposes`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    sessionId: {
-      type: 'string',
-      isRequired: true,
-    },
-    code: {
-      type: 'string',
-      isRequired: true,
-    },
-    message: {
-      type: 'string',
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $SessionSupportResponseDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    requestId: {
-      type: 'string',
-      description: `Request identifier for monitoring purposes`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    supportId: {
-      type: 'string',
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $SessionStorageRecordDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    requestId: {
-      type: 'string',
-      description: `Request identifier for monitoring purposes`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    storageId: {
-      type: 'string',
-    },
-    sessionId: {
-      type: 'string',
-    },
-    data: {
-      type: 'dictionary',
-      contains: {
-        properties: {},
-      },
-      isRequired: true,
-    },
-  },
-} as const;
-
-export const $SessionStorageSearchDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    userId: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-    sessionId: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-    storageId: {
-      type: 'array',
-      contains: {
-        type: 'string',
-      },
-    },
-  },
-} as const;
-
-export const $AgentStatus = {
-  type: 'Enum',
-} as const;
-
-export const $AgentHeartBeatEventDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    requestId: {
-      type: 'string',
-      description: `Request identifier for monitoring purposes`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    sessionId: {
-      type: 'string',
-      description: `Track the interaction session, if available`,
-    },
-    agentId: {
-      type: 'string',
-    },
-    moduleId: {
-      type: 'string',
-      isRequired: true,
-    },
-    status: {
-      type: 'AgentStatus',
-      isRequired: true,
-    },
-    settings: {
-      type: 'AppSettingsDto',
-    },
-  },
-} as const;
-
-export const $AgentEvaluatePromptOptionsDto = {
-  properties: {
-    history: {
-      type: 'boolean',
-      description: `Include chat history`,
-    },
-    documents: {
-      type: 'boolean',
-      description: `Include contents from documents`,
-    },
-    app: {
-      type: 'boolean',
-      description: `Include application prompt`,
-    },
-    avatar: {
-      type: 'string',
-      description: `Use specified avatar characterization prompt`,
-    },
-    json: {
-      type: 'boolean',
-      description: `Provide response as JSON`,
-    },
-    language: {
-      type: 'string',
-      description: `Response language`,
-    },
-  },
-} as const;
-
-export const $LLMProvider = {
-  type: 'Enum',
-} as const;
-
-export const $AgentEvaluatePromptDto = {
-  properties: {
-    appId: {
-      type: 'string',
-      isRequired: true,
-    },
-    clientId: {
-      type: 'string',
-      description: `Reference to the authenticated client the request originated from`,
-    },
-    requestId: {
-      type: 'string',
-      description: `Request identifier for monitoring purposes`,
-    },
-    userId: {
-      type: 'string',
-      description: `Reference to the user interacting with the system`,
-    },
-    ts: {
-      type: 'string',
-      description: `Reference date`,
-      format: 'date-time',
-    },
-    sessionId: {
-      type: 'string',
-      description: `Id of the session`,
-    },
-    prompt: {
-      type: 'string',
-      description: `Prompt to evaluate`,
-      isRequired: true,
-    },
-    options: {
-      type: 'all-of',
-      description: `Prompt options`,
-      contains: [
-        {
-          type: 'AgentEvaluatePromptOptionsDto',
-        },
-      ],
-    },
-    provider: {
-      type: 'LLMProvider',
-    },
-    model: {
-      type: 'string',
-      description: `LLM provider model name`,
-    },
-  },
-} as const;
-
-export const $AgentEvaluatePromptFormat = {
-  type: 'Enum',
-} as const;
-
-export const $AgentEvaluatePromptResponseDto = {
-  properties: {
-    result: {
-      type: 'string',
-      description: `Result of the call`,
-      isRequired: true,
-    },
-    format: {
-      type: 'AgentEvaluatePromptFormat',
-      isRequired: true,
-    },
-  },
-} as const;
-
 export const $UIContentMetadataDto = {
   properties: {
     repositoryId: {
@@ -4389,6 +4005,390 @@ export const $UIAssetDto = {
 
 export const $Buffer = {
   properties: {},
+} as const;
+
+export const $SessionSearchFilter = {
+  properties: {
+    query: {
+      type: 'all-of',
+      description: `Query filter`,
+      contains: [
+        {
+          type: 'dictionary',
+          contains: {
+            properties: {},
+          },
+        },
+      ],
+    },
+    limit: {
+      type: 'number',
+      description: `results limit`,
+    },
+    skip: {
+      type: 'number',
+      description: `results to skip from beginning`,
+    },
+    sort: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+    },
+  },
+} as const;
+
+export const $SessionProperties = {
+  properties: {
+    repositoryId: {
+      type: 'string',
+      description: `Reference to the current tool repository`,
+    },
+  },
+} as const;
+
+export const $SessionDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+    },
+    agentId: {
+      type: 'string',
+      description: `Agent instance associated to the session`,
+    },
+    user: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+    modifiedAt: {
+      type: 'string',
+      isRequired: true,
+      format: 'date-time',
+    },
+    createdAt: {
+      type: 'string',
+      isRequired: true,
+      format: 'date-time',
+    },
+    closedAt: {
+      type: 'string',
+      isRequired: true,
+      format: 'date-time',
+    },
+    settings: {
+      type: 'AppSettingsDto',
+    },
+    properties: {
+      type: 'SessionProperties',
+    },
+  },
+} as const;
+
+export const $SessionSupportRequestDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      isRequired: true,
+    },
+    code: {
+      type: 'string',
+      isRequired: true,
+    },
+    message: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $SessionSupportResponseDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    supportId: {
+      type: 'string',
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $SessionStorageRecordDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    storageId: {
+      type: 'string',
+    },
+    sessionId: {
+      type: 'string',
+    },
+    data: {
+      type: 'dictionary',
+      contains: {
+        properties: {},
+      },
+      isRequired: true,
+    },
+  },
+} as const;
+
+export const $SessionStorageSearchDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    userId: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+    sessionId: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+    storageId: {
+      type: 'array',
+      contains: {
+        type: 'string',
+      },
+    },
+  },
+} as const;
+
+export const $AgentStatus = {
+  type: 'Enum',
+} as const;
+
+export const $AgentHeartBeatEventDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Track the interaction session, if available`,
+    },
+    agentId: {
+      type: 'string',
+    },
+    moduleId: {
+      type: 'string',
+      isRequired: true,
+    },
+    status: {
+      type: 'AgentStatus',
+      isRequired: true,
+    },
+    settings: {
+      type: 'AppSettingsDto',
+    },
+  },
+} as const;
+
+export const $AgentEvaluatePromptOptionsDto = {
+  properties: {
+    history: {
+      type: 'boolean',
+      description: `Include chat history`,
+    },
+    documents: {
+      type: 'boolean',
+      description: `Include contents from documents`,
+    },
+    app: {
+      type: 'boolean',
+      description: `Include application prompt`,
+    },
+    avatar: {
+      type: 'string',
+      description: `Use specified avatar characterization prompt`,
+    },
+    json: {
+      type: 'boolean',
+      description: `Provide response as JSON`,
+    },
+    language: {
+      type: 'string',
+      description: `Response language`,
+    },
+  },
+} as const;
+
+export const $LLMProvider = {
+  type: 'Enum',
+} as const;
+
+export const $AgentEvaluatePromptDto = {
+  properties: {
+    appId: {
+      type: 'string',
+      isRequired: true,
+    },
+    clientId: {
+      type: 'string',
+      description: `Reference to the authenticated client the request originated from`,
+    },
+    requestId: {
+      type: 'string',
+      description: `Request identifier for monitoring purposes`,
+    },
+    userId: {
+      type: 'string',
+      description: `Reference to the user interacting with the system`,
+    },
+    ts: {
+      type: 'string',
+      description: `Reference date`,
+      format: 'date-time',
+    },
+    sessionId: {
+      type: 'string',
+      description: `Id of the session`,
+    },
+    prompt: {
+      type: 'string',
+      description: `Prompt to evaluate`,
+      isRequired: true,
+    },
+    options: {
+      type: 'all-of',
+      description: `Prompt options`,
+      contains: [
+        {
+          type: 'AgentEvaluatePromptOptionsDto',
+        },
+      ],
+    },
+    provider: {
+      type: 'LLMProvider',
+    },
+    model: {
+      type: 'string',
+      description: `LLM provider model name`,
+    },
+  },
+} as const;
+
+export const $AgentEvaluatePromptFormat = {
+  type: 'Enum',
+} as const;
+
+export const $AgentEvaluatePromptResponseDto = {
+  properties: {
+    result: {
+      type: 'string',
+      description: `Result of the call`,
+      isRequired: true,
+    },
+    format: {
+      type: 'AgentEvaluatePromptFormat',
+      isRequired: true,
+    },
+  },
 } as const;
 
 export const $LogType = {
